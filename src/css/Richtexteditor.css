@@ -1,0 +1,10 @@
+.MuiTiptap-RichTextContent-root {
+    overflow: auto;
+    height: 350px;
+    border: 1px sold red;
+}
+
+.MuiTiptap-RichTextContent-root  .tiptap {
+
+    height: 350px;
+}

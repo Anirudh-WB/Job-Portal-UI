@@ -1,0 +1,34 @@
+{
+    "menuItems": [
+      {
+        "id":0,
+        "lable": "Profile",
+        "icon": "AccessAlarmIcon",
+        "onClick": "/profile"
+      },
+      {
+        "id":1,
+        "lable": "Job",
+        "icon": "AccessAlarmIcon",
+        "onClick": "/job"
+      },
+      {
+        "id":2,
+        "lable": "Jobs",
+        "icon": "AccessAlarmIcon",
+        "onClick": "/jobs"
+      },
+      {
+        "id":3,
+        "lable": "Job Search",
+        "icon": "AccessAlarmIcon",
+        "onClick": "/job-search"
+      },
+      {
+        "id":4,
+        "lable": "Job Applications",
+        "icon": "AccessAlarmIcon",
+        "onClick": "/job-applications"
+      }
+    ]
+  }
