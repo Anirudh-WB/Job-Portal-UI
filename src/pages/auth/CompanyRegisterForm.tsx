@@ -1,7 +1,6 @@
 import React from "react";
 import CompanyRegistrationUtility from "../../utilities/auth/CompanyRegistrationUtility";
 import { useNavigate } from "react-router-dom";
-import { Alert, Snackbar } from "@mui/material";
 import { Bounce, ToastContainer } from "react-toastify";
 
 function CompanyRegisterForm() {

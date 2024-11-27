@@ -3,7 +3,6 @@ import {
   Autocomplete,
   Box,
   Button,
-  Chip,
   Divider,
   FormControl,
   FormHelperText,
@@ -22,25 +21,15 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import PersonalInfoUtility from "../../utilities/profile/PersonalInfoUtility";
-import { SaveAlt, SaveAltSharp } from "@mui/icons-material";
 import SaveIcon from "@mui/icons-material/Save";
-import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
-import FieldErrorModel from "../../model/FieldErrorModel";
-import React, { useEffect, useState } from "react";
-import {
-  createPersonalInfoAsync,
-  getPersonalInfoByUserIdAsync,
-} from "../../services/profile/PersonalInfoService";
-import { isValidEmailAddress } from "../../common/CommonFunctions";
-import EmploymentInfoUtility from "../../utilities/profile/EmploymentInfoUtility";
+import React from "react";
 import SkillInfoUtility from "../../utilities/profile/SkillInfoUtility";
-import SkillModel from "../../model/master/SkillModel";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => {
-//const EmployeeSkillPage = () => {
+const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({
+  loginUserId,
+}) => {
+  //const EmployeeSkillPage = () => {
   const utility = SkillInfoUtility(loginUserId);
   //alert(utility.employmentInfo.noticePeriodId.toString());
   // Assuming you have an array of items to render Autocomplete components
@@ -59,48 +48,45 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =
     <>
       <Box component="form" noValidate autoComplete="off">
         <Grid container spacing={2}>
-
           <>
             <Grid item xs={6}>
               <Autocomplete
-              
-
                 options={utility.searchSkills}
                 getOptionLabel={(option) => option.skillName}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search" variant="outlined"  name="skillName"
-                  helperText={
-                    utility.errorInfo.find(
-                      (error) => error.fieldName === "skillName"
-                    )?.errorMessage || ""
-                  }
-                  error={
-                    !!utility.errorInfo.find(
-                      (error) => error.fieldName === "skillName"
-                    )
-                  }
-                  
+                  <TextField
+                    {...params}
+                    label="Search"
+                    variant="outlined"
+                    name="skillName"
+                    helperText={
+                      utility.errorInfo.find(
+                        (error) => error.fieldName === "skillName"
+                      )?.errorMessage || ""
+                    }
+                    error={
+                      !!utility.errorInfo.find(
+                        (error) => error.fieldName === "skillName"
+                      )
+                    }
                   />
                 )}
-                
                 onInputChange={utility.onSkillInputChange}
-               onChange={utility.onSkillChange()}
-              // isOptionEqualToValue={(option, value) => option.id === utility.skillInfo.skillId}
-
-              
+                onChange={utility.onSkillChange()}
+                // isOptionEqualToValue={(option, value) => option.id === utility.skillInfo.skillId}
               />
             </Grid>
 
-            <Grid item xs={4} >
-
-              <FormControl fullWidth error={
-                !!utility.errorInfo.find(
-                  (error) => error.fieldName === "expertLevelId"
-                )
-              }>
-                <InputLabel id={`expertLevelId`}>
-                  Expert Level
-                </InputLabel>
+            <Grid item xs={4}>
+              <FormControl
+                fullWidth
+                error={
+                  !!utility.errorInfo.find(
+                    (error) => error.fieldName === "expertLevelId"
+                  )
+                }
+              >
+                <InputLabel id={`expertLevelId`}>Expert Level</InputLabel>
                 <Select
                   labelId={`expertLevelId`}
                   id={`expertLevelId`}
@@ -110,10 +96,9 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =
                   name="expertLevelId"
                   value={utility.skillInfo.expertLevelId.toString()}
                   label="Expert Level"
-                 onChange={utility.onSelectFieldChanged}
+                  onChange={utility.onSelectFieldChanged}
                 >
-                
-                    <MenuItem value={0}>Select</MenuItem>
+                  <MenuItem value={0}>Select</MenuItem>
                   {utility.exportLevels.map((exportLevel) => (
                     <MenuItem key={exportLevel.id} value={exportLevel.id}>
                       {exportLevel.exportLevelName}
@@ -121,16 +106,13 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =
                   ))}
                 </Select>
                 <FormHelperText>
-              {
-                utility.errorInfo.find(
-                  (error) => error.fieldName === "expertLevelId"
-                )?.errorMessage || ""
-              }
-
-              </FormHelperText>
+                  {utility.errorInfo.find(
+                    (error) => error.fieldName === "expertLevelId"
+                  )?.errorMessage || ""}
+                </FormHelperText>
               </FormControl>
             </Grid>
-            <Grid item xs={2} >
+            <Grid item xs={2}>
               <Button
                 variant="contained"
                 endIcon={<SaveIcon />}
@@ -141,7 +123,7 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =
             </Grid>
           </>
 
-{/* 
+          {/* 
           <Grid item xs={12} style={{ textAlign: "right" }}>
             <Button
               variant="contained"
@@ -165,10 +147,9 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =
               >
                 <TableHead>
                   <TableRow>
-                   
                     <TableCell>Skill</TableCell>
                     <TableCell>Expert level</TableCell>
-                 
+
                     <TableCell>Delete</TableCell>
                   </TableRow>
                 </TableHead>
@@ -179,11 +160,11 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                      {row.skillName} 
+                        {row.skillName}
                       </TableCell>
-                    
+
                       <TableCell> {row.expertLevelName}</TableCell>
-                      
+
                       <TableCell>
                         <IconButton
                           aria-label="delete"

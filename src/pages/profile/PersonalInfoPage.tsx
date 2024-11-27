@@ -1,21 +1,13 @@
 import { Alert, Box, Button, Grid, Snackbar, TextField } from "@mui/material";
 import PersonalInfoUtility from "../../utilities/profile/PersonalInfoUtility";
-import { SaveAlt, SaveAltSharp } from "@mui/icons-material";
 import SaveIcon from "@mui/icons-material/Save";
-import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
-import FieldErrorModel from "../../model/FieldErrorModel";
-import { useEffect, useState } from "react";
-import {
-  createPersonalInfoAsync,
-  getPersonalInfoByUserIdAsync,
-} from "../../services/profile/PersonalInfoService";
-import { isValidEmailAddress } from "../../common/CommonFunctions";
 
-
-const PersonalInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => {
+const PersonalInfoPage: React.FC<{ loginUserId: number }> = ({
+  loginUserId,
+}) => {
   const personalInfoUtility = PersonalInfoUtility(loginUserId);
- // alert(loginUserId);
- 
+  // alert(loginUserId);
+
   return (
     <>
       <Box component="form" noValidate autoComplete="off">
@@ -132,11 +124,15 @@ const PersonalInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) =>
         autoHideDuration={6000}
         onClose={personalInfoUtility.handleSnackbarClose}
         message={personalInfoUtility.snackbarMessage}
-        anchorOrigin={personalInfoUtility.snackbarPosition}>
-        <Alert onClose={personalInfoUtility.handleSnackbarClose} severity={personalInfoUtility.snackbarSeverity}>
-        {personalInfoUtility.snackbarMessage}
-      </Alert>
-    </Snackbar>
+        anchorOrigin={personalInfoUtility.snackbarPosition}
+      >
+        <Alert
+          onClose={personalInfoUtility.handleSnackbarClose}
+          severity={personalInfoUtility.snackbarSeverity}
+        >
+          {personalInfoUtility.snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

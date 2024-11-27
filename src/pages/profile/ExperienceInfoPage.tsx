@@ -22,31 +22,21 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import PersonalInfoUtility from "../../utilities/profile/PersonalInfoUtility";
-import { Check, SaveAlt, SaveAltSharp } from "@mui/icons-material";
 import SaveIcon from "@mui/icons-material/Save";
-import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
-import FieldErrorModel from "../../model/FieldErrorModel";
-import { useEffect, useState } from "react";
-import {
-  createPersonalInfoAsync,
-  getPersonalInfoByUserIdAsync,
-} from "../../services/profile/PersonalInfoService";
-import { isValidEmailAddress } from "../../common/CommonFunctions";
-import AcademicInfoUtility from "../../utilities/profile/AcademicInfoUtility";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ExperienceInfoUtility from "../../utilities/profile/ExperienceInfoUtility";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 
-
-const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => {
-//const ExperienceInfoPage = () => {
+const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({
+  loginUserId,
+}) => {
+  //const ExperienceInfoPage = () => {
   const utility = ExperienceInfoUtility(loginUserId);
 
   return (
@@ -99,12 +89,18 @@ const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DateField", "DateField"]}>
                 <DateField
-                disabled = {utility.experienceInfo.isCurrentlyWorking ? true :false}
+                  disabled={
+                    utility.experienceInfo.isCurrentlyWorking ? true : false
+                  }
                   slotProps={{ textField: { fullWidth: true } }}
                   label="End Date"
                   format="DD/MM/YYYY"
-                 // value={dayjs(utility.experienceInfo.endDate)}
-                 value={utility.experienceInfo.isCurrentlyWorking ? null :dayjs(utility.experienceInfo.endDate)}
+                  // value={dayjs(utility.experienceInfo.endDate)}
+                  value={
+                    utility.experienceInfo.isCurrentlyWorking
+                      ? null
+                      : dayjs(utility.experienceInfo.endDate)
+                  }
                   onChange={(newValue) =>
                     utility.onDateFieldChanged(
                       "endDate",
@@ -238,9 +234,17 @@ const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) 
                       <TableCell component="th" scope="row">
                         {row.companyName}
                       </TableCell>
-                      <TableCell>{dayjs(row.startDate).format('DD/MM/YYYY')}</TableCell>
-                      <TableCell>{row.isCurrentlyWorking ? '' : dayjs(row.endDate).format('DD/MM/YYYY')}</TableCell>
-                      <TableCell>{row.isCurrentlyWorking == true?  "Yes" : "No"}</TableCell>
+                      <TableCell>
+                        {dayjs(row.startDate).format("DD/MM/YYYY")}
+                      </TableCell>
+                      <TableCell>
+                        {row.isCurrentlyWorking
+                          ? ""
+                          : dayjs(row.endDate).format("DD/MM/YYYY")}
+                      </TableCell>
+                      <TableCell>
+                        {row.isCurrentlyWorking == true ? "Yes" : "No"}
+                      </TableCell>
                       <TableCell>{row.designationName}</TableCell>
                       <TableCell>
                         <IconButton

@@ -15,23 +15,15 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import PersonalInfoUtility from "../../utilities/profile/PersonalInfoUtility";
-import { SaveAlt, SaveAltSharp } from "@mui/icons-material";
 import SaveIcon from "@mui/icons-material/Save";
-import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
-import FieldErrorModel from "../../model/FieldErrorModel";
-import { useEffect, useState } from "react";
-import {
-  createPersonalInfoAsync,
-  getPersonalInfoByUserIdAsync,
-} from "../../services/profile/PersonalInfoService";
-import { isValidEmailAddress } from "../../common/CommonFunctions";
 import AcademicInfoUtility from "../../utilities/profile/AcademicInfoUtility";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 //const AcademicInfoPage = () => {
-  const AcademicInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => {
+const AcademicInfoPage: React.FC<{ loginUserId: number }> = ({
+  loginUserId,
+}) => {
   const academicInfoUtility = AcademicInfoUtility(loginUserId);
 
   return (
@@ -163,9 +155,11 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
           </Grid>
           <Grid item xs={6} style={{ textAlign: "left" }}>
             {/* New Button aligned to the left */}
-            <Button variant="contained"
-            endIcon={<AddCircleIcon />}
-             onClick={academicInfoUtility.onAddAcademicInfo}>
+            <Button
+              variant="contained"
+              endIcon={<AddCircleIcon />}
+              onClick={academicInfoUtility.onAddAcademicInfo}
+            >
               Add New
             </Button>
           </Grid>
@@ -248,11 +242,15 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
         autoHideDuration={6000}
         onClose={academicInfoUtility.handleSnackbarClose}
         message={academicInfoUtility.snackbarMessage}
-        anchorOrigin={academicInfoUtility.snackbarPosition}>
-        <Alert onClose={academicInfoUtility.handleSnackbarClose} severity={academicInfoUtility.snackbarSeverity}>
-        {academicInfoUtility.snackbarMessage}
-      </Alert>
-    </Snackbar>
+        anchorOrigin={academicInfoUtility.snackbarPosition}
+      >
+        <Alert
+          onClose={academicInfoUtility.handleSnackbarClose}
+          severity={academicInfoUtility.snackbarSeverity}
+        >
+          {academicInfoUtility.snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 };

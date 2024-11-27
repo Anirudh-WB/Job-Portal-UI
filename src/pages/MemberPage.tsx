@@ -12,40 +12,41 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import MemberModel from "../model/MemberModel";
-import useHandleFieldChange from "../hooks/useHandleFieldChange";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import useGenericHandleFieldChange from "../hooks/useGenericHandleFieldChange";
 import MemberUtility from "../utilities/memberUtility";
 import { getGendersAsync } from "../services/GenderService";
 import GenderModel from "../model/GenderModel";
 
 const MemberPage: React.FC = () => {
-  const { member, setMember,errors, setErrors, handleSave  } = MemberUtility(); // Use the utility to get member state and setter
+  const { member, setMember, errors, setErrors, handleSave } = MemberUtility(); // Use the utility to get member state and setter
 
-  const { handleInputChange,  handleSelectChange, handleCheckboxChange, handleDateFieldChange } = useGenericHandleFieldChange({
+  const {
+    handleInputChange,
+    handleSelectChange,
+    handleCheckboxChange,
+    handleDateFieldChange,
+  } = useGenericHandleFieldChange({
     state: member,
     setState: setMember,
-    setErrors:setErrors
+    setErrors: setErrors,
   });
-
 
   const [genders, setGenders] = useState<GenderModel[]>([]);
 
   useEffect(() => {
-     //var genders = await getGendersAsync();
-     const getGenders = async () =>{
+    //var genders = await getGendersAsync();
+    const getGenders = async () => {
       var genders = await getGendersAsync();
-      setGenders(genders)
-     // alert(JSON.stringify(genders));
-     }
-     getGenders();
-  },[])
-
+      setGenders(genders);
+      // alert(JSON.stringify(genders));
+    };
+    getGenders();
+  }, []);
 
   return (
     <LayoutComponent>
@@ -63,7 +64,7 @@ const MemberPage: React.FC = () => {
               onChange={handleInputChange}
               value={member.firstName}
               error={!!errors.firstName}
-              helperText={errors.firstName || ''}
+              helperText={errors.firstName || ""}
             />
           </Grid>
           <Grid item xs={1} sm={2} md={3} lg={4} xl={5}>
@@ -89,7 +90,7 @@ const MemberPage: React.FC = () => {
               onChange={handleInputChange}
               value={member.emailAddress}
               error={!!errors.emailAddress}
-              helperText={errors.emailAddress || ''}
+              helperText={errors.emailAddress || ""}
             />
           </Grid>
           <Grid item xs={1} sm={2} md={3} lg={4} xl={5}>
@@ -103,7 +104,7 @@ const MemberPage: React.FC = () => {
               onChange={handleInputChange}
               value={member.mobileNumber}
               error={!!errors.mobileNumber}
-              helperText={errors.mobileNumber || ''}
+              helperText={errors.mobileNumber || ""}
             />
           </Grid>
           <Grid item xs={1} sm={2} md={3} lg={4} xl={5}>
@@ -170,7 +171,7 @@ const MemberPage: React.FC = () => {
                 {/* <MenuItem value={10}>Ten</MenuItem>
                 <MenuItem value={20}>Twenty</MenuItem>
                 <MenuItem value={30}>Thirty</MenuItem> */}
-                {genders.map((gender)=>(
+                {genders.map((gender) => (
                   <MenuItem value={gender.id}>{gender.genderName}</MenuItem>
                 ))}
               </Select>
@@ -193,10 +194,7 @@ const MemberPage: React.FC = () => {
           </Grid>
 
           <Grid item xs={1} sm={2} md={3} lg={4} xl={5}>
-            <Button
-              variant="contained"
-              onClick={handleSave}
-            >
+            <Button variant="contained" onClick={handleSave}>
               Contained
             </Button>
           </Grid>

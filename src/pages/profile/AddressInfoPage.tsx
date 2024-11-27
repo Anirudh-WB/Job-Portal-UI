@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import AddressInfoUtility from "../../utilities/profile/AddressInfoUtility";
-import { SelectChangeEvent } from '@mui/material';
-const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => {
+const AddressInfoPage: React.FC<{ loginUserId: number }> = ({
+  loginUserId,
+}) => {
   //const AddressInfoPage = () => {
   const addressInfoUtility = AddressInfoUtility(loginUserId);
   return (
@@ -67,11 +68,14 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
             />
           </Grid>
           <Grid item xs={3}>
-            <FormControl fullWidth error={
-              !!addressInfoUtility.errorInfo.find(
-                (error) => error.fieldName === "countryId"
-              )
-            }>
+            <FormControl
+              fullWidth
+              error={
+                !!addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "countryId"
+                )
+              }
+            >
               <InputLabel id="countryId">Country</InputLabel>
               <Select
                 labelId="countryId"
@@ -80,7 +84,6 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
                 value={addressInfoUtility.addressInfo.countryId.toString()}
                 label="Country"
                 onChange={addressInfoUtility.onSelectFieldChanged}
-
               >
                 <MenuItem value={0}>Select</MenuItem>
                 {addressInfoUtility.countries.map((country) => (
@@ -90,21 +93,21 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
                 ))}
               </Select>
               <FormHelperText>
-                {
-                  addressInfoUtility.errorInfo.find(
-                    (error) => error.fieldName === "countryId"
-                  )?.errorMessage || ""
-                }
-
+                {addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "countryId"
+                )?.errorMessage || ""}
               </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={3}>
-            <FormControl fullWidth error={
-              !!addressInfoUtility.errorInfo.find(
-                (error) => error.fieldName === "stateId"
-              )
-            }>
+            <FormControl
+              fullWidth
+              error={
+                !!addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "stateId"
+                )
+              }
+            >
               <InputLabel id="stateId">State</InputLabel>
               <Select
                 labelId="stateId"
@@ -122,21 +125,21 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
                 ))}
               </Select>
               <FormHelperText>
-                {
-                  addressInfoUtility.errorInfo.find(
-                    (error) => error.fieldName === "stateId"
-                  )?.errorMessage || ""
-                }
-
+                {addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "stateId"
+                )?.errorMessage || ""}
               </FormHelperText>
             </FormControl>
           </Grid>
           <Grid item xs={3}>
-            <FormControl fullWidth error={
-              !!addressInfoUtility.errorInfo.find(
-                (error) => error.fieldName === "cityId"
-              )
-            }>
+            <FormControl
+              fullWidth
+              error={
+                !!addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "cityId"
+                )
+              }
+            >
               <InputLabel id="cityId">City</InputLabel>
               <Select
                 labelId="cityId"
@@ -145,9 +148,6 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
                 value={addressInfoUtility.addressInfo.cityId.toString()}
                 label="City"
                 onChange={addressInfoUtility.onSelectFieldChanged}
-
-
-
               >
                 <MenuItem value={0}>Select</MenuItem>
                 {addressInfoUtility.cities.map((city) => (
@@ -155,28 +155,24 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
                     {city.cityName}
                   </MenuItem>
                 ))}
-
-
-
               </Select>
               <FormHelperText>
-                {
-                  addressInfoUtility.errorInfo.find(
-                    (error) => error.fieldName === "cityId"
-                  )?.errorMessage || ""
-                }
-
+                {addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "cityId"
+                )?.errorMessage || ""}
               </FormHelperText>
-
             </FormControl>
           </Grid>
 
           <Grid item xs={3}>
-            <FormControl fullWidth error={
-              !!addressInfoUtility.errorInfo.find(
-                (error) => error.fieldName === "trainLineId"
-              )
-            }>
+            <FormControl
+              fullWidth
+              error={
+                !!addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "trainLineId"
+                )
+              }
+            >
               <InputLabel id="trainLineId">Train Line</InputLabel>
               <Select
                 labelId="trainLineId"
@@ -194,12 +190,9 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
                 ))}
               </Select>
               <FormHelperText>
-                {
-                  addressInfoUtility.errorInfo.find(
-                    (error) => error.fieldName === "trainLineId"
-                  )?.errorMessage || ""
-                }
-
+                {addressInfoUtility.errorInfo.find(
+                  (error) => error.fieldName === "trainLineId"
+                )?.errorMessage || ""}
               </FormHelperText>
             </FormControl>
           </Grid>
@@ -220,8 +213,12 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => 
         autoHideDuration={6000}
         onClose={addressInfoUtility.handleSnackbarClose}
         message={addressInfoUtility.snackbarMessage}
-        anchorOrigin={addressInfoUtility.snackbarPosition}>
-        <Alert onClose={addressInfoUtility.handleSnackbarClose} severity={addressInfoUtility.snackbarSeverity}>
+        anchorOrigin={addressInfoUtility.snackbarPosition}
+      >
+        <Alert
+          onClose={addressInfoUtility.handleSnackbarClose}
+          severity={addressInfoUtility.snackbarSeverity}
+        >
           {addressInfoUtility.snackbarMessage}
         </Alert>
       </Snackbar>

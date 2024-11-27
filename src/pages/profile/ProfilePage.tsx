@@ -22,14 +22,14 @@ const ProfilePage = () => {
       setExpanded(isExpanded ? panel : false);
     };
 
-   // const loginUserId : number = getSessionValue("loginUserId");
-    //alert(loginUserId);
-    let loginUserId: number = Number(getSessionValue("loginUserId"));
+  // const loginUserId : number = getSessionValue("loginUserId");
+  //alert(loginUserId);
+  let loginUserId: number = Number(getSessionValue("loginUserId"));
 
-    if (isNaN(loginUserId)) {
-      // If loginUserId is not a valid number, assign 0 as the default value
-      loginUserId = 0;
-    }
+  if (isNaN(loginUserId)) {
+    // If loginUserId is not a valid number, assign 0 as the default value
+    loginUserId = 0;
+  }
   return (
     <LayoutComponent>
       <h2>Profile</h2>
@@ -49,7 +49,7 @@ const ProfilePage = () => {
           </AccordionSummary>
 
           <AccordionDetails>
-          <PersonalInfoPage loginUserId={loginUserId} />
+            <PersonalInfoPage loginUserId={loginUserId} />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -61,7 +61,9 @@ const ProfilePage = () => {
             aria-controls="panel2bh-content"
             id="panel2bh-header"
           >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>Address Information</Typography>
+            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              Address Information
+            </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <AddressInfoPage loginUserId={loginUserId} />
@@ -81,7 +83,7 @@ const ProfilePage = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <AcademicInfoPage  loginUserId={loginUserId}  />
+            <AcademicInfoPage loginUserId={loginUserId} />
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -116,7 +118,7 @@ const ProfilePage = () => {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <EmploymentInfoPage loginUserId={loginUserId}  />
+            <EmploymentInfoPage loginUserId={loginUserId} />
           </AccordionDetails>
         </Accordion>
 
@@ -130,14 +132,13 @@ const ProfilePage = () => {
             id="panel4bh-header"
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
-            Employee Skill Information
+              Employee Skill Information
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <EmployeeSkillPage loginUserId={loginUserId}  />
+            <EmployeeSkillPage loginUserId={loginUserId} />
           </AccordionDetails>
         </Accordion>
-
       </div>
     </LayoutComponent>
   );

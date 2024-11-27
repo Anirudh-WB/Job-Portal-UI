@@ -1,17 +1,4 @@
-import {
-  Button,
-  IconButton,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
 import LayoutComponent from "../../components/LayoutComponent";
-import JobListUtility from "../../utilities/job/JobListUtility";
-import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { TestTable } from "../../model/job/TestTable";
 const TestTablePage: React.FC = () => {
   const jsonData: TestTable[] = [

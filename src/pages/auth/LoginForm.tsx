@@ -1,15 +1,15 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import LoginUtility from "../../utilities/LoginUtility";
 import { Alert, Snackbar } from "@mui/material";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function LoginForm() {
   const utility = LoginUtility();
   const navigate = useNavigate();
+
   return (
     <>
-      <div className="p-5 bg-white rounded-sm shadow-lg shadow-blue-200 h-fit w-1/2 flex flex-col gap-5 z-20">
+      <div className="bg-white rounded-sm shadow-lg shadow-blue-200 h-fit w-1/2 flex flex-col gap-5 z-20">
         <div className="flex flex-col gap-3 p-10">
           <h1 className="text-lg font-semibold text-black">Login</h1>
           <div className="flex flex-col gap-2">
@@ -119,20 +119,21 @@ function LoginForm() {
           </div>
         </div>
       </div>
-      <Snackbar
-        open={utility.snackbarOpen}
-        autoHideDuration={6000}
-        onClose={utility.handleSnackbarClose}
-        message={utility.snackbarMessage}
-        anchorOrigin={utility.snackbarPosition}
-      >
-        <Alert
-          onClose={utility.handleSnackbarClose}
-          severity={utility.snackbarSeverity}
-        >
-          {utility.snackbarMessage}
-        </Alert>
-      </Snackbar>
+
+      <ToastContainer
+        containerId="login__toast"
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+        transition={Bounce}
+      />
     </>
   );
 }

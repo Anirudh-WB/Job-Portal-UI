@@ -1,14 +1,11 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import StateModel from "../../model/StateModel";
-import { getStates } from "../../services/StateService";
 import CountryModel from "../../model/CountryModel";
 import CityModel from "../../model/master/CityModel";
 import TrainLineModel from "../../model/TrainLineModel";
-import { getTrainLines } from "../../services/TrainLineService";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import ExperienceInfoModel from "../../model/profile/ExperienceInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 import {
   createExperienceInfoAsync,
   deleteExperienceInfoAsync,
@@ -21,7 +18,7 @@ import DesignationModel from "../../model/master/DesignationModel";
 import { getDesignations } from "../../services/master/DesignationService";
 import ExperienceInfoViewModel from "../../model/profile/ExperienceInfoViewModel";
 
-const ExperienceInfoUtility = (loginUserId:number) => {
+const ExperienceInfoUtility = (loginUserId: number) => {
   const intialExperienceInfo: ExperienceInfoModel = {
     id: 0,
     companyName: "",
@@ -48,9 +45,9 @@ const ExperienceInfoUtility = (loginUserId:number) => {
   const [experienceInfo, setExperienceInfo] =
     useState<ExperienceInfoModel>(intialExperienceInfo);
 
-  const [experienceInfos, setExperienceInfos] = useState<ExperienceInfoViewModel[]>(
-    []
-  );
+  const [experienceInfos, setExperienceInfos] = useState<
+    ExperienceInfoViewModel[]
+  >([]);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
@@ -63,7 +60,7 @@ const ExperienceInfoUtility = (loginUserId:number) => {
     if (response.status === 200) {
       if (response.data !== null) {
         setExperienceInfos(response.data);
-         //alert(JSON.stringify(response.data));
+        //alert(JSON.stringify(response.data));
       }
     } else {
       // alert(response.message);
@@ -71,7 +68,6 @@ const ExperienceInfoUtility = (loginUserId:number) => {
   }
 
   useEffect(() => {
-
     async function fetchDesignations() {
       let response = await getDesignations();
       if (response.status === 200) {
@@ -154,26 +150,26 @@ const ExperienceInfoUtility = (loginUserId:number) => {
     }
   };
 
-//  const onCheckBoxFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     //const newValue = checked;
-//     const name = event.currentTarget.name;
+  //  const onCheckBoxFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //     //const newValue = checked;
+  //     const name = event.currentTarget.name;
 
-//     setExperienceInfo((prevState) => ({
-//       ...prevState,
-//       [name]: event.target.checked
-//     }));
-//   };
+  //     setExperienceInfo((prevState) => ({
+  //       ...prevState,
+  //       [name]: event.target.checked
+  //     }));
+  //   };
 
-const onCheckBoxFieldChange = (event: SyntheticEvent<Element, Event>) => {
-  const isChecked = event.target instanceof HTMLInputElement ? event.target.checked : false;
-  const name = event.target instanceof HTMLInputElement ? event.target.name: "";
+  const onCheckBoxFieldChange = (event: SyntheticEvent<Element, Event>) => {
+    const isChecked =
+      event.target instanceof HTMLInputElement ? event.target.checked : false;
+    const name =
+      event.target instanceof HTMLInputElement ? event.target.name : "";
     setExperienceInfo((prevState) => ({
       ...prevState,
-      [name]: isChecked
+      [name]: isChecked,
     }));
-};
-
-
+  };
 
   const handleSnackbarClose = (
     event: React.SyntheticEvent | Event,
@@ -197,9 +193,7 @@ const onCheckBoxFieldChange = (event: SyntheticEvent<Element, Event>) => {
   const onExperienceInfoDelete = async (id: number) => {
     let response = await deleteExperienceInfoAsync(id);
     if (response.status === 200) {
-     
       fetchExperienceInfo();
-
     }
     const snackbarSeverity = response.status === 200 ? "success" : "error";
     setSnackbarMessage(response.message);
@@ -230,7 +224,6 @@ const onCheckBoxFieldChange = (event: SyntheticEvent<Element, Event>) => {
       if (response.status === 200) {
         setExperienceInfo(intialExperienceInfo);
         fetchExperienceInfo();
-        
       }
       const snackbarSeverity = response.status === 200 ? "success" : "error";
       setSnackbarMessage(response.message);
@@ -262,8 +255,11 @@ const onCheckBoxFieldChange = (event: SyntheticEvent<Element, Event>) => {
       });
     }
 
-     // Date validation for startDate
-    if (!experienceInfo.startDate || !dayjs(experienceInfo.startDate).isValid()) {
+    // Date validation for startDate
+    if (
+      !experienceInfo.startDate ||
+      !dayjs(experienceInfo.startDate).isValid()
+    ) {
       newErrors.push({
         fieldName: "startDate",
         errorMessage: "Invalid start date",
@@ -271,7 +267,10 @@ const onCheckBoxFieldChange = (event: SyntheticEvent<Element, Event>) => {
     }
 
     // Date validation for endDate
-    if (!experienceInfo.isCurrentlyWorking && (!experienceInfo.endDate || !dayjs(experienceInfo.endDate).isValid())) {
+    if (
+      !experienceInfo.isCurrentlyWorking &&
+      (!experienceInfo.endDate || !dayjs(experienceInfo.endDate).isValid())
+    ) {
       newErrors.push({
         fieldName: "endDate",
         errorMessage: "Invalid end date",
