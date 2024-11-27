@@ -1,16 +1,3 @@
-import {
-  Alert,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Grid,
-  Link,
-  Snackbar,
-  TextField,
-} from "@mui/material";
-import JobseekerRegistrationUtility from "../../utilities/auth/JobseekerRegistrationUtility";
-import { useNavigate } from "react-router-dom";
 import JobSeekerRegistrationForm from "./JobSeekerRegistrationForm";
 import RegisterInfo from "./RegisterInfo";
 

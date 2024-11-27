@@ -10,11 +10,13 @@ import { getTrainLines } from "../../services/TrainLineService";
 
 import AddressInfoModel from "../../model/profile/AddressInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { createAddressInfoAsync, getAddressInfoByUserIdAsync, getAddressInfoDetailByUserIdAsync, updateAddressInfoAsync } from "../../services/profile/AddressInfoService";
+import { SelectChangeEvent } from "@mui/material/Select";
+import {
+  createAddressInfoAsync,
+  getAddressInfoByUserIdAsync,
+  updateAddressInfoAsync,
+} from "../../services/profile/AddressInfoService";
 import { SnackbarOrigin } from "@mui/material";
-import AddressInfoViewModel from "../../model/profile/AddressInfoViewModel";
-
 
 const AddressInfoUtility = (loginUserId: number) => {
   const intialAddressInfoModel: AddressInfoModel = {
@@ -32,18 +34,18 @@ const AddressInfoUtility = (loginUserId: number) => {
 
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] = React.useState<SnackbarOrigin>({
-    vertical: 'top',
-    horizontal: 'center',
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<"success" | "error" | "info" | "warning">();
+  const [snackbarPosition, setSnackbarPosition] =
+    React.useState<SnackbarOrigin>({
+      vertical: "top",
+      horizontal: "center",
+    });
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
+    "success" | "error" | "info" | "warning"
+  >();
 
   const [addressInfo, setAddressInfo] = useState<AddressInfoModel>(
     intialAddressInfoModel
   );
-
-
- 
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
   const [states, setStates] = useState<StateModel[]>([]);
@@ -52,7 +54,6 @@ const AddressInfoUtility = (loginUserId: number) => {
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
 
   useEffect(() => {
-
     async function fetchAddressInfo() {
       let response = await getAddressInfoByUserIdAsync(loginUserId);
       if (response.status === 200) {
@@ -63,8 +64,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         // alert(response.message);
       }
     }
-
-    
 
     async function fetchStates() {
       let response = await getStates();
@@ -112,12 +111,10 @@ const AddressInfoUtility = (loginUserId: number) => {
     fetchStates();
     fetchCities();
     fetchTrainLines();
-    if (loginUserId>0){
+    if (loginUserId > 0) {
       fetchAddressInfo();
     }
-   
   }, []);
-
 
   async function fetchCountries() {
     let response = await getCountries();
@@ -254,7 +251,6 @@ const AddressInfoUtility = (loginUserId: number) => {
     snackbarMessage,
     snackbarPosition,
     snackbarSeverity,
-    
   };
 };
 export default AddressInfoUtility;

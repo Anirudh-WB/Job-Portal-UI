@@ -1,6 +1,4 @@
-import React from "react";
 import JobseekerRegistrationUtility from "../../utilities/auth/JobseekerRegistrationUtility";
-import { Alert, Snackbar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 

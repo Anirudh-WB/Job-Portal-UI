@@ -1,8 +1,7 @@
 import { useState } from "react";
 import JobseekerRegistrationModel from "../../model/auth/JobseekerRegistrationModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { setRef, SnackbarOrigin } from "@mui/material";
-import { error } from "console";
+import { SnackbarOrigin } from "@mui/material";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 import { createJobseekerRegistrationAsync } from "../../services/auth/JobseekerRegistrationService";
 import { Bounce, toast } from "react-toastify";

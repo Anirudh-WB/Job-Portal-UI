@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
 import StateModel from "../../model/StateModel";
-import { getStates } from "../../services/StateService";
 import CountryModel from "../../model/CountryModel";
 import CityModel from "../../model/master/CityModel";
-
 import TrainLineModel from "../../model/TrainLineModel";
-import { getTrainLines } from "../../services/TrainLineService";
-
 import AcademicInfoModel from "../../model/profile/AcademicInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SelectChangeEvent } from "@mui/material/Select";
 import {
   createAcademicInfoAsync,
   deleteAcademicInfoAsync,
@@ -19,7 +15,7 @@ import {
 } from "../../services/profile/AcademicInfoService";
 import { SnackbarOrigin } from "@mui/material";
 
-const AcademicInfoUtility = (loginUserId:number) => {
+const AcademicInfoUtility = (loginUserId: number) => {
   const intialAcademicInfo: AcademicInfoModel = {
     id: 0,
     degree: "",
@@ -53,7 +49,6 @@ const AcademicInfoUtility = (loginUserId:number) => {
   const [cities, setCities] = useState<CityModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
 
- 
   async function fetchAcademicInfo() {
     let response = await getAcademicInfoByUserIdAsync(loginUserId);
     if (response.status === 200) {
@@ -66,7 +61,6 @@ const AcademicInfoUtility = (loginUserId:number) => {
     }
   }
 
- 
   useEffect(() => {
     fetchAcademicInfo();
   }, []);
@@ -104,31 +98,30 @@ const AcademicInfoUtility = (loginUserId:number) => {
 
     setSnackbarOpen(false);
   };
- 
-  const onAcademicInfoEdit = async (id : number) => {
+
+  const onAcademicInfoEdit = async (id: number) => {
     let response;
-    response = await    getAcademicInfoAsync(id);
+    response = await getAcademicInfoAsync(id);
     if (response.data != null) {
       setAcademicInfo(response.data);
     }
-  }
-  const onAcademicInfoDelete= async (id : number) => {
-    let response = await  deleteAcademicInfoAsync(id);
-    if (response.status ===200){
+  };
+  const onAcademicInfoDelete = async (id: number) => {
+    let response = await deleteAcademicInfoAsync(id);
+    if (response.status === 200) {
       fetchAcademicInfo();
     }
     const snackbarSeverity = response.status === 200 ? "success" : "error";
     setSnackbarMessage(response.message);
     setSnackbarOpen(true);
     setSnackbarSeverity(snackbarSeverity);
-   
-  }
+  };
 
-  const onAddAcademicInfo = async ()=>{
-      setAcademicInfo(intialAcademicInfo);
-  }
+  const onAddAcademicInfo = async () => {
+    setAcademicInfo(intialAcademicInfo);
+  };
   const onAcademicInfoSave = async () => {
-   // alert(JSON.stringify(academicInfo));
+    // alert(JSON.stringify(academicInfo));
     if (isValidate()) {
       let response;
       if (academicInfo.id > 0) {
@@ -138,10 +131,9 @@ const AcademicInfoUtility = (loginUserId:number) => {
         if (response.data != null) {
           const responseData = response.data;
           setAcademicInfo((prev) => ({ ...prev, id: responseData.id }));
-         
         }
       }
-      if (response.status ===200){
+      if (response.status === 200) {
         fetchAcademicInfo();
         setAcademicInfo(intialAcademicInfo);
       }
@@ -180,14 +172,15 @@ const AcademicInfoUtility = (loginUserId:number) => {
         fieldName: "startYear",
         errorMessage: "Enter start year",
       });
-    }else{
+    } else {
       const currentYear = new Date().getFullYear();
       const startYearString = academicInfo.startYear.toString(); // Convert to string
       if (startYearString.length !== 4 || isNaN(parseInt(startYearString))) {
         // Check if it's not 4 characters or not a valid number
         newErrors.push({
           fieldName: "startYear",
-          errorMessage: "Invalid start year format (example: " + currentYear + ")",
+          errorMessage:
+            "Invalid start year format (example: " + currentYear + ")",
         });
       }
     }
@@ -204,7 +197,8 @@ const AcademicInfoUtility = (loginUserId:number) => {
         // Check if it's not 4 characters or not a valid number
         newErrors.push({
           fieldName: "endYear",
-          errorMessage: "Invalid end year format (example: " + currentYear + ")",
+          errorMessage:
+            "Invalid end year format (example: " + currentYear + ")",
         });
       }
     }

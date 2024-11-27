@@ -1,4 +1,3 @@
-import React from "react";
 import { GoCheckCircleFill } from "react-icons/go";
 import boyPic from "../../images/white-boy.a0d2814a.png";
 

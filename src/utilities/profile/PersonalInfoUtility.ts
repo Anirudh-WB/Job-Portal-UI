@@ -8,7 +8,6 @@ import {
   updatePersonalInfoAsync,
 } from "../../services/profile/PersonalInfoService";
 import { SnackbarOrigin } from "@mui/material";
-import { getSessionValue } from "../SessionStorageUtility";
 
 const PersonalInfoUtility = (loginUserId : number) => {
  

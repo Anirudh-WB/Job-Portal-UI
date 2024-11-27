@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import LayoutComponent from "../../components/LayoutComponent";
 import { Box, Card, CardContent, Paper, Typography } from "@mui/material";
 import PersonalInfoUtility from "../../utilities/profile/PersonalInfoUtility";
-import AddressInfoUtility from "../../utilities/profile/AddressInfoUtility";
 import ViewProfileUtility from "../../utilities/profile/ViewProfileUtility";
 import AcademicInfoUtility from "../../utilities/profile/AcademicInfoUtility";
 

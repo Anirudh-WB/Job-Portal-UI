@@ -1,29 +1,22 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { isValidEmailAddress } from "../../common/CommonFunctions";
-import {
-  createPersonalInfoAsync,
-  getPersonalInfoByUserIdAsync,
-  updatePersonalInfoAsync,
-} from "../../services/profile/PersonalInfoService";
-import {
-  AutocompleteChangeDetails,
-  AutocompleteChangeReason,
-  SelectChangeEvent,
-  SnackbarOrigin,
-} from "@mui/material";
+import { SelectChangeEvent, SnackbarOrigin } from "@mui/material";
 import { searchSkill } from "../../services/master/SkillService";
 import SkillModel from "../../model/master/SkillModel";
 import SkillDetailModel from "../../model/profile/SkillInfoModel";
 import ExportLevelModel from "../../model/master/ExportLevelModel";
 import { getExportLevels } from "../../services/master/ExportLevelService";
-import { createSkillInfoAsync, deleteSkillInfoAsync, getSkillInfoByUserIdAsync, updateSkillInfoAsync } from "../../services/profile/SkillInfoService";
+import {
+  createSkillInfoAsync,
+  deleteSkillInfoAsync,
+  getSkillInfoByUserIdAsync,
+  updateSkillInfoAsync,
+} from "../../services/profile/SkillInfoService";
 import SkillInfoModel from "../../model/profile/SkillInfoModel";
 import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 
-const SkillInfoUtility = (loginUserId:number) => {
- 
+const SkillInfoUtility = (loginUserId: number) => {
   const initialPersonalInfo: PersonalInfoModel = {
     id: 0,
     firstName: "default",
@@ -63,25 +56,24 @@ const SkillInfoUtility = (loginUserId:number) => {
       skillId: 0, // Initialize with default values or leave as 0 if not applicable
       skillName: "", // Initialize with default values or an empty string if not applicable
       expertLevelId: 2, // Initialize with default values or leave as 0 if not applicable
-      userId: loginUserId
+      userId: loginUserId,
     })
   );
 
   const [selectedSkillDetails, setSelectedSkillDetails] =
     useState<SkillDetailModel[]>(initialSkillDetails);
 
-
   const intitalSkillInfo: SkillInfoModel = {
     id: 0,
     skillId: 0,
     expertLevelId: 0,
     skillName: "",
-    userId: loginUserId
-
-  }
+    userId: loginUserId,
+  };
   const [skillInfo, setSkillInfo] = useState<SkillInfoModel>(intitalSkillInfo);
-  const [skillInfoViewModel, setSkillInfoViewModel] = useState<SkillInfoViewModel[]>([]);
-
+  const [skillInfoViewModel, setSkillInfoViewModel] = useState<
+    SkillInfoViewModel[]
+  >([]);
 
   const handleSnackbarClose = (
     event: React.SyntheticEvent | Event,
@@ -99,20 +91,16 @@ const SkillInfoUtility = (loginUserId:number) => {
       if (response.data !== null) {
         setSkillInfoViewModel(response.data);
         // alert(JSON.stringify(response.data) );
-
       }
     } else {
       setSkillInfoViewModel([]);
     }
   }
   useEffect(() => {
-
-
     async function fetchExportLevels() {
       let response = await getExportLevels();
       if (response.status === 200) {
         if (response.data !== null) {
-
           setExportLevels(response.data);
           // setSnackbarSeverity("info");
           //alert(response.data);
@@ -149,13 +137,11 @@ const SkillInfoUtility = (loginUserId:number) => {
         // setSearchSkills(response.data);
         //alert("a");
 
-        const mappedData: SkillModel[] = response.data.map(item => ({
+        const mappedData: SkillModel[] = response.data.map((item) => ({
           id: item.id || 0,
           skillName: item.skillName || "",
-
         }));
         setSearchSkills(mappedData);
-
       }
     } else {
       setSearchSkills([]); // Clear options if input is empty
@@ -163,33 +149,31 @@ const SkillInfoUtility = (loginUserId:number) => {
     console.log(searchSkills);
   };
 
-  const onSkillChange = () => (event: React.SyntheticEvent<Element, Event>, newValue: SkillModel | null) => {
-    if (newValue) {
+  const onSkillChange =
+    () =>
+    (
+      event: React.SyntheticEvent<Element, Event>,
+      newValue: SkillModel | null
+    ) => {
+      if (newValue) {
+        setSkillInfo((prev) => ({ ...prev, ["skillId"]: newValue.id }));
+        setSkillInfo((prev) => ({
+          ...prev,
+          ["skillName"]: newValue.skillName,
+        }));
 
-      setSkillInfo((prev) => ({ ...prev, ["skillId"]: newValue.id }));
-      setSkillInfo((prev) => ({ ...prev, ["skillName"]: newValue.skillName }));
+        setErrorInfo((prevErrors) => {
+          const newErrors = prevErrors.filter(
+            (error) => error.fieldName !== "skillName"
+          );
+          return newErrors;
+        });
+      } else {
+        setSkillInfo((prev) => ({ ...prev, ["skillId"]: 0 }));
+        setSkillInfo((prev) => ({ ...prev, ["skillName"]: "" }));
+      }
+    };
 
-      setErrorInfo((prevErrors) => {
-        const newErrors = prevErrors.filter((error) => error.fieldName !== "skillName");
-        return newErrors;
-      });
-
-    } else {
-      setSkillInfo((prev) => ({ ...prev, ["skillId"]: 0 }));
-      setSkillInfo((prev) => ({ ...prev, ["skillName"]: "" }));
-    }
-
-  };
-
-
-
-
-
-
-
-
-
- 
   const onSelectFieldChanged = (event: SelectChangeEvent) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -222,11 +206,11 @@ const SkillInfoUtility = (loginUserId:number) => {
         // alert(JSON.stringify(response));
         if (response.data != null && response.status === 200) {
           setSkillInfo(intitalSkillInfo);
-         // const responseData = response.data;
-         //setSearchSkillTerm("");
-         alert(JSON.stringify(intitalSkillInfo));
+          // const responseData = response.data;
+          //setSearchSkillTerm("");
+          alert(JSON.stringify(intitalSkillInfo));
 
-         // setSkillInfo((prev) => ({ ...prev, skillName: "" }));
+          // setSkillInfo((prev) => ({ ...prev, skillName: "" }));
           getSkillInfo();
         }
       }
@@ -235,8 +219,6 @@ const SkillInfoUtility = (loginUserId:number) => {
       setSnackbarMessage(response.message);
       setSnackbarOpen(true);
       setSnackbarSeverity(snackbarSeverity);
-
-    
     } else {
       setSnackbarMessage("Fields marked in red are required");
       setSnackbarOpen(true);
@@ -252,8 +234,6 @@ const SkillInfoUtility = (loginUserId:number) => {
         errorMessage: "Select expert level",
       });
     }
-   
-
 
     // Check if Autocomplete has a selected value
     if (!skillInfo.skillName) {
@@ -266,20 +246,17 @@ const SkillInfoUtility = (loginUserId:number) => {
     return newErrors.length === 0;
   };
   const onSkillInfoDelete = async (id: number) => {
+    let response;
+    response = await deleteSkillInfoAsync(id);
 
-      let response;
-      response = await deleteSkillInfoAsync(id);
-
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
-      if (response.status === 200) {
-        getSkillInfo();
-      }
-
-
-  }
+    const snackbarSeverity = response.status === 200 ? "success" : "error";
+    setSnackbarMessage(response.message);
+    setSnackbarOpen(true);
+    setSnackbarSeverity(snackbarSeverity);
+    if (response.status === 200) {
+      getSkillInfo();
+    }
+  };
   return {
     personalInfo,
     setPersonalInfo,

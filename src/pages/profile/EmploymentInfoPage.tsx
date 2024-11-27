@@ -1,21 +1,25 @@
-import { Alert, Box, Button, FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, Snackbar, TextField } from "@mui/material";
-import PersonalInfoUtility from "../../utilities/profile/PersonalInfoUtility";
-import { SaveAlt, SaveAltSharp } from "@mui/icons-material";
-import SaveIcon from "@mui/icons-material/Save";
-import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
-import FieldErrorModel from "../../model/FieldErrorModel";
-import { useEffect, useState } from "react";
 import {
-  createPersonalInfoAsync,
-  getPersonalInfoByUserIdAsync,
-} from "../../services/profile/PersonalInfoService";
-import { isValidEmailAddress } from "../../common/CommonFunctions";
+  Alert,
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  Snackbar,
+  TextField,
+} from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
 import EmploymentInfoUtility from "../../utilities/profile/EmploymentInfoUtility";
 
-const EmploymentInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) => {
-//const EmploymentInfoPage = () => {
-  const utility= EmploymentInfoUtility(loginUserId);
- //alert(utility.employmentInfo.noticePeriodId.toString());
+const EmploymentInfoPage: React.FC<{ loginUserId: number }> = ({
+  loginUserId,
+}) => {
+  //const EmploymentInfoPage = () => {
+  const utility = EmploymentInfoUtility(loginUserId);
+  //alert(utility.employmentInfo.noticePeriodId.toString());
   return (
     <>
       <Box component="form" noValidate autoComplete="off">
@@ -65,13 +69,12 @@ const EmploymentInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) 
                   (error) => error.fieldName === "expectedCTC"
                 )
               }
-          
               onChange={utility.onTextFieldChanged}
               inputProps={{ maxLength: 10 }}
             />
           </Grid>
           <Grid item xs={3}>
-          <FormControl
+            <FormControl
               fullWidth
               error={
                 !!utility.errorInfo.find(
@@ -111,7 +114,6 @@ const EmploymentInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) 
               Save
             </Button>
           </Grid>
-       
         </Grid>
       </Box>
       <Snackbar
@@ -119,11 +121,15 @@ const EmploymentInfoPage: React.FC<{ loginUserId: number }> = ({ loginUserId }) 
         autoHideDuration={6000}
         onClose={utility.handleSnackbarClose}
         message={utility.snackbarMessage}
-        anchorOrigin={utility.snackbarPosition}>
-        <Alert onClose={utility.handleSnackbarClose} severity={utility.snackbarSeverity}>
-        {utility.snackbarMessage}
-      </Alert>
-    </Snackbar>
+        anchorOrigin={utility.snackbarPosition}
+      >
+        <Alert
+          onClose={utility.handleSnackbarClose}
+          severity={utility.snackbarSeverity}
+        >
+          {utility.snackbarMessage}
+        </Alert>
+      </Snackbar>
     </>
   );
 };
