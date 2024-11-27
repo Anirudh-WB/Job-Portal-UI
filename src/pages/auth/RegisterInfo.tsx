@@ -7,22 +7,34 @@ function RegisterInfo() {
       <img src={boyPic} alt="" className=" w-1/2" />
       <h2 className="font-semibold">On registering, you can</h2>
       <div className="flex justify-start gap-1 w-full font-medium">
-        <GoCheckCircleFill className="text-green-500 w-5 mt-1" />
-        <p className="text-gray-600 text-sm w-auto">
-          Build your own profile and let recruiters find you
-        </p>
+        <div className="flex w-full basis-1/12 justify-start">
+          <GoCheckCircleFill className="text-green-500 mt-1" />
+        </div>
+        <div className="flex w-full">
+          <p className="text-gray-600 text-sm w-auto">
+            Build your own profile and let recruiters find you
+          </p>
+        </div>
       </div>
       <div className="flex justify-start gap-1 w-full font-medium">
-        <GoCheckCircleFill className="text-green-500 w-5 mt-1" />
-        <p className="text-gray-600 text-sm w-auto">
-          Get job postings delivered right to your email
-        </p>
+        <div className="flex w-full basis-1/12 justify-start">
+          <GoCheckCircleFill className="text-green-500 mt-1" />
+        </div>
+        <div className="flex w-full">
+          <p className="text-gray-600 text-sm w-auto">
+            Get job postings delivered right to your email
+          </p>
+        </div>
       </div>
       <div className="flex justify-start gap-1 w-full font-medium">
-        <GoCheckCircleFill className="text-green-500 w-5 mt-1" />
-        <p className="text-gray-600 text-sm w-auto">
-          Find a job and grow your career
-        </p>
+        <div className="flex w-full basis-1/12 justify-start">
+          <GoCheckCircleFill className="text-green-500 mt-1" />
+        </div>
+        <div className="flex w-full">
+          <p className="text-gray-600 text-sm w-auto">
+            Find a job and grow your career
+          </p>
+        </div>
       </div>
     </div>
   );
