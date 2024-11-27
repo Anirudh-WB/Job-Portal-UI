@@ -1,7 +1,6 @@
 import React from "react";
 import CompanyRegistrationUtility from "../../utilities/auth/CompanyRegistrationUtility";
 import { useNavigate } from "react-router-dom";
-import { Alert, Snackbar } from "@mui/material";
 
 function CompanyRegisterForm() {
   const utility = CompanyRegistrationUtility();
@@ -268,20 +267,6 @@ function CompanyRegisterForm() {
           </div>
         </div>
       </div>
-      <Snackbar
-        open={utility.snackbarOpen}
-        autoHideDuration={6000}
-        onClose={utility.handleSnackbarClose}
-        message={utility.snackbarMessage}
-        anchorOrigin={utility.snackbarPosition}
-      >
-        <Alert
-          onClose={utility.handleSnackbarClose}
-          severity={utility.snackbarSeverity}
-        >
-          {utility.snackbarMessage}
-        </Alert>
-      </Snackbar>
     </>
   );
 }

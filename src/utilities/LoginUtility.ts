@@ -22,8 +22,8 @@ const LoginUtility = () => {
     >();
 
     const initialLogin: LoginModel = {
-        emailAddress: "admin@admin.com",
-        password: "admin@admin.com"
+        emailAddress: "",
+        password: ""
     }
     const initialErrors: FieldErrorModel[] = [];
     const [login, setLogin] = useState<LoginModel>(initialLogin);
