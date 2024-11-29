@@ -10,11 +10,14 @@ interface LayoutProps {
 
 const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="container" style={{ backgroundColor: 'rgb(238, 242, 246)' }}>
+    <div
+      className="container"
+      style={{ backgroundColor: "rgb(238, 242, 246)" }}
+    >
       <AppbarComponent />
       <Box height={30} />
       <Box sx={{ display: "flex" }}>
-        <SidebarComponent />
+        {/* <SidebarComponent /> */}
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           {children}
         </Box>
