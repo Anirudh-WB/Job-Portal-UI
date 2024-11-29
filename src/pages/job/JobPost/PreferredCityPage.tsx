@@ -1,23 +1,8 @@
-import {
-  Alert,
-  Autocomplete,
-  Box,
-  Button,
-  Checkbox,
-  Grid,
-  Snackbar,
-  TextField,
-} from "@mui/material";
-import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import JobCityUtility from "../../../utilities/job/JobCityUtility";
-import SaveIcon from "@mui/icons-material/Save";
 import CityModel from "../../../model/master/CityModel";
 import Select from "react-select";
+import { Bounce, ToastContainer } from "react-toastify";
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
-//const PreferredCityPage = () => {
 const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
   parentJobId,
 }) => {
@@ -66,37 +51,42 @@ const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
         </div> */}
 
         <div className="flex flex-col gap-1 w-full">
-        <Select
-          id="skills"
-          isMulti
-          options={utility.jobCities}
-          closeMenuOnSelect={false}
-          value={utility.selectedCities}
-          getOptionLabel={(option: CityModel) => option.cityName}
-          isOptionSelected={(option: CityModel, value: readonly CityModel[]) => {
-            return value.some((selectedOption) => selectedOption.id === option.id);
-          }}
-          onChange={utility.onCityChange}
-          placeholder="Add Location"
-          className="w-full"
-          styles={{
-            control: (base) => ({
-              ...base,
-              borderColor: "rgb(209, 213, 219)", // Tailwind gray-300
-              boxShadow: "none",
-              "&:hover": { borderColor: "rgb(156, 163, 175)" }, // Tailwind gray-500
-              padding: "5px",
-            }),
-            option: (base, { isSelected }) => ({
-              ...base,
-              backgroundColor: isSelected ? "rgb(96, 165, 250)" : "white", // Tailwind blue-500
-              color: isSelected ? "white" : "black",
-              cursor: "pointer",
-              borderRadius: isSelected ? "5px" : "10px"
-            }),
-          }}
-        />
-      </div>
+          <Select
+            id="skills"
+            isMulti
+            options={utility.jobCities}
+            closeMenuOnSelect={false}
+            value={utility.selectedCities}
+            getOptionLabel={(option: CityModel) => option.cityName}
+            isOptionSelected={(
+              option: CityModel,
+              value: readonly CityModel[]
+            ) => {
+              return value.some(
+                (selectedOption) => selectedOption.id === option.id
+              );
+            }}
+            onChange={utility.onCityChange}
+            placeholder="Add Location"
+            className="w-full"
+            styles={{
+              control: (base) => ({
+                ...base,
+                borderColor: "rgb(209, 213, 219)",
+                boxShadow: "none",
+                "&:hover": { borderColor: "rgb(156, 163, 175)" },
+                padding: "5px",
+              }),
+              option: (base, { isSelected }) => ({
+                ...base,
+                backgroundColor: isSelected ? "rgb(96, 165, 250)" : "white",
+                color: isSelected ? "white" : "black",
+                cursor: "pointer",
+                borderRadius: isSelected ? "5px" : "10px",
+              }),
+            }}
+          />
+        </div>
 
         {/* Save Button */}
         <div className="text-right">
@@ -108,6 +98,20 @@ const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
             Apply
           </button>
         </div>
+        <ToastContainer
+          // containerId="company__registration__toast"
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+        />
       </div>
     </>
   );
