@@ -3,6 +3,7 @@ import SkillModel from "../../model/master/SkillModel";
 import { getSkillsAsync } from "../../services/master/SkillService";
 
 const SkillUtility = () => {
+    console.log("Skill utility logged")
 
     const [jobSkill, setJobSkill] = useState<SkillModel[]>([]);
 

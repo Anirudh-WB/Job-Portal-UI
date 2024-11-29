@@ -146,7 +146,7 @@ export const getJobInfoByIdAsync = async (jobId: number): Promise<ApiResponse<Jo
 
 
 export const getJobInfosAsync = async (): Promise<ApiResponse<JobInfoModel[]>> => {
-
+  console.log("getJobInfosAsync")
   let result: ApiResponse<JobInfoModel[]> = {
     data: null,
     status: 0,

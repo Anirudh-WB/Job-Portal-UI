@@ -62,22 +62,6 @@ const JobSkillUtility = (jobId: number) => {
   }
 
   const skills: SkillModel[] = [
-    // {
-    //   "id": 1,
-    //   "skillName": "Python"
-    // },
-    // {
-    //   "id": 2,
-    //   "skillName": "JavaScript"
-    // },
-    // {
-    //   "id": 3,
-    //   "skillName": "Java"
-    // },
-    // {
-    //   "id": 4,
-    //   "skillName": "HTML"
-    // }
   ];
 
   const [jobSkill, setJobSkill] = useState<SkillModel[]>([]);
@@ -99,6 +83,7 @@ const JobSkillUtility = (jobId: number) => {
   async function fetchJobSkillAsync() {
     try {
       const response = await getSkillsAsync();
+      console.log("Skill Name : ",response.data);
       if (response.status === 200 && response.data !== null) {
         setJobSkill(response.data);
       }
@@ -108,14 +93,12 @@ const JobSkillUtility = (jobId: number) => {
   }
   async function fetchJobSkillByJobId() {
     let response = await getJobSkillByJobIdAsync(jobId);
+    console.log("Function : ", response);
     // alert(JSON.stringify(response));
-
-    //console.log(response);
     if (response.status === 200) {
       if (response.data != null) {
-      //  const selectedJobSkills: JobSkillModel[] = Array.isArray(response.data) ? response.data : [response.data];
 
-      const selectedJobSkills: JobSkillModel[] = Array.isArray(response.data) ? response.data : [response.data];
+      const selectedJobSkills: JobSkillModel[] = response.data ? response.data : [response.data];
         // Loop through selectedSkills and assign values to JobSkillModel
         const jobSkills: SkillModel[] = selectedJobSkills.map((selectedSkill, index) => ({
           id: selectedSkill.skillId, // You can set the id as per your requirements

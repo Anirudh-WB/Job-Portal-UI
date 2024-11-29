@@ -33,6 +33,7 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const JobSearchPage: React.FC = () => {
+  console.log("JobSearchPage")
   const skillUtility = SkillUtility();
   const cityUtility = CityUtility();
   const designationUtility = DesignationUtility();

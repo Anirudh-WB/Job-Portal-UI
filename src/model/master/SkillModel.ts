@@ -1,6 +1,5 @@
 interface SkillModel {
-id: number,
-skillName : string
+  id: number;
+  skillName: string;
 }
-export default SkillModel
-
+export default SkillModel;
