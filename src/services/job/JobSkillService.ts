@@ -115,6 +115,7 @@ export const createJobSkillAsync = async ( personalInfo: JobSkillModel[]): Promi
       .then(function (response) {
       
         result =  {data :response.data,  status:response.status , message : "ok"};
+        console.log(result);
       })
       .catch(function (error) {
         //alert(JSON.stringify(error));

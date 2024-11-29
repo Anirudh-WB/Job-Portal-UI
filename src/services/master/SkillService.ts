@@ -62,6 +62,7 @@ export const getSkillsAsync = async (): Promise<
   await axios
     .get(`${API_BASE_URL}/Skill`)
     .then(function (response) {
+      console.log("called",response);
       result = { data: response.data, status: response.status, message: "ok" };
     })
     .catch(function (error) {

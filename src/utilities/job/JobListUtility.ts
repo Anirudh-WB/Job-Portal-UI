@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import JobInfoModel from "../../model/job/JobInfoModel";
 import { getJobInfosAsync } from "../../services/job/JobInfoService";
 import { useNavigate } from "react-router-dom";
+import { getJobSkillByJobIdAsync } from "../../services/job/JobSkillService";
 
 const JobListUtility = () => {
     const[jobs, setJobs] = useState<JobInfoModel[]>([]);

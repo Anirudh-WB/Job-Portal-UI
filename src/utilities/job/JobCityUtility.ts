@@ -61,22 +61,7 @@ const JobCityUtility = (jobId: number) => {
   }
 
   const cities: CityModel[] = [
-    // {
-    //   "id": 1,
-    //   "cityName": "Python"
-    // },
-    // {
-    //   "id": 2,
-    //   "cityName": "JavaScript"
-    // },
-    // {
-    //   "id": 3,
-    //   "cityName": "Java"
-    // },
-    // {
-    //   "id": 4,
-    //   "cityName": "HTML"
-    // }
+
   ];
 
   const [jobCities, setjobCities] = useState<CityModel[]>([]);
