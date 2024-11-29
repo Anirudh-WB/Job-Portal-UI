@@ -47,7 +47,7 @@ function App() {
               element={<PrivateRoutes allowedRoles={["company", "admin"]} />}
             >
               <Route path="/about" element={<AboutPage />} />
-              <Route path="/companyProfile" element={<JobLandingPage />} />
+              <Route path="/company-profile" element={<JobLandingPage />} />
               {/* <Route path='/job' element={<JobPage />} /> */}
               <Route path="/job/:id?" element={<JobPage />} />
               <Route path="/jobs" element={<JobsPage />} />

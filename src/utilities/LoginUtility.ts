@@ -65,7 +65,7 @@ const LoginUtility = () => {
         /*End Session Storage*/
 
         if (response.data.userInfo.role === "jobseaker") {
-          navigate("/profile");
+          navigate("/job-search");
         } else if (response.data.userInfo.role === "company") {
           navigate("/companyProfile");
         } else {
