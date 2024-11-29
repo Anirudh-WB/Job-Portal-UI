@@ -17,8 +17,6 @@ const JobApplicationsPage = () => {
   const jobId = paramJobId ?? "0";
 
   useEffect(() => {
-    //console.log(utility.jobApplications);
-    // console.log(jobId);
   }, []);
 
   const jobApplicationRequest: JobApplicationRequest = {

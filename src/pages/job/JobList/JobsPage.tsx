@@ -1,9 +1,11 @@
 import JobListUtility from "../../../utilities/job/JobListUtility";
 import CompanyJobInfo from "../CompanyHeaders/CompanyJobInfo";
-import { FaTrain } from "react-icons/fa6";
+import { FaTrain, FaUser } from "react-icons/fa6";
 import { BiRupee } from "react-icons/bi";
 import { FiEdit2 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 const JobsPage: React.FC = () => {
+  const navigate = useNavigate();
   const utility = JobListUtility();
   return (
     <div className="flex gap-10 w-full">
@@ -15,11 +17,19 @@ const JobsPage: React.FC = () => {
             className="flex flex-col gap-3 bg-white border rounded-md border-gray-200 shadow-lg p-5"
           >
             <div className="flex flex-col gap">
-              <div className="flex flex-1 items-center gap-3">
-                <h1 className="text-xl font-semibold">{job.jobTitle}</h1>
-                <button onClick={() => utility.editJob(job.id)}>
-                  <FiEdit2 className="text-sm text-gray-700 mt-1" />
-                </button>
+              <div className="flex flex-1 items-center">
+                <div className="flex flex-1 items-center gap-3">
+                  <h1 className="text-xl font-semibold">{job.jobTitle}</h1>
+                  <button onClick={() => utility.editJob(job.id)}>
+                    <FiEdit2 className="text-sm text-gray-700 mt-1" />
+                  </button>
+                </div>
+                <div className="flex items-center">
+                  <button className="flex items-center" onClick={() => navigate(`/job-applications/${job.id}`)}>
+                    <FaUser className="text-xs text-gray-700" />
+                    <span className="ml-1 text-sm">{job.applicationCount} Applied</span>
+                  </button>
+                </div>
               </div>
               <p className="text-sm text-gray-600">{job.designationName}</p>
             </div>
@@ -54,9 +64,10 @@ const JobsPage: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
-              <h3 className="font-semibold text-sm">
-                {job.jobDescription}
-              </h3>
+              <p
+                className="font-semibold text-sm"
+                dangerouslySetInnerHTML={{ __html: job.jobDescription }}
+              />
             </div>
           </div>
         ))}

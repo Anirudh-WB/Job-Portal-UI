@@ -4,19 +4,21 @@ import { getSkillsAsync } from "../../services/master/SkillService";
 import { SnackbarOrigin } from "@mui/material";
 import JobSkillModel from "../../model/job/JobSkillModel";
 import { createJobInfoAsync } from "../../services/job/JobInfoService";
-import { createJobSkillAsync, getJobSkillByJobIdAsync } from "../../services/job/JobSkillService";
+import {
+  createJobSkillAsync,
+  getJobSkillByJobIdAsync,
+} from "../../services/job/JobSkillService";
+import { Bounce, toast } from "react-toastify";
 
 const JobSkillUtility = (jobId: number) => {
-
   // alert(jobId);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarPosition, setSnackbarPosition] =
-    useState<SnackbarOrigin>({
-      vertical: "top",
-      horizontal: "center",
-    });
+  const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
+    vertical: "top",
+    horizontal: "center",
+  });
   const [snackbarSeverity, setSnackbarSeverity] = useState<
     "success" | "error" | "info" | "warning"
   >();
@@ -33,36 +35,51 @@ const JobSkillUtility = (jobId: number) => {
   };
 
   const onJobSkillSave = async () => {
-
     // Loop through selectedSkills and assign values to JobSkillModel
-    const jobSkills: JobSkillModel[] = selectedSkills.map((selectedSkill, index) => ({
-      id: 0, // You can set the id as per your requirements
-      jobId: jobId,
-      skillId: selectedSkill.id, // Assuming selectedSkill has an id property representing skillId
-      skillName: ""
-    }));
-
+    const jobSkills: JobSkillModel[] = selectedSkills.map(
+      (selectedSkill, index) => ({
+        id: 0, // You can set the id as per your requirements
+        jobId: jobId,
+        skillId: selectedSkill.id, // Assuming selectedSkill has an id property representing skillId
+        skillName: "",
+      })
+    );
 
     //alert(JSON.stringify(jobSkills));
 
     let response = await createJobSkillAsync(jobSkills);
     //alert(JSON.stringify(response));
     if (response.data != null) {
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
+      response.status === 200
+        ? toast.success(response.message, {
+            // toastId: "company__registration__toast",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          })
+        : toast.error(response.message, {
+            // toastId: "company__registration__toast",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
     } else {
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
     }
+  };
 
-
-  }
-
-  const skills: SkillModel[] = [
-  ];
+  const skills: SkillModel[] = [];
 
   const [jobSkill, setJobSkill] = useState<SkillModel[]>([]);
   const [selectedSkills, setSelectedSkills] = useState<SkillModel[]>(skills);
@@ -75,7 +92,6 @@ const JobSkillUtility = (jobId: number) => {
     fetchJobSkillAsync();
   }, []);
 
-
   useEffect(() => {
     setSelectedSkills(selectedSkills);
   }, [selectedSkills]);
@@ -83,7 +99,7 @@ const JobSkillUtility = (jobId: number) => {
   async function fetchJobSkillAsync() {
     try {
       const response = await getSkillsAsync();
-      console.log("Skill Name : ",response.data);
+      console.log("Skill Name : ", response.data);
       if (response.status === 200 && response.data !== null) {
         setJobSkill(response.data);
       }
@@ -97,13 +113,16 @@ const JobSkillUtility = (jobId: number) => {
     // alert(JSON.stringify(response));
     if (response.status === 200) {
       if (response.data != null) {
-
-      const selectedJobSkills: JobSkillModel[] = response.data ? response.data : [response.data];
+        const selectedJobSkills: JobSkillModel[] = response.data
+          ? response.data
+          : [response.data];
         // Loop through selectedSkills and assign values to JobSkillModel
-        const jobSkills: SkillModel[] = selectedJobSkills.map((selectedSkill, index) => ({
-          id: selectedSkill.skillId, // You can set the id as per your requirements
-          skillName: selectedSkill.skillName
-        }));
+        const jobSkills: SkillModel[] = selectedJobSkills.map(
+          (selectedSkill, index) => ({
+            id: selectedSkill.skillId, // You can set the id as per your requirements
+            skillName: selectedSkill.skillName,
+          })
+        );
 
         // alert(JSON.stringify(jobSkills));
         setSelectedSkills(jobSkills);
@@ -111,22 +130,21 @@ const JobSkillUtility = (jobId: number) => {
     }
   }
 
-
   const onSkillChange = (selectedOptions: any) => {
     setSelectedSkills(selectedOptions || []);
   };
 
-
-
   return {
-    jobSkill, onSkillChange, selectedSkills
+    jobSkill,
+    onSkillChange,
+    selectedSkills,
 
-    , onJobSkillSave
-    , snackbarOpen,
+    onJobSkillSave,
+    snackbarOpen,
     handleSnackbarClose,
     snackbarMessage,
     snackbarPosition,
     snackbarSeverity,
   };
-}
+};
 export default JobSkillUtility;
