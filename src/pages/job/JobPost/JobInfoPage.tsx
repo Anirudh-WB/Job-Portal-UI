@@ -257,7 +257,7 @@ const JobInfoPage: React.FC<{
             className="w-fit bg-blue-700 text-white font-semibold py-2 px-8 rounded-3xl"
             onClick={utility.onJobInfoSave}
           >
-            Save
+            Apply
           </button>
         </div>
       </div>
