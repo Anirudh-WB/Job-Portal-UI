@@ -5,6 +5,7 @@ import { SelectChangeEvent } from "@mui/material";
 import JobSearchModel from "../../model/job/JobSearchModel";
 import { jobSearchAsync } from "../../services/job/JobSearchService";
 import JobSearchResultModel from "../../model/job/JobSearchResultModel";
+import { MultiValue } from "react-select";
 
 //
 const JobSearchUtility = () => {
@@ -39,33 +40,40 @@ const JobSearchUtility = () => {
   const [jobSearchResult, setJobSearchResult] =
     useState<JobSearchResultModel[]>();
 
-  const onSkillChange = (
-    event: React.SyntheticEvent<Element, Event>,
-    newValue: SkillModel[] | null
-  ) => {
-    if (newValue) {
-      setSelectedSkills(newValue);
+    const onSkillChange = (
+      newValue: MultiValue<SkillModel>,
+      // actionMeta: ActionMeta<SkillModel>
+    ) => {
+      if (newValue) {
+        // Convert MultiValue to a simple array, if necessary
+        const selectedSkills = Array.isArray(newValue) ? [...newValue] : [];
+    
+        setSelectedSkills(selectedSkills);
+    
+        setJobSearchField((prevState) => ({
+          ...prevState,
+          skills: selectedSkills,
+        }));
+      }
+    };
+    
 
-      setJobSearchField((prevState) => ({
-        ...prevState,
-        skills: newValue,
-      }));
-    }
-  };
-
-  const onCityChange = (
-    event: React.SyntheticEvent<Element, Event>,
-    newValue: CityModel[] | null
-  ) => {
-    if (newValue) {
-      setSelectedCities(newValue);
-
-      setJobSearchField((prevState) => ({
-        ...prevState,
-        cities: newValue,
-      }));
-    }
-  };
+    const onCityChange = (
+      newValue: MultiValue<CityModel>,
+      // actionMeta: ActionMeta<SkillModel>
+    ) => {
+      if (newValue) {
+        // Convert MultiValue to a simple array, if necessary
+        const selectedCities = Array.isArray(newValue) ? [...newValue] : [];
+    
+        setSelectedCities(selectedCities);
+    
+        setJobSearchField((prevState) => ({
+          ...prevState,
+          cities: selectedCities,
+        }));
+      }
+    };
 
   const onSelectFieldChanged = (event: SelectChangeEvent) => {
     const name = event.target.name;

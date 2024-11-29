@@ -49,6 +49,7 @@ const JobSearchPage: React.FC = () => {
               closeMenuOnSelect={false}
               value={utility.selectedSkills}
               getOptionLabel={(option: SkillModel) => option.skillName}
+              // isOptionSelected={(option, value) => option.id === valu}}
               isOptionSelected={(
                 option: SkillModel,
                 value: readonly SkillModel[]
@@ -57,7 +58,8 @@ const JobSearchPage: React.FC = () => {
                   (selectedOption) => selectedOption.id === option.id
                 );
               }}
-              // onChange={utility.onSkillChange}
+              
+              onChange={utility.onSkillChange}
               placeholder="Skill"
               className="w-full"
               styles={{
@@ -77,7 +79,7 @@ const JobSearchPage: React.FC = () => {
                 }),
               }}
             />
-            <Autocomplete
+            {/* <Autocomplete
               multiple
               id="checkboxes-skill"
               options={skillUtility.jobSkill}
@@ -97,7 +99,7 @@ const JobSearchPage: React.FC = () => {
               )}
               value={utility.selectedSkills}
               style={{ width: 500 }}
-              onChange={utility.onSkillChange}
+              onChange={utility.Ci}
               renderInput={(params) => (
                 <TextField {...params} label="Skill" placeholder="Skill" />
               )}
@@ -127,7 +129,7 @@ const JobSearchPage: React.FC = () => {
               renderInput={(params) => (
                 <TextField {...params} label="City" placeholder="City" />
               )}
-            />
+            /> */}
           </div>
           <div className="flex gap-5">
             <FormControl fullWidth>
