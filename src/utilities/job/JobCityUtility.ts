@@ -112,10 +112,8 @@ const JobCityUtility = (jobId: number) => {
   }
 
 
-  const onCityChange = (event: React.SyntheticEvent<Element, Event>, newValue: CityModel[] | null) => {
-    if (newValue) {
-      setSelectedCities(newValue);
-    }
+  const onCityChange = (selectedOptions: any) => {
+    setSelectedCities(selectedOptions || []);
   };
 
 

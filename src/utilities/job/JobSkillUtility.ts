@@ -112,10 +112,8 @@ const JobSkillUtility = (jobId: number) => {
   }
 
 
-  const onSkillChange = (event: React.SyntheticEvent<Element, Event>, newValue: SkillModel[] | null) => {
-    if (newValue) {
-      setSelectedSkills(newValue);
-    }
+  const onSkillChange = (selectedOptions: any) => {
+    setSelectedSkills(selectedOptions || []);
   };
 
 
