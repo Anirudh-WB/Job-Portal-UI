@@ -50,7 +50,6 @@ function App() {
               <Route path="/companyProfile" element={<JobLandingPage />} />
               {/* <Route path='/job' element={<JobPage />} /> */}
               <Route path="/job/:id?" element={<JobPage />} />
-              <Route path="/jobs" element={<JobsPage />} />
               {/* <Route path='/contact' element={<ContactPage />} /> */}
 
               <Route

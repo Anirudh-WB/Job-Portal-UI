@@ -77,7 +77,7 @@ export const updateJobInfoAsync = async (personalInfo: JobInfoModel, id: number)
 
         if (error.response.data.errors) {
 
-          result = { data: null, status: error.response.status, message: error.response.data.title };
+          result = { data: null, status: error.response.status, message: error.response.data };
         } else {
           result = { data: null, status: error.response.status, message: error.response.data };
         }

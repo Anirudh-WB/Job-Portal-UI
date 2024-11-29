@@ -5,6 +5,7 @@ import { SnackbarOrigin } from "@mui/material";
 import JobCityModel from "../../model/job/JobCityModel";
 import { createJobInfoAsync } from "../../services/job/JobInfoService";
 import { createJobCityAsync, getJobCityByJobIdAsync } from "../../services/job/JobCityService";
+import { Bounce, toast } from "react-toastify";
 
 const JobCityUtility = (jobId: number) => {
 
@@ -47,14 +48,34 @@ const JobCityUtility = (jobId: number) => {
     let response = await createJobCityAsync(jobCities);
     //alert(JSON.stringify(response));
     if (response.data != null) {
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
+      response.status === 200
+        ? toast.success(response.message, {
+            // toastId: "company__registration__toast",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          })
+        : toast.error(response.message, {
+            // toastId: "company__registration__toast",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+    
     } else {
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
+     
     }
 
 

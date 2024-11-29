@@ -1,13 +1,10 @@
 import React from "react";
 import { FaTrain } from "react-icons/fa6";
 import { BiRupee } from "react-icons/bi";
-import { IoLocationOutline } from "react-icons/io5";
-import { CgNotes } from "react-icons/cg";
 import JobReviewUtility from "../../../utilities/job/JobReviewUtility";
 
 const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
   const utility = JobReviewUtility(parentJobId);
-  //alert(JSON.stringify(utility))
   return (
     <>
       <div className="flex flex-col gap-3 bg-white border rounded-md border-gray-200 shadow-lg p-5">
@@ -19,7 +16,7 @@ const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
         </div>
         <div className="flex justify-start items-center gap-2">
           <div className="flex items-center">
-            <FaTrain className="text-gray-500 text-lg" />
+            <FaTrain className="text-gray-500 text-base" />
             <span className="ml-2 text-sm">
               {utility.jobInfo.trainLineName}
             </span>
@@ -61,9 +58,10 @@ const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
         </div>
 
         <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
-          <h3 className="font-semibold text-sm">
-            {utility.jobInfo.jobDescription}
-          </h3>
+          <p
+            className="font-semibold text-sm"
+            dangerouslySetInnerHTML={{ __html: utility.jobInfo.jobDescription }}
+          />
         </div>
       </div>
     </>
