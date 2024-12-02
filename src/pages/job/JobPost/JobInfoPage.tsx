@@ -6,11 +6,9 @@ import {
   MenuControlsContainer,
   MenuDivider,
   MenuSelectHeading,
-  MenuButtonAlignCenter,
 } from "mui-tiptap";
-import React, { useState } from "react";
+import React from "react";
 import "../../../css/Richtexteditor.css";
-import SaveIcon from "@mui/icons-material/Save";
 import JobInfoUtility from "../../../utilities/job/JobInfoUtility";
 import { Bounce, ToastContainer } from "react-toastify";
 
