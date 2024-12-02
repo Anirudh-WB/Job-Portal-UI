@@ -2,39 +2,40 @@ import { useEffect, useState } from "react";
 import JobInfoModel from "../../model/job/JobInfoModel";
 import { getJobInfosAsync } from "../../services/job/JobInfoService";
 import { useNavigate } from "react-router-dom";
-import { getJobSkillByJobIdAsync } from "../../services/job/JobSkillService";
 
 const JobListUtility = () => {
-    const[jobs, setJobs] = useState<JobInfoModel[]>([]);
+  const [jobs, setJobs] = useState<JobInfoModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        
-        fetchJobsAsync()
+  useEffect(() => {
+    fetchJobsAsync();
+  }, []);
 
-    }, []);
+  async function fetchJobsAsync() {
+    setLoading(true);
+    try {
+      let response = await getJobInfosAsync();
 
-    async function fetchJobsAsync() {
-        let response = await getJobInfosAsync();
-
-        if (response.status === 200) {
-            if (response.data !== null) {
-                setJobs(response.data);
-                console.log(response.data);
-            }
-        } else {
-            // alert(response.message);
-        }
+      if (response.status === 200 && response.data !== null) {
+        setJobs(response.data);
+        console.log(response.data);
+      } else {
+        console.error("Failed to fetch jobs");
+      }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    const editJob = (id: number) => {
-        navigate(`/job/${id}`);
-    };
+  const editJob = (id: number) => {
+    navigate(`/job/${id}`);
+  };
 
-
-    return {jobs,editJob}
-
-}
+  return { jobs, editJob, loading };
+};
 
 export default JobListUtility;

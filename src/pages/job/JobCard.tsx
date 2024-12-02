@@ -1,33 +1,39 @@
 import React from "react";
 import { FaTrain } from "react-icons/fa6";
 import { BiRupee } from "react-icons/bi";
-import JobReviewUtility from "../../../utilities/job/JobReviewUtility";
+import JobSearchResultModel from "../../model/job/JobSearchResultModel";
+import JobApplicationUtility from "../../utilities/job/JobApplicationUtility";
+import JobApplicationRequest from "../../model/job/JobApplicationRequest";
 
-const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
-  if (!parentJobId) {
-    return null;
-  }
-  const utility = JobReviewUtility(parentJobId);
+type Props = {
+  job: JobSearchResultModel;
+};
 
-  if (!utility || !utility.jobInfo) {
-    return <p className="text-gray-500">Job details are unavailable.</p>;
-  }
-  
+const JobCard = (props: Props) => {
+  const jobApplicationRequest: JobApplicationRequest = {
+    jobId: 0,
+  };
+  const jobApplicationUtility = JobApplicationUtility(jobApplicationRequest);
+
   return (
     <>
       <div className="flex flex-col gap-3 bg-white border rounded-md border-gray-200 shadow-lg p-5">
-        <div className="flex flex-col gap">
-          <h1 className="text-xl font-semibold">{utility.jobInfo.jobTitle}</h1>
-          <p className="text-sm text-gray-600">
-            {utility.jobInfo.designationName}
-          </p>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
+            <h1 className="text-xl font-semibold">{props.job.jobTitle}</h1>
+            <p className="text-sm text-gray-600">{props.job.designationName}</p>
+          </div>
+          <button
+            className="bg-blue-600 p-2 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition duration-500 hover:bg-blue-700"
+            onClick={() => jobApplicationUtility.onApplyJob(props.job.id)}
+          >
+            Apply
+          </button>
         </div>
         <div className="flex justify-start items-center gap-2">
           <div className="flex items-center">
-            <FaTrain className="text-gray-500 text-base" />
-            <span className="ml-2 text-sm">
-              {utility.jobInfo.trainLineName}
-            </span>
+            <FaTrain className="text-gray-500 text-lg" />
+            <span className="ml-2 text-sm">{props.job.trainLineName}</span>
           </div>
 
           <span className="hidden sm:block border-l border-gray-300 h-5"></span>
@@ -35,19 +41,19 @@ const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
           <div className="flex items-center">
             <BiRupee className="text-gray-500 text-lg" />
             <span className="ml-2 text-sm">
-              {utility.jobInfo.minimumSalary} - {utility.jobInfo.maximumSalary}
+              {props.job.minimumSalary} - {props.job.maximumSalary}
             </span>
           </div>
 
           <span className="hidden sm:block border-l border-gray-300 h-5"></span>
 
           <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
-            {utility.jobCities.map((city, cityIndex) => (
+            {props.job.cities.map((city, cityIndex) => (
               <span
                 key={cityIndex}
                 className="border rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-slate-100"
               >
-                {city.cityName}
+                {city}
               </span>
             ))}
           </div>
@@ -55,25 +61,25 @@ const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
 
         <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
           <label className="font-semibold text-base">Skills : </label>
-          {utility.jobSkills.map((skill, skillIndex) => (
+          {props.job.skills.map((skill, skillIndex) => (
             <span
               key={skillIndex}
               className="border rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-slate-100"
             >
-              {skill.skillName}
+              {skill}
             </span>
           ))}
         </div>
 
         <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
           <p
+            dangerouslySetInnerHTML={{ __html: props.job.jobDescription }}
             className="font-semibold text-sm"
-            dangerouslySetInnerHTML={{ __html: utility.jobInfo.jobDescription }}
-          />
+          ></p>
         </div>
       </div>
     </>
   );
 };
 
-export default JobPreviewPage;
+export default JobCard;

@@ -18,7 +18,7 @@ const JobPage: React.FC = () => {
 
   return (
     <div className="py-8 px-40 w-full h-full overflow-auto flex flex-col gap-5">
-      <div className="flex flex-col gap-5 flex-1">
+      <div className="flex flex-col gap-5">
         <JobInfoPage parentJobId={jobId} onUpdateJobId={handleJobIdChange} />
         <PreferredSkillPage parentJobId={jobId} />
         <PreferredLocationPage parentJobId={jobId} />
