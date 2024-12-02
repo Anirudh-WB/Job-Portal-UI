@@ -1,16 +1,15 @@
 import { useState } from "react";
 import SkillModel from "../../model/master/SkillModel";
 import CityModel from "../../model/CityModel";
-import { SelectChangeEvent } from "@mui/material";
 import JobSearchModel from "../../model/job/JobSearchModel";
 import { jobSearchAsync } from "../../services/job/JobSearchService";
 import JobSearchResultModel from "../../model/job/JobSearchResultModel";
-import { MultiValue } from "react-select";
+import DesignationModel from "../../model/master/DesignationModel";
+import TrainLineModel from "../../model/TrainLineModel";
 
-//
 const JobSearchUtility = () => {
-  const experiances = [
-    { value: 1, label: "Fresher" }, // "Fresh" item with a value of 1
+  const experiences = [
+    { value: 1, label: "Fresher" },
     { value: 2, label: "1 year" },
     { value: 3, label: "2 years" },
     { value: 4, label: "3 years" },
@@ -23,12 +22,12 @@ const JobSearchUtility = () => {
     { value: 11, label: "10 years" },
     { value: 12, label: "More than 10 years" },
   ];
-  const skills: SkillModel[] = [];
-  const cities: CityModel[] = [];
-  const [selectedSkills, setSelectedSkills] = useState<SkillModel[]>(skills);
-  const [selectedCities, setSelectedCities] = useState<CityModel[]>(cities);
 
-  //const[searchField, setSearchField] = useState<JobSearchModel>();
+  const [selectedSkills, setSelectedSkills] = useState<SkillModel[]>([]);
+  const [selectedCities, setSelectedCities] = useState<CityModel[]>([]);
+  const [selectedDesignation, setSelectedDesignation] = useState<DesignationModel[]>([]);
+  const [selectedTrainLine, setSelectedTrainLine] = useState<TrainLineModel[]>([]);
+  
   const [jobSearchField, setJobSearchField] = useState<JobSearchModel>({
     skills: [],
     cities: [],
@@ -37,69 +36,59 @@ const JobSearchUtility = () => {
     trainLineId: 0,
   });
 
-  const [jobSearchResult, setJobSearchResult] =
-    useState<JobSearchResultModel[]>();
+  const [jobSearchResult, setJobSearchResult] = useState<JobSearchResultModel[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(false); // Add loading state
 
-  const onSkillChange = (newValue: MultiValue<SkillModel> | null) => {
-    const skills = newValue ? [...newValue] : [];
-
-    setSelectedSkills(skills);
-
-    setJobSearchField((prevState) => ({
-      ...prevState,
-      skills: skills,
-    }));
+  const onSkillChange = (selectedOptions: SkillModel[]) => setSelectedSkills(selectedOptions || []);
+  const onCityChange = (selectedOptions: CityModel[]) => setSelectedCities(selectedOptions || []);
+  const onDesignationChange = (selectedOption: DesignationModel[]) => setSelectedDesignation(selectedOption || []);
+  const onTrainLineChange = (selectedOption: TrainLineModel[]) => setSelectedTrainLine(selectedOption || []);
+  
+  const onSelectFieldChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+    setJobSearchField((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const onCityChange = (newValue: MultiValue<CityModel> | null) => {
-    const cities = newValue ? [...newValue] : [];
-
-    setSelectedCities(cities);
-
-    setJobSearchField((prevState) => ({
-      ...prevState,
-      cities: cities,
-    }));
-  };
-
-  const onSelectFieldChanged = (event: SelectChangeEvent) => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    setJobSearchField((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const test = async () => {
-    setJobSearchField((prevState) => ({
-      ...prevState,
+  const handleSearch = async () => {
+    setLoading(true);
+    
+    const updatedJobSearchField = {
+      ...jobSearchField,
       skills: selectedSkills,
       cities: selectedCities,
-    }));
+      designationId: selectedDesignation.length > 0? selectedDesignation[0].id : 0,
+      trainLineId: selectedTrainLine.length > 0? selectedTrainLine[0].id : 0,
+    };
 
-    //alert(JSON.stringify(jobSearchField));
+    try {
+      const response = await jobSearchAsync(updatedJobSearchField);
 
-    let response = await jobSearchAsync(jobSearchField);
-    //alert(JSON.stringify(response));
-    //console.log(response);
-
-    if (response.data != null) {
-      setJobSearchResult(response.data);
+      if (response.data) {
+        setJobSearchResult(response.data);
+      }
+    } catch (error) {
+      console.error("Error during job search", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return {
     selectedSkills,
     onSkillChange,
-    test,
     selectedCities,
     onCityChange,
+    selectedDesignation,
+    onDesignationChange,
+    selectedTrainLine,
+    onTrainLineChange,
     onSelectFieldChanged,
-    experiances,
+    experiences,
     jobSearchField,
     jobSearchResult,
+    loading, // Expose loading state to the component
+    handleSearch,
   };
 };
+
 export default JobSearchUtility;
