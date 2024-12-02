@@ -1,22 +1,18 @@
+import React from "react";
 import JobSkillUtility from "../../../utilities/job/JobSkillUtility";
 import Select from "react-select";
 import SkillModel from "../../../model/master/SkillModel";
-import { Bounce, ToastContainer } from "react-toastify";
+import { ToastContainer, Bounce } from "react-toastify";
 
-const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({
-  parentJobId,
-}) => {
+const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
   const utility = JobSkillUtility(parentJobId);
 
   return (
     <>
       <div className="p-10 bg-white rounded-xl shadow-md flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="font-semibold text-lg" id="careers">
-            Add Preferred Skill
-          </h2>
+          <h2 className="font-semibold text-lg">Add Preferred Skill</h2>
         </div>
-
         <div className="flex flex-col gap-1 w-full">
           <Select
             id="skills"
@@ -25,16 +21,9 @@ const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({
             closeMenuOnSelect={false}
             noOptionsMessage={() => "No skills found"}
             value={utility.selectedSkills}
-            getOptionLabel={(option: SkillModel) => option.skillName}
-            isOptionSelected={(
-              option: SkillModel,
-              value: readonly SkillModel[]
-            ) => {
-              return value.some(
-                (selectedOption) => selectedOption.id === option.id
-              );
-            }}
-            onChange={utility.onSkillChange}
+            getOptionLabel={(option) => option.skillName}
+            getOptionValue={(option) => option.id.toString()}
+            onChange={(selected) => utility.onSkillChange(selected as SkillModel[])}
             placeholder="Add Skills"
             className="w-full"
             styles={{
@@ -65,20 +54,7 @@ const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({
           </button>
         </div>
       </div>
-      <ToastContainer
-        // containerId="company__registration__toast"
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
+      <ToastContainer position="top-right" autoClose={5000} theme="colored" transition={Bounce} />
     </>
   );
 };

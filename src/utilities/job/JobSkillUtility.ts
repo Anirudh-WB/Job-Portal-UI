@@ -1,105 +1,24 @@
 import { useEffect, useState } from "react";
 import SkillModel from "../../model/master/SkillModel";
 import { getSkillsAsync } from "../../services/master/SkillService";
-import { SnackbarOrigin } from "@mui/material";
+import { createJobSkillAsync, getJobSkillByJobIdAsync } from "../../services/job/JobSkillService";
 import JobSkillModel from "../../model/job/JobSkillModel";
-import { createJobInfoAsync } from "../../services/job/JobInfoService";
-import {
-  createJobSkillAsync,
-  getJobSkillByJobIdAsync,
-} from "../../services/job/JobSkillService";
-import { Bounce, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const JobSkillUtility = (jobId: number) => {
-  // alert(jobId);
-
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
-    vertical: "top",
-    horizontal: "center",
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackbarOpen(false);
-  };
-
-  const onJobSkillSave = async () => {
-    // Loop through selectedSkills and assign values to JobSkillModel
-    const jobSkills: JobSkillModel[] = selectedSkills.map(
-      (selectedSkill, index) => ({
-        id: 0, // You can set the id as per your requirements
-        jobId: jobId,
-        skillId: selectedSkill.id, // Assuming selectedSkill has an id property representing skillId
-        skillName: "",
-      })
-    );
-
-    //alert(JSON.stringify(jobSkills));
-
-    let response = await createJobSkillAsync(jobSkills);
-    //alert(JSON.stringify(response));
-    if (response.data != null) {
-      response.status === 200
-        ? toast.success(response.message, {
-            // toastId: "company__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          })
-        : toast.error(response.message, {
-            // toastId: "company__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
-    } else {
-    }
-  };
-
-  const skills: SkillModel[] = [];
-
   const [jobSkill, setJobSkill] = useState<SkillModel[]>([]);
-  const [selectedSkills, setSelectedSkills] = useState<SkillModel[]>(skills);
+  const [selectedSkills, setSelectedSkills] = useState<SkillModel[]>([]);
 
   useEffect(() => {
     if (jobId > 0) {
       fetchJobSkillByJobId();
     }
-
     fetchJobSkillAsync();
   }, []);
-
-  useEffect(() => {
-    setSelectedSkills(selectedSkills);
-  }, [selectedSkills]);
 
   async function fetchJobSkillAsync() {
     try {
       const response = await getSkillsAsync();
-      console.log("Skill Name : ", response.data);
       if (response.status === 200 && response.data !== null) {
         setJobSkill(response.data);
       }
@@ -107,44 +26,54 @@ const JobSkillUtility = (jobId: number) => {
       console.error("Error fetching job skills:", error);
     }
   }
+
   async function fetchJobSkillByJobId() {
-    let response = await getJobSkillByJobIdAsync(jobId);
-    console.log("Function : ", response);
-    // alert(JSON.stringify(response));
-    if (response.status === 200) {
-      if (response.data != null) {
-        const selectedJobSkills: JobSkillModel[] = response.data
-          ? response.data
-          : [response.data];
-        // Loop through selectedSkills and assign values to JobSkillModel
-        const jobSkills: SkillModel[] = selectedJobSkills.map(
-          (selectedSkill, index) => ({
-            id: selectedSkill.skillId, // You can set the id as per your requirements
+    try {
+      const response = await getJobSkillByJobIdAsync(jobId);
+      if (response.status === 200 && response.data !== null) {
+        const selectedJobSkills: SkillModel[] = response.data.map(
+          (selectedSkill: JobSkillModel) => ({
+            id: selectedSkill.skillId,
             skillName: selectedSkill.skillName,
           })
         );
-
-        // alert(JSON.stringify(jobSkills));
-        setSelectedSkills(jobSkills);
+        setSelectedSkills(selectedJobSkills);
       }
+    } catch (error) {
+      console.error("Error fetching job skills by job ID:", error);
     }
   }
 
-  const onSkillChange = (selectedOptions: any) => {
+  const onSkillChange = (selectedOptions: SkillModel[]) => {
     setSelectedSkills(selectedOptions || []);
+  };
+
+  const onJobSkillSave = async () => {
+    const jobSkills: JobSkillModel[] = selectedSkills.map((selectedSkill) => ({
+      id: 0, 
+      jobId: jobId,
+      skillId: selectedSkill.id,
+      skillName: "",
+    }));
+
+    try {
+      const response = await createJobSkillAsync(jobSkills);
+      if (response.status === 200) {
+        toast.success(response.message, { position: "top-right", theme: "colored" });
+      } else {
+        toast.error(response.message, { position: "top-right", theme: "colored" });
+      }
+    } catch (error) {
+      toast.error("Error saving job skills", { position: "top-right", theme: "colored" });
+    }
   };
 
   return {
     jobSkill,
-    onSkillChange,
     selectedSkills,
-
+    onSkillChange,
     onJobSkillSave,
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
   };
 };
+
 export default JobSkillUtility;
