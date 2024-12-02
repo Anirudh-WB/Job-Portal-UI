@@ -86,7 +86,7 @@ const JobSearchUtility = () => {
     experiences,
     jobSearchField,
     jobSearchResult,
-    loading, // Expose loading state to the component
+    loading, 
     handleSearch,
   };
 };
