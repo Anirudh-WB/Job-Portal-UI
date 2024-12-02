@@ -1,10 +1,16 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { BsBell } from "react-icons/bs";
+import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import { getSessionValue } from "../utilities/SessionStorageUtility";
+import LoginUtility from "../utilities/LoginUtility";
 
 type Props = {};
 
 function Navbar({}: Props) {
-  const location = useLocation();
+  const navigate = useNavigate();
+  const utility = LoginUtility();
+
   return (
     <nav className="bg-white border-gray-200 shadow-lg w-full h-fit top-0 sticky z-40">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
@@ -41,26 +47,12 @@ function Navbar({}: Props) {
           </svg>
         </button>
 
-        {true ? (
+        {utility.loginUserId ? (
           <div
             id="navbar-menu"
             className="hidden w-full md:flex md:items-center md:w-auto"
           >
-            <div className="mt-1 flex space-x-2">
-              <Link
-                to="/login"
-                className="text-blue-900 bg-white border border-blue-300 focus:outline-none hover:bg-blue-100 focus:ring-4 focus:ring-blue-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-800 dark:text-white dark:border-blue-600 dark:hover:bg-blue-700 dark:hover:border-blue-600 dark:focus:ring-blue-700"
-              >
-                Login
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div
-            id="navbar-menu"
-            className="hidden w-full md:flex md:items-center md:w-auto"
-          >
-            {/* <div className="mt-1 flex items-center gap-8 text-gray-500">
+            <div className="mt-1 flex items-center gap-8 text-gray-500">
               <div className="relative">
                 <BsBell className="text-2xl" />
                 <span className="bg-red-600 text-white text-xs rounded-full px-1 absolute -top-1 -right-1">
@@ -69,7 +61,7 @@ function Navbar({}: Props) {
               </div>
               <div className="border rounded-full flex items-center gap-4 px-2.5 py-2">
                 <HiOutlineMenuAlt2 className="text-2xl" />
-                <div className="relative">
+                <div className="relative" onClick={() => navigate("/profile")}>
                   <img
                     src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
                     alt="profile_pic"
@@ -80,7 +72,27 @@ function Navbar({}: Props) {
                   </span>
                 </div>
               </div>
-            </div> */}
+              <button
+                className="text-blue-600 hover:underline"
+                onClick={utility.onLogout}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div
+            id="navbar-menu"
+            className="hidden w-full md:flex md:items-center md:w-auto"
+          >
+            <div className="mt-1 flex space-x-2">
+              <Link
+                to="/login"
+                className="outline-none font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md transition duration-500"
+              >
+                Login
+              </Link>
+            </div>
           </div>
         )}
       </div>

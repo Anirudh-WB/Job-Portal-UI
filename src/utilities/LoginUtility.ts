@@ -35,7 +35,10 @@ const LoginUtility = () => {
 
   useEffect(() => {
     const test = getSessionValue("loginUserId");
-    alert(test);
+
+    if (test) {
+      navigate("/job-search");
+    }
   }, [loginUserId]);
 
   const onLogin = async () => {
@@ -156,6 +159,12 @@ const LoginUtility = () => {
     });
   };
 
+  const onLogout = () => {
+    localStorage.clear(); // Clears all data stored in local storage
+    sessionStorage.clear(); // Clears all data stored in session storage
+    navigate("/login");
+  };
+
   return {
     login,
     onLogin,
@@ -163,9 +172,11 @@ const LoginUtility = () => {
     onTextFieldChanged,
     snackbarOpen,
     handleSnackbarClose,
+    loginUserId,
     snackbarMessage,
     snackbarPosition,
     snackbarSeverity,
+    onLogout,
   };
 };
 export default LoginUtility;

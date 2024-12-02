@@ -27,6 +27,10 @@ const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) 
             placeholder="Add Skills"
             className="w-full"
             styles={{
+              multiValueLabel: (base) => ({
+                ...base,
+                borderRadius: "999px",
+              }),
               control: (base) => ({
                 ...base,
                 borderColor: "rgb(209, 213, 219)",

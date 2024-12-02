@@ -40,40 +40,27 @@ const JobSearchUtility = () => {
   const [jobSearchResult, setJobSearchResult] =
     useState<JobSearchResultModel[]>();
 
-    const onSkillChange = (
-      newValue: MultiValue<SkillModel>,
-      // actionMeta: ActionMeta<SkillModel>
-    ) => {
-      if (newValue) {
-        // Convert MultiValue to a simple array, if necessary
-        const selectedSkills = Array.isArray(newValue) ? [...newValue] : [];
-    
-        setSelectedSkills(selectedSkills);
-    
-        setJobSearchField((prevState) => ({
-          ...prevState,
-          skills: selectedSkills,
-        }));
-      }
-    };
-    
+  const onSkillChange = (newValue: MultiValue<SkillModel> | null) => {
+    const skills = newValue ? [...newValue] : [];
 
-    const onCityChange = (
-      newValue: MultiValue<CityModel>,
-      // actionMeta: ActionMeta<SkillModel>
-    ) => {
-      if (newValue) {
-        // Convert MultiValue to a simple array, if necessary
-        const selectedCities = Array.isArray(newValue) ? [...newValue] : [];
-    
-        setSelectedCities(selectedCities);
-    
-        setJobSearchField((prevState) => ({
-          ...prevState,
-          cities: selectedCities,
-        }));
-      }
-    };
+    setSelectedSkills(skills);
+
+    setJobSearchField((prevState) => ({
+      ...prevState,
+      skills: skills,
+    }));
+  };
+
+  const onCityChange = (newValue: MultiValue<CityModel> | null) => {
+    const cities = newValue ? [...newValue] : [];
+
+    setSelectedCities(cities);
+
+    setJobSearchField((prevState) => ({
+      ...prevState,
+      cities: cities,
+    }));
+  };
 
   const onSelectFieldChanged = (event: SelectChangeEvent) => {
     const name = event.target.name;
