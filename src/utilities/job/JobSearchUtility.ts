@@ -5,6 +5,7 @@ import { SelectChangeEvent } from "@mui/material";
 import JobSearchModel from "../../model/job/JobSearchModel";
 import { jobSearchAsync } from "../../services/job/JobSearchService";
 import JobSearchResultModel from "../../model/job/JobSearchResultModel";
+import { MultiValue } from "react-select";
 
 //
 const JobSearchUtility = () => {
@@ -39,32 +40,26 @@ const JobSearchUtility = () => {
   const [jobSearchResult, setJobSearchResult] =
     useState<JobSearchResultModel[]>();
 
-  const onSkillChange = (
-    event: React.SyntheticEvent<Element, Event>,
-    newValue: SkillModel[] | null
-  ) => {
-    if (newValue) {
-      setSelectedSkills(newValue);
+  const onSkillChange = (newValue: MultiValue<SkillModel> | null) => {
+    const skills = newValue ? [...newValue] : [];
 
-      setJobSearchField((prevState) => ({
-        ...prevState,
-        skills: newValue,
-      }));
-    }
+    setSelectedSkills(skills);
+
+    setJobSearchField((prevState) => ({
+      ...prevState,
+      skills: skills,
+    }));
   };
 
-  const onCityChange = (
-    event: React.SyntheticEvent<Element, Event>,
-    newValue: CityModel[] | null
-  ) => {
-    if (newValue) {
-      setSelectedCities(newValue);
+  const onCityChange = (newValue: MultiValue<CityModel> | null) => {
+    const cities = newValue ? [...newValue] : [];
 
-      setJobSearchField((prevState) => ({
-        ...prevState,
-        cities: newValue,
-      }));
-    }
+    setSelectedCities(cities);
+
+    setJobSearchField((prevState) => ({
+      ...prevState,
+      cities: cities,
+    }));
   };
 
   const onSelectFieldChanged = (event: SelectChangeEvent) => {

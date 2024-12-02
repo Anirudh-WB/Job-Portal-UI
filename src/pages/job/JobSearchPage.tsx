@@ -5,12 +5,12 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  // Select,
+  Select,
   TextField,
 } from "@mui/material";
 import CheckBoxOutlineBlankIcon from "@mui/icons-material/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@mui/icons-material/CheckBox";
-import Select from "react-select";
+import CreatableSelect from "react-select";
 import SkillUtility from "../../utilities/master/SkillUtility";
 import JobSearchUtility from "../../utilities/job/JobSearchUtility";
 import CityUtility from "../../utilities/master/CityUtility";
@@ -25,6 +25,7 @@ import { GrUserManager } from "react-icons/gr";
 import "../../css/JobSearch.css";
 import JobCard from "./JobCard";
 import SkillModel from "../../model/master/SkillModel";
+import CityModel from "../../model/master/CityModel";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
@@ -42,8 +43,7 @@ const JobSearchPage: React.FC = () => {
         <h1 className="text-2xl font-bold">Search for Jobs</h1>
         <div className="flex flex-col gap-5 p-5 sticky top-0 bg-white z-10">
           <div className="flex gap-5">
-            <Select
-              id="skills"
+            <CreatableSelect
               isMulti
               options={skillUtility.jobSkill}
               closeMenuOnSelect={false}
@@ -57,7 +57,7 @@ const JobSearchPage: React.FC = () => {
                   (selectedOption) => selectedOption.id === option.id
                 );
               }}
-              // onChange={utility.onSkillChange}
+              onChange={utility.onSkillChange}
               placeholder="Skill"
               className="w-full"
               styles={{
@@ -77,62 +77,45 @@ const JobSearchPage: React.FC = () => {
                 }),
               }}
             />
-            <Autocomplete
-              multiple
-              id="checkboxes-skill"
-              options={skillUtility.jobSkill}
-              disableCloseOnSelect
-              getOptionLabel={(option) => option.skillName}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option.skillName}
-                </li>
-              )}
-              value={utility.selectedSkills}
-              style={{ width: 500 }}
-              onChange={utility.onSkillChange}
-              renderInput={(params) => (
-                <TextField {...params} label="Skill" placeholder="Skill" />
-              )}
-            />
-            <Autocomplete
-              multiple
-              id="checkboxes-tags-demo"
+            <CreatableSelect
+              isMulti
               options={cityUtility.jobCities}
-              disableCloseOnSelect
-              getOptionLabel={(option) => option.cityName}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              renderOption={(props, option, { selected }) => (
-                <li {...props}>
-                  <Checkbox
-                    icon={icon}
-                    checkedIcon={checkedIcon}
-                    style={{ marginRight: 8 }}
-                    checked={selected}
-                  />
-                  {option.cityName}
-                </li>
-              )}
-              //defaultValue={utility.selectedSkills}
+              closeMenuOnSelect={false}
               value={utility.selectedCities}
-              style={{ width: 500 }}
+              getOptionLabel={(option: CityModel) => option.cityName}
+              isOptionSelected={(
+                option: CityModel,
+                value: readonly CityModel[]
+              ) => {
+                return value.some(
+                  (selectedOption) => selectedOption.id === option.id
+                );
+              }}
               onChange={utility.onCityChange}
-              renderInput={(params) => (
-                <TextField {...params} label="City" placeholder="City" />
-              )}
+              placeholder="City"
+              className="w-full"
+              styles={{
+                control: (base) => ({
+                  ...base,
+                  borderColor: "rgb(209, 213, 219)", // Tailwind gray-300
+                  boxShadow: "none",
+                  "&:hover": { borderColor: "rgb(156, 163, 175)" }, // Tailwind gray-500
+                  padding: "5px",
+                }),
+                option: (base, { isSelected }) => ({
+                  ...base,
+                  backgroundColor: isSelected ? "rgb(96, 165, 250)" : "white", // Tailwind blue-500
+                  color: isSelected ? "white" : "black",
+                  cursor: "pointer",
+                  borderRadius: isSelected ? "5px" : "10px",
+                }),
+              }}
             />
           </div>
           <div className="flex gap-5">
             <FormControl fullWidth>
               <InputLabel id="designationId">Designation</InputLabel>
-              {/* <Select
+              <Select
                 labelId="designationId"
                 id="designationId"
                 name="designationId"
@@ -149,7 +132,7 @@ const JobSearchPage: React.FC = () => {
                     {designation.designationName}
                   </MenuItem>
                 ))}
-              </Select> */}
+              </Select>
             </FormControl>
             <FormControl fullWidth>
               <InputLabel id="experienceId">Experience</InputLabel>
