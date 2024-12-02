@@ -10,63 +10,22 @@ const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
   return (
     <>
       <div className="p-10 bg-white rounded-xl shadow-md flex flex-col gap-4">
-        {/* Header Section */}
         <div className="flex flex-col gap-1">
-          <h2 className="font-semibold text-lg" id="careers">
-            Add Preferred Location
-          </h2>
+          <h2 className="font-semibold text-lg">Add Preferred Location</h2>
         </div>
-
-        {/* Autocomplete Input Section */}
-        {/* <div className="flex flex-col gap-1 w-full">
-          <Autocomplete
-            multiple
-            id="checkboxes-tags-demo"
-            options={utility.jobCities}
-            disableCloseOnSelect
-            getOptionLabel={(option) => option.cityName}
-            isOptionEqualToValue={(option, value) => option.id === value.id}
-            renderOption={(props, option, { selected }) => (
-              <li {...props}>
-                <Checkbox
-                  icon={icon}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
-                {option.cityName}
-              </li>
-            )}
-            value={utility.selectedCities}
-            style={{ width: "100%" }}
-            onChange={utility.onCityChange}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Location"
-                placeholder="Select a city"
-              />
-            )}
-          />
-        </div> */}
-
         <div className="flex flex-col gap-1 w-full">
           <Select
-            id="skills"
+            id="cities"
             isMulti
-            options={utility.jobCities}
+            options={utility.jobCity}
             closeMenuOnSelect={false}
-            value={utility.selectedCities}
-            getOptionLabel={(option: CityModel) => option.cityName}
-            isOptionSelected={(
-              option: CityModel,
-              value: readonly CityModel[]
-            ) => {
-              return value.some(
-                (selectedOption) => selectedOption.id === option.id
-              );
-            }}
-            onChange={utility.onCityChange}
+            noOptionsMessage={() => "No cities found"}
+            value={utility.selectedCity}
+            getOptionLabel={(option) => option.cityName}
+            getOptionValue={(option) => option.id.toString()} // Ensure unique key for each skill
+            onChange={(selected) =>
+              utility.onCityChange(selected as CityModel[])
+            } // Handle multi-select change
             placeholder="Add Location"
             className="w-full"
             styles={{
@@ -87,8 +46,6 @@ const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
             }}
           />
         </div>
-
-        {/* Save Button */}
         <div className="text-right">
           <button
             type="button"
@@ -98,21 +55,13 @@ const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
             Apply
           </button>
         </div>
-        <ToastContainer
-          // containerId="company__registration__toast"
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          transition={Bounce}
-        />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        theme="colored"
+        transition={Bounce}
+      />
     </>
   );
 };
