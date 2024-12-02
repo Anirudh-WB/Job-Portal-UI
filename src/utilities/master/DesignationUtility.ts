@@ -3,24 +3,24 @@ import DesignationModel from "../../model/master/DesignationModel";
 import { getDesignations } from "../../services/master/DesignationService";
 
 const DesignationUtility = () => {
-    const [designations, setDesignations] = useState<DesignationModel[]>([]);
+  const [designations, setDesignations] = useState<DesignationModel[]>([]);
 
-    useEffect(() => {
-        fetchDesignations();
-    }, []);
+  useEffect(() => {
+    fetchDesignations();
+  }, []);
 
-    async function fetchDesignations() {
-        let response = await getDesignations();
-        if (response.status === 200) {
-            if (response.data !== null) {
-                setDesignations(response.data);
-            }
-        } else {
-            // alert(response.message);
-        }
+  async function fetchDesignations() {
+    try {
+      const response = await getDesignations();
+      if (response.status === 200 && response.data !== null) {
+        setDesignations(response.data);
+      }
+    } catch (error) {
+      console.error("Error fetching designation:", error);
     }
+  }
 
-    return {designations}
-}
+  return { designations };
+};
 
 export default DesignationUtility;

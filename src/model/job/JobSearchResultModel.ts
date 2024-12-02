@@ -8,7 +8,6 @@ interface JobSearchResultModel {
   maximumSalary: number;
   trainLineName: string;
   designationName: string;
-
   companyName: string;
   companyEmailAddress: string;
   companyMobileNo: string;
