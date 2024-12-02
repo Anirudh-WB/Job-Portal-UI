@@ -4,7 +4,15 @@ import { BiRupee } from "react-icons/bi";
 import JobReviewUtility from "../../../utilities/job/JobReviewUtility";
 
 const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
+  if (!parentJobId) {
+    return null;
+  }
   const utility = JobReviewUtility(parentJobId);
+
+  if (!utility || !utility.jobInfo) {
+    return <p className="text-gray-500">Job details are unavailable.</p>;
+  }
+  
   return (
     <>
       <div className="flex flex-col gap-3 bg-white border rounded-md border-gray-200 shadow-lg p-5">

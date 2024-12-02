@@ -15,51 +15,68 @@ const JobApplicationUtility = (
   const [jobApplications, setJobApplications] = useState<
     JobApplicationViewModel[]
   >([]);
-  //const { paramJobId } = useParams();
-  //GetJobApplicationsAsync
-  // alert(jobApplicationRequest.jobId);
+  const [loading, setLoading] = useState<boolean>(false); // Loading state
 
   useEffect(() => {
     async function fetchJobApplicationsAsync() {
-      // alert(JSON.stringify(jobApplicationRequest))
+      setLoading(true); // Set loading to true
+      try {
+        let response = await getJobApplicationsAsync(jobApplicationRequest);
 
-      let response = await getJobApplicationsAsync(jobApplicationRequest);
-
-      if (response.status === 200) {
-        if (response.data !== null) {
+        if (response.status === 200 && response.data !== null) {
           setJobApplications(response.data);
         }
-      } else {
-        // alert(response.message);
+      } catch (error) {
+        console.error("Error fetching job applications:", error);
+      } finally {
+        setLoading(false); 
       }
     }
+
     fetchJobApplicationsAsync();
   }, [jobApplicationRequest.jobId]);
 
   const onApplyJob = async (id: number) => {
-    // alert(id);
-    let loginUserId: number = Number(getSessionValue("loginUserId"));
-    const jobApplicationModel: JobApplicationModel = {
-      applyDate: new Date(),
-      jobId: id,
-      userId: loginUserId,
-      id: 0,
-    };
+    setLoading(true);
+    try {
+      let loginUserId: number = Number(getSessionValue("loginUserId"));
+      const jobApplicationModel: JobApplicationModel = {
+        applyDate: new Date(),
+        jobId: id,
+        userId: loginUserId,
+        id: 0,
+      };
 
-    alert(JSON.stringify(jobApplicationModel));
-    let response = await createJobApplicationAsync(jobApplicationModel);
-    alert(JSON.stringify(response));
+      let response = await createJobApplicationAsync(jobApplicationModel);
+      alert(`Application Response: ${JSON.stringify(response)}`);
+    } catch (error) {
+      console.error("Error applying for job:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onJobApplicationSave = async (
     jobApplicationModel: JobApplicationModel
   ) => {
-    alert(JSON.stringify(jobApplicationModel));
-
-    let response = await createJobApplicationAsync(jobApplicationModel);
-    alert(JSON.stringify(response));
+    setLoading(true); 
+    try {
+      let response = await createJobApplicationAsync(jobApplicationModel);
+      alert(`Save Response: ${JSON.stringify(response)}`);
+    } catch (error) {
+      console.error("Error saving job application:", error);
+    } finally {
+      setLoading(false); 
+    }
   };
 
-  return { jobApplication, onJobApplicationSave, onApplyJob, jobApplications };
+  return {
+    jobApplication,
+    onJobApplicationSave,
+    onApplyJob,
+    jobApplications,
+    loading, 
+  };
 };
+
 export default JobApplicationUtility;

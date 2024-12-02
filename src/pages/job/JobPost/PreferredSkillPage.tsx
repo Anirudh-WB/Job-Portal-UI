@@ -17,39 +17,6 @@ const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({
           </h2>
         </div>
 
-        {/* <div className="flex flex-col gap-1 w-full">
-        <Autocomplete
-          multiple
-          id="checkboxes-tags-demo"
-          className="w-full"
-          options={utility.jobSkill}
-          disableCloseOnSelect
-          getOptionLabel={(option) => option.skillName}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          renderOption={(props, option, { selected }) => (
-            <li {...props}>
-              <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
-                className="mr-2"
-                checked={selected}
-              />
-              {option.skillName}
-            </li>
-          )}
-          value={utility.selectedSkills}
-          onChange={utility.onSkillChange}
-          renderInput={(params) => (
-            <TextField
-              className="w-full"
-              {...params}
-              label="Skills"
-              placeholder="Add Skills"
-            />
-          )}
-        />
-      </div> */}
-
         <div className="flex flex-col gap-1 w-full">
           <Select
             id="skills"
