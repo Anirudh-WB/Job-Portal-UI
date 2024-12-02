@@ -54,6 +54,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
   const [countries, setCountries] = useState<CountryModel[]>([]);
   const [cities, setCities] = useState<CityModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
+  const [isExpanded, setIsExpanded] = useState<Number[]>([]);
 
   async function fetchExperienceInfo() {
     let response = await getExperienceInfoByUserIdAsync(loginUserId);
@@ -303,6 +304,8 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     snackbarSeverity,
 
     designations,
+    isExpanded,
+    setIsExpanded,
   };
 };
 export default ExperienceInfoUtility;

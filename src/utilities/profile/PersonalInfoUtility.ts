@@ -8,9 +8,9 @@ import {
   updatePersonalInfoAsync,
 } from "../../services/profile/PersonalInfoService";
 import { SnackbarOrigin } from "@mui/material";
+import { Bounce, toast } from "react-toastify";
 
-const PersonalInfoUtility = (loginUserId : number) => {
- 
+const PersonalInfoUtility = (loginUserId: number) => {
   const initialPersonalInfo: PersonalInfoModel = {
     id: 0,
     firstName: "default",
@@ -23,18 +23,20 @@ const PersonalInfoUtility = (loginUserId : number) => {
     userId: loginUserId,
   };
   const initialErrors: FieldErrorModel[] = [];
-  const [personalInfo, setPersonalInfo] = useState<PersonalInfoModel>(initialPersonalInfo);
+  const [personalInfo, setPersonalInfo] =
+    useState<PersonalInfoModel>(initialPersonalInfo);
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
 
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] = React.useState<SnackbarOrigin>({
-    vertical: 'top',
-    horizontal: 'center',
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState< "success" | "error" | "info" | "warning">();
-
-  
+  const [snackbarPosition, setSnackbarPosition] =
+    React.useState<SnackbarOrigin>({
+      vertical: "top",
+      horizontal: "center",
+    });
+  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
+    "success" | "error" | "info" | "warning"
+  >();
 
   const handleSnackbarClose = (
     event: React.SyntheticEvent | Event,
@@ -47,20 +49,20 @@ const PersonalInfoUtility = (loginUserId : number) => {
     setSnackbarOpen(false);
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     //alert("aa" + loginUserId);
     getPersonalInfo(loginUserId);
   }, [loginUserId]);
 
-  async function getPersonalInfo(loginUserId:number) {
-    let response   = await getPersonalInfoByUserIdAsync(loginUserId);
-    if (response.status ===200){
+  async function getPersonalInfo(loginUserId: number) {
+    let response = await getPersonalInfoByUserIdAsync(loginUserId);
+    if (response.status === 200) {
       if (response.data !== null) {
         //alert(JSON.stringify(response.data));
         setPersonalInfo(response.data);
       }
-    }else{
-     // alert(response.message);
+    } else {
+      // alert(response.message);
     }
   }
 
@@ -81,22 +83,47 @@ const PersonalInfoUtility = (loginUserId : number) => {
   const onPersonalInfoSave = async () => {
     if (isValidate()) {
       let response;
-        if (personalInfo.id > 0) {
-            response = await updatePersonalInfoAsync(personalInfo, personalInfo.id);
-        } else {
-            response = await createPersonalInfoAsync(personalInfo);
-            if (response.data !=null  && response.status === 200 ){
-              const responseData  = response.data;
-              setPersonalInfo((prev)=>({...prev, id: responseData.id}));
-            }
-            
+      if (personalInfo.id > 0) {
+        response = await updatePersonalInfoAsync(personalInfo, personalInfo.id);
+      } else {
+        response = await createPersonalInfoAsync(personalInfo);
+        if (response.data != null && response.status === 200) {
+          const responseData = response.data;
+          setPersonalInfo((prev) => ({ ...prev, id: responseData.id }));
         }
-        
-        const snackbarSeverity = response.status === 200 ? "success" : "error";
-        setSnackbarMessage(response.message);
-        setSnackbarOpen(true);
-        setSnackbarSeverity(snackbarSeverity);
-        
+      }
+
+      response.status === 200
+        ? toast.success("Personal Info Saved", {
+            toastId: "personal__info__toast",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          })
+        : toast.error(response.message, {
+            toastId: "personal__info__toast",
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+
+      const snackbarSeverity = response.status === 200 ? "success" : "error";
+      setSnackbarMessage(response.message);
+      setSnackbarOpen(true);
+      setSnackbarSeverity(snackbarSeverity);
+
       //  alert(JSON.stringify(response));
     } else {
       setSnackbarMessage("Fields marked in red are required");
@@ -147,7 +174,7 @@ const PersonalInfoUtility = (loginUserId : number) => {
     handleSnackbarClose,
     snackbarMessage,
     snackbarPosition,
-    snackbarSeverity
+    snackbarSeverity,
   };
 };
 export default PersonalInfoUtility;

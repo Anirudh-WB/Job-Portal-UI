@@ -13,6 +13,11 @@ import ExperienceInfoPage from "./ExperienceInfoPage";
 import EmploymentInfoPage from "./EmploymentInfoPage";
 import EmployeeSkillPage from "./EmployeeSkillPage";
 import { getSessionValue } from "../../utilities/SessionStorageUtility";
+import AcademicInfo from "./AcademicInfo";
+import ExperienceInfo from "./ExperienceInfo";
+import PersonalInfo from "./PersonalInfo";
+import QuickLinks from "./QuickLinks";
+import EmployeeSkillInfo from "./EmployeeSkillInfo";
 
 const ProfilePage = () => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -31,116 +36,129 @@ const ProfilePage = () => {
     loginUserId = 0;
   }
   return (
-    <LayoutComponent>
-      <h2>Profile</h2>
-      <div>
-        <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Personal information
-            </Typography>
-          </AccordionSummary>
-
-          <AccordionDetails>
-            <PersonalInfoPage loginUserId={loginUserId} />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Address Information
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <AddressInfoPage loginUserId={loginUserId} />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel3bh-content"
-            id="panel3bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Academic Information
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <AcademicInfoPage loginUserId={loginUserId} />
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel4"}
-          onChange={handleChange("panel4")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Experience Info Page
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <ExperienceInfoPage loginUserId={loginUserId} />
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion
-          expanded={expanded === "panel5"}
-          onChange={handleChange("panel5")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel4bh-content"
-            id="panel4bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Employment Info Page
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <EmploymentInfoPage loginUserId={loginUserId} />
-          </AccordionDetails>
-        </Accordion>
-
-        <Accordion
-          expanded={expanded === "panel6"}
-          onChange={handleChange("panel6")}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel6bh-content"
-            id="panel4bh-header"
-          >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Employee Skill Information
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <EmployeeSkillPage loginUserId={loginUserId} />
-          </AccordionDetails>
-        </Accordion>
+    <>
+      <div className="py-10 px-48 flex flex-col gap-8">
+        <PersonalInfo logInUserId={loginUserId} />
+        <div className="flex gap-8 w-full">
+          <QuickLinks />
+          <div className="flex flex-col flex-1 gap-5">
+            <AcademicInfo loginUserId={loginUserId} />
+            <ExperienceInfo loginUserId={loginUserId} />
+            <EmployeeSkillInfo loginUserId={loginUserId} />
+          </div>
+        </div>
       </div>
-    </LayoutComponent>
+      <LayoutComponent>
+        <h2>Profile</h2>
+        <div>
+          <Accordion
+            expanded={expanded === "panel1"}
+            onChange={handleChange("panel1")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1bh-content"
+              id="panel1bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Personal information
+              </Typography>
+            </AccordionSummary>
+
+            <AccordionDetails>
+              <PersonalInfoPage loginUserId={loginUserId} />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel2"}
+            onChange={handleChange("panel2")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2bh-content"
+              id="panel2bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Address Information
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <AddressInfoPage loginUserId={loginUserId} />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel3"}
+            onChange={handleChange("panel3")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel3bh-content"
+              id="panel3bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Academic Information
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <AcademicInfoPage loginUserId={loginUserId} />
+            </AccordionDetails>
+          </Accordion>
+          <Accordion
+            expanded={expanded === "panel4"}
+            onChange={handleChange("panel4")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel4bh-content"
+              id="panel4bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Experience Info Page
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <ExperienceInfoPage loginUserId={loginUserId} />
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion
+            expanded={expanded === "panel5"}
+            onChange={handleChange("panel5")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel4bh-content"
+              id="panel4bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Employment Info Page
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <EmploymentInfoPage loginUserId={loginUserId} />
+            </AccordionDetails>
+          </Accordion>
+
+          <Accordion
+            expanded={expanded === "panel6"}
+            onChange={handleChange("panel6")}
+          >
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel6bh-content"
+              id="panel4bh-header"
+            >
+              <Typography sx={{ width: "33%", flexShrink: 0 }}>
+                Employee Skill Information
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <EmployeeSkillPage loginUserId={loginUserId} />
+            </AccordionDetails>
+          </Accordion>
+        </div>
+      </LayoutComponent>
+    </>
   );
 };
 

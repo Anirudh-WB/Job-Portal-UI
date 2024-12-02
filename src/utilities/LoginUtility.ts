@@ -36,9 +36,7 @@ const LoginUtility = () => {
   useEffect(() => {
     const test = getSessionValue("loginUserId");
 
-    if (test) {
-      navigate("/job-search");
-    }
+    alert(test);
   }, [loginUserId]);
 
   const onLogin = async () => {
