@@ -1,67 +1,61 @@
-import { useEffect } from "react";
-import LayoutComponent from "../../components/LayoutComponent";
 import JobApplicationUtility from "../../utilities/job/JobApplicationUtility";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import { useParams } from "react-router-dom";
 import JobApplicationRequest from "../../model/job/JobApplicationRequest";
+import { useParams } from "react-router-dom";
+
 const JobApplicationsPage = () => {
   const { paramJobId } = useParams();
   const jobId = paramJobId ?? "0";
 
-  useEffect(() => {
-  }, []);
-
   const jobApplicationRequest: JobApplicationRequest = {
     jobId: parseInt(jobId),
   };
-  const utility = JobApplicationUtility(jobApplicationRequest);
+
+  const {
+    jobApplications,
+    loading, 
+  } = JobApplicationUtility(jobApplicationRequest);
+
+  if (loading) {
+    return (
+      <div className="py-64 px-40 flex flex-col items-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-400 border-solid"></div>
+      </div>
+    );
+  }
+  
+  if (jobApplications.length === 0) {
+    return (
+      <div className="py-64 px-40 flex flex-col items-center">
+        <p className="text-lg font-semibold text-gray-500">
+          No job applications available.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <>
-      <LayoutComponent>
-        <h1>Job Application</h1>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  Job title
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  Company name
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  Firts Name
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  Last Name
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {utility.jobApplications.map((row) => (
-                <TableRow
-                  key={row.jobId}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell> {row.jobTitle}</TableCell>
-                  <TableCell>{row.companyName}</TableCell>
-                  <TableCell>{row.firstName}</TableCell>
-                  <TableCell>{row.lastName}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </LayoutComponent>
+      <div className="py-10 px-40 flex flex-col">
+        <div className="flex items-center gap-5 border-t p-3 bg-blue-400 font-bold text-white">
+          <h2 className="w-32 text-center">Sr. No.</h2>
+          <h2 className="w-2/5">Job Title</h2>
+          <h2 className="w-2/5">Company Name</h2>
+          <h2 className="w-2/5">First Name</h2>
+          <h2 className="w-2/5">Last Name</h2>
+        </div>
+        {jobApplications.map((row, index) => (
+          <div
+            className="flex items-center gap-5 p-3 cursor-pointer hover:bg-slate-100 border shadow-md"
+            key={row.jobId}
+          >
+            <h2 className="w-32 text-center">{index + 1}</h2>
+            <h2 className="w-2/5">{row.jobTitle}</h2>
+            <h2 className="w-2/5">{row.companyName}</h2>
+            <h2 className="w-2/5">{row.firstName}</h2>
+            <h2 className="w-2/5">{row.lastName}</h2>
+          </div>
+        ))}
+      </div>
     </>
   );
 };

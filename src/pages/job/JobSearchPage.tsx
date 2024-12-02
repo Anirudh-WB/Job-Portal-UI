@@ -49,6 +49,8 @@ const JobSearchPage: React.FC = () => {
               closeMenuOnSelect={false}
               value={utility.selectedSkills}
               getOptionLabel={(option: SkillModel) => option.skillName}
+              // getOptionValue={(option: SkillModel) => option.id}
+              // isOptionSelected={(option, value) => option.id === valu}}
               isOptionSelected={(
                 option: SkillModel,
                 value: readonly SkillModel[]
@@ -64,6 +66,7 @@ const JobSearchPage: React.FC = () => {
                 control: (base) => ({
                   ...base,
                   borderColor: "rgb(209, 213, 219)", // Tailwind gray-300
+                  
                   boxShadow: "none",
                   "&:hover": { borderColor: "rgb(156, 163, 175)" }, // Tailwind gray-500
                   padding: "5px",

@@ -7,7 +7,7 @@ function CompanyJobInfo() {
     const navigate = useNavigate();
   return (
     <>
-      <div className="bg-white border rounded-lg p-7 flex flex-col items-center gap-5 w-1/4 sticky top-0 h-fit">
+      <div className="bg-white border rounded-lg p-7 flex flex-col items-center gap-5 w-1/3 sticky top-0 h-fit">
         <img src={boyPic} alt="" className=" w-1/2" />
         <h2 className="font-semibold">On Job Posting, you can</h2>
         <div className="flex gap-1 w-full font-medium">

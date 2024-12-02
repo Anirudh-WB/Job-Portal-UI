@@ -70,7 +70,7 @@ const LoginUtility = () => {
         if (response.data.userInfo.role === "jobseaker") {
           navigate("/job-search");
         } else if (response.data.userInfo.role === "company") {
-          navigate("/companyProfile");
+          navigate("/company-profile");
         } else {
           navigate("/profile");
         }
