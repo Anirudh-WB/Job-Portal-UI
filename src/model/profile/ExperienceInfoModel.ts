@@ -2,8 +2,8 @@ import dayjs, { Dayjs } from 'dayjs';
 interface ExperienceInfoModel{
     id: number,
     companyName : string,
-    startDate:Dayjs,
-    endDate :Dayjs,
+    startDate:Dayjs | null,
+    endDate :Dayjs | null,
     description: string,
     isCurrentlyWorking :boolean,
     designationId :  number,
