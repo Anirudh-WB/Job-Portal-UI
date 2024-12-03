@@ -14,7 +14,7 @@ const LayoutComponent: React.FC<LayoutProps> = ({ children }) => {
       className="container"
       style={{ backgroundColor: "rgb(238, 242, 246)" }}
     >
-      <AppbarComponent />
+      {/* <AppbarComponent /> */}
       <Box height={30} />
       <Box sx={{ display: "flex" }}>
         {/* <SidebarComponent /> */}
