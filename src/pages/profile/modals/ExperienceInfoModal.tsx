@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ExperienceInfoUtility from "../../../utilities/profile/ExperienceInfoUtility";
 import ExperienceInfoModalUtility from "../../../utilities/profile/ExperienceInfoModalUtility";
+import { getExperienceInfoByUserIdAsync } from "../../../services/profile/ExperienceInfoService";
 
 type Props = {
   isExperienceInfoOpen: boolean;

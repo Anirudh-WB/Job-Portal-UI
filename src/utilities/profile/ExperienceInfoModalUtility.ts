@@ -37,15 +37,16 @@ const ExperienceInfoModalUtility = (
   const [experienceInfo, setExperienceInfo] =
     useState<ExperienceInfoModel>(intialExperienceInfo);
 
+  const [experienceInfoData, setExperienceInfosData] = useState<
+    ExperienceInfoViewModel[]
+  >([]);
+
   const [experienceInfos, setExperienceInfos] = useState<
     ExperienceInfoViewModel[]
   >([]);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
-  const [countries, setCountries] = useState<CountryModel[]>([]);
-  const [cities, setCities] = useState<CityModel[]>([]);
-  const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
   const [isExpanded, setIsExpanded] = useState<Number[]>([]);
 
   useEffect(() => {
@@ -122,7 +123,6 @@ const ExperienceInfoModalUtility = (
     const onExperienceInfoEdit = async (id: number) => {
       let response;
       response = await getExperienceInfoAsync(id);
-      //alert(JSON.stringify(response));
       if (response.data != null) {
         setExperienceInfo(response.data);
       }
@@ -144,7 +144,6 @@ const ExperienceInfoModalUtility = (
   };
 
   const onExperienceInfoSave = async () => {
-    // alert(JSON.stringify(experienceInfo));
     if (isValidate()) {
       let response;
       if (experienceInfo.id > 0) {
@@ -163,11 +162,8 @@ const ExperienceInfoModalUtility = (
         setExperienceInfo(intialExperienceInfo);
       }
       const snackbarSeverity = response.status === 200 ? "success" : "error";
-
-      //  alert(JSON.stringify(response));
     } else {
     }
-    //alert(JSON.stringify(experienceInfo));
   };
 
   const isValidate = () => {
@@ -228,6 +224,9 @@ const ExperienceInfoModalUtility = (
     designations,
     isExpanded,
     setIsExpanded,
+    setExperienceInfos,
+    experienceInfoData,
+    setExperienceInfosData,
   };
 };
 export default ExperienceInfoModalUtility;

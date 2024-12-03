@@ -45,28 +45,29 @@ const ExperienceInfoUtility = (loginUserId: number) => {
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
   const [isExpanded, setIsExpanded] = useState<Number[]>([]);
 
-  async function fetchExperienceInfo() {
+  const fetchExperienceInfo = async () => {
     let response = await getExperienceInfoByUserIdAsync(loginUserId);
     if (response.status === 200) {
       if (response.data !== null) {
         setExperienceInfos(response.data);
-        //alert(JSON.stringify(response.data));
+        console.log("Data : ", experienceInfos);
+        
       }
     } else {
-      // alert(response.message);
     }
-  }
+  };
+
+  const fetchDesignations = async () => {
+    let response = await getDesignations();
+    if (response.status === 200) {
+      if (response.data !== null) {
+        setDesignations(response.data);
+      }
+    } else {
+    }
+  };
 
   useEffect(() => {
-    async function fetchDesignations() {
-      let response = await getDesignations();
-      if (response.status === 200) {
-        if (response.data !== null) {
-          setDesignations(response.data);
-        }
-      } else {
-      }
-    }
     fetchDesignations();
     fetchExperienceInfo();
   }, []);
@@ -233,6 +234,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     designations,
     isExpanded,
     setIsExpanded,
+    fetchExperienceInfo,
   };
 };
 export default ExperienceInfoUtility;

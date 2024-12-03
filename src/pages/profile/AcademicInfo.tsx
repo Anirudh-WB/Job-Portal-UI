@@ -16,8 +16,8 @@ function AcademicInfo({ loginUserId }: Props) {
     <>
       <div className="p-5 bg-white rounded-xl shadow-md h-fit flex flex-col gap-4 ">
         <div className="flex items-center gap-4 justify-between">
-          <h2 className="font-semibold text-md" id="Education">
-            Academic Info
+        <h2 className="font-semibold text-lg" id="IT-skills">
+            Academics Info
           </h2>
           {/* {hasAccess && ( */}
           <button
