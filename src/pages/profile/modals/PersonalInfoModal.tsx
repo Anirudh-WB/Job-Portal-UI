@@ -353,7 +353,9 @@ function PersonalInfoModal({
               <div className="mt-4 flex justify-end gap-10 font-semibold">
                 <button
                   className="text-blue-700"
-                  onClick={setIsProfileHeaderOpen((prev: boolean) => !prev)}
+                  onClick={() =>
+                    setIsProfileHeaderOpen((prev: boolean) => !prev)
+                  }
                   //   onClick={() => dispatch(toggleProfileHeaderModal())}
                 >
                   Cancel
@@ -372,21 +374,6 @@ function PersonalInfoModal({
           </div>
         </div>
       </Dialog>
-
-      <ToastContainer
-        containerId="personal__info__toast"
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-        transition={Bounce}
-      />
     </>
   );
 }

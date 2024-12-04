@@ -148,6 +148,7 @@ const AddressInfoUtility = (loginUserId: number) => {
   ) => {
     const name = event.target.name;
     const value = event.target.value;
+    console.log(name, value);
 
     setAddressInfo((prev) => ({ ...prev, [name]: value }));
 

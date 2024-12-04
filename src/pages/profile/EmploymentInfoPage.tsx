@@ -89,7 +89,7 @@ const EmploymentInfoPage: React.FC<{ loginUserId: number }> = ({
                 name="noticePeriodId"
                 value={utility.employmentInfo.noticePeriodId.toString()}
                 label="Notice Period"
-                onChange={utility.onSelectFieldChanged}
+                // onChange={utility.onSelectFieldChanged}
               >
                 <MenuItem value={0}>Select State</MenuItem>
                 {utility.noticePeriods.map((noticePeriod) => (

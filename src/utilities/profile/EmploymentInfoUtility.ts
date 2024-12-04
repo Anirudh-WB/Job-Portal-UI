@@ -96,7 +96,9 @@ const EmploymentInfoUtility = (loginUserId: number) => {
     });
   };
 
-  const onSelectFieldChanged = (event: SelectChangeEvent) => {
+  const onSelectFieldChanged = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const name = event.target.name;
     const value = event.target.value;
 
