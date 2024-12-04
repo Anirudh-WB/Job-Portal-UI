@@ -48,6 +48,8 @@ const AcademicInfoUtility = (loginUserId: number) => {
   const [countries, setCountries] = useState<CountryModel[]>([]);
   const [cities, setCities] = useState<CityModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
+  const [isAcademicInfoOpen, setIsAcademicInfoOpen] = useState<boolean>(false);
+  const [academicInfoId, setAcademicInfoId] = useState<number>(0);
 
   async function fetchAcademicInfo() {
     let response = await getAcademicInfoByUserIdAsync(loginUserId);
@@ -64,6 +66,8 @@ const AcademicInfoUtility = (loginUserId: number) => {
   useEffect(() => {
     fetchAcademicInfo();
   }, []);
+
+  const toggleModal = () => setIsAcademicInfoOpen((prev) => !prev);
 
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;
@@ -100,25 +104,28 @@ const AcademicInfoUtility = (loginUserId: number) => {
   };
 
   const onAcademicInfoEdit = async (id: number) => {
-    let response;
-    response = await getAcademicInfoAsync(id);
-    if (response.data != null) {
-      setAcademicInfo(response.data);
-    }
+    setAcademicInfoId(id);
+    toggleModal();
   };
+
   const onAcademicInfoDelete = async (id: number) => {
-    let response = await deleteAcademicInfoAsync(id);
-    if (response.status === 200) {
-      fetchAcademicInfo();
+    if (window.confirm("Are you SUAR you want to delete this Academic Info")) {
+      let response = await deleteAcademicInfoAsync(id);
+      if (response.status === 200) {
+        fetchAcademicInfo();
+      }
+
+      const snackbarSeverity = response.status === 200 ? "success" : "error";
+      setSnackbarMessage(response.message);
+      setSnackbarOpen(true);
+      setSnackbarSeverity(snackbarSeverity);
     }
-    const snackbarSeverity = response.status === 200 ? "success" : "error";
-    setSnackbarMessage(response.message);
-    setSnackbarOpen(true);
-    setSnackbarSeverity(snackbarSeverity);
   };
 
   const onAddAcademicInfo = async () => {
+    setAcademicInfoId(0);
     setAcademicInfo(intialAcademicInfo);
+    toggleModal();
   };
   const onAcademicInfoSave = async () => {
     // alert(JSON.stringify(academicInfo));
@@ -236,6 +243,11 @@ const AcademicInfoUtility = (loginUserId: number) => {
     snackbarMessage,
     snackbarPosition,
     snackbarSeverity,
+    isAcademicInfoOpen,
+    fetchAcademicInfo,
+    toggleModal,
+    academicInfoId,
+    setAcademicInfoId,
   };
 };
 export default AcademicInfoUtility;

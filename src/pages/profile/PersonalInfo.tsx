@@ -18,15 +18,12 @@ function PersonalInfo({ logInUserId }: Props) {
   return (
     <>
       <div className="bg-white p-6 shadow-lg rounded-2xl flex items-center justify-center gap-10">
-        <div className="rounded-full border-[6px] border-green-500 p-2 relative">
+        <div className="rounded-full">
           <img
             src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
             alt="profile-pic"
-            className="rounded-full h-36 w-36"
+            className="rounded-full h-40 w-40"
           />
-          <span className="text-xs text-green-500 absolute left-1/2 transform -translate-x-1/2 -translate-y-1 bg-white p-1 px-2 rounded-full">
-            100%
-          </span>
         </div>
         <div className="flex flex-col gap-5 w-4/5">
           <div className="flex items-end justify-between">
