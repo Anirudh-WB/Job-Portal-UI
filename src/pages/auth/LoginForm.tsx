@@ -24,7 +24,7 @@ function LoginForm() {
               autoComplete="off"
               value={utility.login.emailAddress}
               onChange={utility.onTextFieldChanged}
-              className={`p-3 w-full rounded text-black placeholder-gray-500 outline-none border ${
+              className={`text-black placeholder-gray-500 ${
                 utility.errorInfo.find(
                   (error) => error.fieldName === "emailAddress"
                 )
@@ -51,7 +51,7 @@ function LoginForm() {
               id="password"
               name="password"
               placeholder="Enter your password"
-              className={`p-3 w-full rounded text-black placeholder-gray-500 outline-none border ${
+              className={`text-black placeholder-gray-500 ${
                 utility.errorInfo.find(
                   (error) => error.fieldName === "password"
                 )

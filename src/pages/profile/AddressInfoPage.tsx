@@ -83,7 +83,7 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({
                 name="countryId"
                 value={addressInfoUtility.addressInfo.countryId.toString()}
                 label="Country"
-                onChange={addressInfoUtility.onSelectFieldChanged}
+                // onChange={addressInfoUtility.onSelectFieldChanged}
               >
                 <MenuItem value={0}>Select</MenuItem>
                 {addressInfoUtility.countries.map((country) => (
@@ -115,7 +115,7 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({
                 name="stateId"
                 value={addressInfoUtility.addressInfo.stateId.toString()}
                 label="State"
-                onChange={addressInfoUtility.onSelectFieldChanged}
+                // onChange={addressInfoUtility.onSelectFieldChanged}
               >
                 <MenuItem value={0}>Select</MenuItem>
                 {addressInfoUtility.states.map((state) => (
@@ -147,7 +147,7 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({
                 name="cityId"
                 value={addressInfoUtility.addressInfo.cityId.toString()}
                 label="City"
-                onChange={addressInfoUtility.onSelectFieldChanged}
+                // onChange={addressInfoUtility.onSelectFieldChanged}
               >
                 <MenuItem value={0}>Select</MenuItem>
                 {addressInfoUtility.cities.map((city) => (
@@ -180,7 +180,7 @@ const AddressInfoPage: React.FC<{ loginUserId: number }> = ({
                 name="trainLineId"
                 value={addressInfoUtility.addressInfo.trainLineId.toString()}
                 label="Train Line"
-                onChange={addressInfoUtility.onSelectFieldChanged}
+                // onChange={addressInfoUtility.onSelectFieldChanged}
               >
                 <MenuItem value={0}>Select Train line</MenuItem>
                 {addressInfoUtility.trainLines.map((train) => (

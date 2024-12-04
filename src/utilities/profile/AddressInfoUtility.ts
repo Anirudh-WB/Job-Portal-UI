@@ -127,7 +127,11 @@ const AddressInfoUtility = (loginUserId: number) => {
     }
   }
 
-  const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onTextFieldChanged = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const name = event.currentTarget.name;
     const value = event.currentTarget.value;
 
@@ -139,7 +143,9 @@ const AddressInfoUtility = (loginUserId: number) => {
     });
   };
 
-  const onSelectFieldChanged = (event: SelectChangeEvent) => {
+  const onSelectFieldChanged = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const name = event.target.name;
     const value = event.target.value;
 
