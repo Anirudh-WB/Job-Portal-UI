@@ -15,6 +15,7 @@ import PersonalInfoModal from "./modals/PersonalInfoModal";
 import AddressInfoUtility from "../../utilities/profile/AddressInfoUtility";
 import EmploymentInfoUtility from "../../utilities/profile/EmploymentInfoUtility";
 import AddressInfoModal from "./modals/AddressInfoModal";
+import EmploymentInfoModal from "./modals/EmploymentInfoModat";
 
 type Props = { loginUserId: number };
 
@@ -128,7 +129,11 @@ function PersonalInfo({ loginUserId }: Props) {
             <div className="flex items-end gap-2">
               <h3 className="text-base font-semibold">Employment Info</h3>
               {/* {hasAccess && ( */}
-              <button onClick={() => setIsProfileHeaderOpen((prev) => !prev)}>
+              <button
+                onClick={() =>
+                  setIsEmploymentInfoOpen((prev: boolean) => !prev)
+                }
+              >
                 <FiEdit2 className="text-sm text-gray-700 mb-1" />
               </button>
               {/* )} */}
@@ -164,6 +169,11 @@ function PersonalInfo({ loginUserId }: Props) {
       <AddressInfoModal
         isAddressInfoOpen={isAddressInfoOpen}
         setIsAddressInfoOpen={setIsAddressInfoOpen}
+        loginUserId={loginUserId}
+      />
+      <EmploymentInfoModal
+        isEmploymentInfoOpen={isEmploymentInfoOpen}
+        setIsEmploymentInfoOpen={setIsEmploymentInfoOpen}
         loginUserId={loginUserId}
       />
     </>
