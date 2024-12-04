@@ -8,6 +8,7 @@ import {
   updateAcademicInfoAsync,
 } from "../../services/profile/AcademicInfoService";
 import { SnackbarOrigin } from "@mui/material";
+import AcademicInfoUtility from "./AcademicInfoUtility";
 
 function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
   const intialAcademicInfo: AcademicInfoModel = {
@@ -48,9 +49,12 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
 
     if (academicInfoId > 0) {
       onAcademicInfoEdit(academicInfoId);
+    } else {
+      setAcademicInfo(intialAcademicInfo);
     }
-    console.log(academicInfo);
   }, [academicInfoId]);
+
+  const utility = AcademicInfoUtility(loginUserId);
 
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;
@@ -62,21 +66,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
       const newErrors = prevErrors.filter((error) => error.fieldName !== name);
       return newErrors;
     });
-  };
-
-  const onAcademicInfoDelete = async (id: number) => {
-    let response = await deleteAcademicInfoAsync(id);
-    if (response.status === 200) {
-      //   fetchAcademicInfo();
-    }
-    const snackbarSeverity = response.status === 200 ? "success" : "error";
-    setSnackbarMessage(response.message);
-    setSnackbarOpen(true);
-    setSnackbarSeverity(snackbarSeverity);
-  };
-
-  const onAddAcademicInfo = async () => {
-    setAcademicInfo(intialAcademicInfo);
   };
 
   const onAcademicInfoSave = async () => {
@@ -93,7 +82,7 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
         }
       }
       if (response.status === 200) {
-        // fetchAcademicInfo();
+        utility.fetchAcademicInfo();
         setAcademicInfo(intialAcademicInfo);
       }
       const snackbarSeverity = response.status === 200 ? "success" : "error";
@@ -184,8 +173,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
     onTextFieldChanged,
     onAcademicInfoSave,
     errorInfo,
-    onAcademicInfoDelete,
-    onAddAcademicInfo,
     snackbarOpen,
     snackbarMessage,
     snackbarPosition,

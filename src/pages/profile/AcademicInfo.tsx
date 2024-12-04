@@ -6,10 +6,6 @@ import AcademicInfoModal from "./modals/AcademicInfoModal";
 type Props = { loginUserId: number };
 
 function AcademicInfo({ loginUserId }: Props) {
-  const [isAcademincInfoOpen, setIsAcademincInfoOpen] =
-    useState<boolean>(false);
-  const [academicInfoId, setAcademicInfoId] = useState<number>(0);
-
   const utility = AcademicInfoUtility(loginUserId);
 
   return (
@@ -24,7 +20,6 @@ function AcademicInfo({ loginUserId }: Props) {
             className="text-blue-700 text-base font-semibold"
             onClick={() => {
               utility.onAddAcademicInfo();
-              setIsAcademincInfoOpen((prev) => !prev);
             }}
           >
             Add
@@ -43,8 +38,6 @@ function AcademicInfo({ loginUserId }: Props) {
                 <button
                   onClick={() => {
                     utility.onAcademicInfoEdit(edu.id);
-                    setAcademicInfoId(edu.id);
-                    setIsAcademincInfoOpen((prev) => !prev);
                   }}
                 >
                   <FiEdit2 className="text-sm text-gray-700" />
@@ -59,19 +52,19 @@ function AcademicInfo({ loginUserId }: Props) {
                 {/* )} */}
               </div>
               <h3 className="text-gray-500">
-                Graduated in {edu.endYear}, {edu.startYear}
+                {edu.startYear} - {edu.endYear}
               </h3>
-              <h3 className="text-gray-500">Scored {edu.percentage}</h3>
+              <h3 className="text-gray-500">Scored {edu.percentage}%</h3>
             </div>
           ))}
         </div>
       </div>
 
       <AcademicInfoModal
-        isAcademincInfoOpen={isAcademincInfoOpen}
-        setIsAcademincInfoOpen={setIsAcademincInfoOpen}
+        isAcademicInfoOpen={utility.isAcademicInfoOpen}
+        toggleModal={utility.toggleModal}
         loginUserId={loginUserId}
-        academicInfoId={academicInfoId}
+        academicInfoId={utility.academicInfoId}
       />
     </>
   );

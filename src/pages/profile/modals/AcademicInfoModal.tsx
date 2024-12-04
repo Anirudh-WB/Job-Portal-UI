@@ -8,19 +8,18 @@ import {
 } from "@headlessui/react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { Bounce, toast, ToastContainer } from "react-toastify";
-import AcademicInfoUtility from "../../../utilities/profile/AcademicInfoUtility";
 import AcademicInfoModalUtility from "../../../utilities/profile/AcademicInfoModalUtility";
 
 type Props = {
-  isAcademincInfoOpen: boolean;
-  setIsAcademincInfoOpen: any;
+  isAcademicInfoOpen: boolean;
+  toggleModal: any;
   loginUserId: number;
   academicInfoId: number;
 };
 
 function AcademicInfoModal({
-  isAcademincInfoOpen,
-  setIsAcademincInfoOpen,
+  isAcademicInfoOpen,
+  toggleModal,
   loginUserId,
   academicInfoId,
 }: Props) {
@@ -29,10 +28,10 @@ function AcademicInfoModal({
   return (
     <>
       <Dialog
-        open={isAcademincInfoOpen}
+        open={isAcademicInfoOpen}
         as="div"
         className="relative z-50 focus:outline-none"
-        onClose={() => setIsAcademincInfoOpen((prev: boolean) => !prev)}
+        onClose={toggleModal}
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30" />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -375,15 +374,15 @@ function AcademicInfoModal({
               </div>
 
               <div className="mt-4 flex justify-end gap-10 font-semibold">
-                <button
-                  className="text-blue-700"
-                  //   onClick={() => dispatch(toggleProfileHeaderModal())}
-                >
+                <button className="text-blue-700" onClick={toggleModal}>
                   Cancel
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                  onClick={modalUtility.onAcademicInfoSave}
+                  onClick={() => {
+                    modalUtility.onAcademicInfoSave();
+                    toggleModal();
+                  }}
                 >
                   Save
                 </button>
