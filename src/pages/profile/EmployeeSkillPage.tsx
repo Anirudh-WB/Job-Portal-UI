@@ -51,7 +51,7 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({
           <>
             <Grid item xs={6}>
               <Autocomplete
-                options={utility.searchSkills}
+                options={utility.skills}
                 getOptionLabel={(option) => option.skillName}
                 renderInput={(params) => (
                   <TextField
@@ -71,7 +71,7 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({
                     }
                   />
                 )}
-                onInputChange={utility.onSkillInputChange}
+                // onInputChange={utility.onSkillInputChange}
                 onChange={utility.onSkillChange()}
                 // isOptionEqualToValue={(option, value) => option.id === utility.skillInfo.skillId}
               />
@@ -96,7 +96,7 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({
                   name="expertLevelId"
                   value={utility.skillInfo.expertLevelId.toString()}
                   label="Expert Level"
-                  onChange={utility.onSelectFieldChanged}
+                  //onChange={utility.onSelectFieldChanged}
                 >
                   <MenuItem value={0}>Select</MenuItem>
                   {utility.exportLevels.map((exportLevel) => (
@@ -181,20 +181,6 @@ const EmployeeSkillPage: React.FC<{ loginUserId: number }> = ({
           </Grid>
         </Grid>
       </Box>
-      <Snackbar
-        open={utility.snackbarOpen}
-        autoHideDuration={6000}
-        onClose={utility.handleSnackbarClose}
-        message={utility.snackbarMessage}
-        anchorOrigin={utility.snackbarPosition}
-      >
-        <Alert
-          onClose={utility.handleSnackbarClose}
-          severity={utility.snackbarSeverity}
-        >
-          {utility.snackbarMessage}
-        </Alert>
-      </Snackbar>
     </>
   );
 };
