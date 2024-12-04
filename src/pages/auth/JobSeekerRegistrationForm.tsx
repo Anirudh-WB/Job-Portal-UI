@@ -35,7 +35,7 @@ function JobSeekerRegistrationForm({}: Props) {
                     type="text"
                     id="firstName"
                     name="firstName"
-                    className={`w-full outline-none border rounded-md p-2 peer ${
+                    className={`peer ${
                       utility.errorInfo.find(
                         (error) => error.fieldName === "firstName"
                       )
@@ -77,7 +77,7 @@ function JobSeekerRegistrationForm({}: Props) {
                     type="text"
                     id="lastName"
                     name="lastName"
-                    className={`w-full outline-none border rounded-md p-2 peer ${
+                    className={`peer ${
                       utility.errorInfo.find(
                         (error) => error.fieldName === "lastName"
                       )
@@ -119,7 +119,7 @@ function JobSeekerRegistrationForm({}: Props) {
                   type="email"
                   id="emailAddress"
                   name="emailAddress"
-                  className={`w-full outline-none border rounded-md p-2 peer ${
+                  className={`peer ${
                     utility.errorInfo.find(
                       (error) => error.fieldName === "emailAddress"
                     )
@@ -165,7 +165,7 @@ function JobSeekerRegistrationForm({}: Props) {
                   type="text"
                   id="mobileNo"
                   name="mobileNo"
-                  className={`w-full outline-none border rounded-md p-2 peer ${
+                  className={`peer ${
                     utility.errorInfo.find(
                       (error) => error.fieldName === "mobileNo"
                     )
@@ -209,7 +209,7 @@ function JobSeekerRegistrationForm({}: Props) {
                   type="text"
                   id="password"
                   name="password"
-                  className={`w-full outline-none border rounded-md p-2 peer ${
+                  className={`peer ${
                     utility.errorInfo.find(
                       (error) => error.fieldName === "password"
                     )
@@ -257,7 +257,7 @@ function JobSeekerRegistrationForm({}: Props) {
                   type="text"
                   id="confirmPassword"
                   name="confirmPassword"
-                  className={`w-full outline-none border rounded-md p-2 peer ${
+                  className={`peer ${
                     utility.errorInfo.find(
                       (error) => error.fieldName === "confirmPassword"
                     )

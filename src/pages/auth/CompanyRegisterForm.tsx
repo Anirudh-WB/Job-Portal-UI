@@ -37,7 +37,7 @@ function CompanyRegisterForm() {
                     type="text"
                     id="companyName"
                     name="companyName"
-                    className={`w-full outline-none border rounded-md p-2 peer ${
+                    className={`peer ${
                       utility.errorInfo.find(
                         (error) => error.fieldName === "companyName"
                       )
@@ -79,7 +79,7 @@ function CompanyRegisterForm() {
                   type="email"
                   id="emailAddress"
                   name="emailAddress"
-                  className={`w-full outline-none border rounded-md p-2 peer ${
+                  className={`peer ${
                     utility.errorInfo.find(
                       (error) => error.fieldName === "emailAddress"
                     )
@@ -141,7 +141,7 @@ function CompanyRegisterForm() {
                 type="text"
                 id="mobileNo"
                 name="mobileNo"
-                className={`w-full outline-none border rounded-md p-2 peer ${
+                className={`peer ${
                   utility.errorInfo.find(
                     (error) => error.fieldName === "mobileNo"
                   )
@@ -184,7 +184,7 @@ function CompanyRegisterForm() {
                 type="text"
                 id="password"
                 name="password"
-                className={`w-full outline-none border rounded-md p-2 peer ${
+                className={`peer ${
                   utility.errorInfo.find(
                     (error) => error.fieldName === "password"
                   )
@@ -232,7 +232,7 @@ function CompanyRegisterForm() {
                 type="text"
                 id="confirmPassword"
                 name="confirmPassword"
-                className={`w-full outline-none border rounded-md p-2 peer ${
+                className={`peer ${
                   utility.errorInfo.find(
                     (error) => error.fieldName === "confirmPassword"
                   )

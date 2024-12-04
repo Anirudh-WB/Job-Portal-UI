@@ -62,7 +62,6 @@ function ExperienceInfoModal({
                     name="companyName"
                     value={utility.experienceInfo.companyName}
                     onChange={utility.onTextFieldChanged}
-                    className="outline-none border rounded-md p-2"
                   />
                   {utility.errorInfo.find(
                     (err) => err.fieldName === "companyName"
@@ -82,7 +81,6 @@ function ExperienceInfoModal({
                     name="designationId"
                     value={utility.experienceInfo.designationId}
                     onChange={utility.onSelectFieldChanged}
-                    className="outline-none border rounded-md p-2"
                   >
                     <option value="">Select Designation</option>
                     {utility.designations.map((designation) => (
@@ -129,7 +127,6 @@ function ExperienceInfoModal({
                       onChange={(date: Date | null) =>
                         utility.onDateFieldChanged("startDate", date)
                       }
-                      className="outline-none border rounded-md p-2 w-full"
                     />
                   </div>
                   <div className="flex flex-col gap-2 w-1/2">
@@ -153,7 +150,6 @@ function ExperienceInfoModal({
                           ? "Present"
                           : "End Date"
                       }
-                      className="outline-none border rounded-md p-2 w-full"
                       disabled={utility.experienceInfo.isCurrentlyWorking}
                     />
                   </div>
@@ -168,7 +164,6 @@ function ExperienceInfoModal({
                     name="description"
                     value={utility.experienceInfo.description}
                     onChange={utility.onTextAreaChanged}
-                    className="outline-none border rounded-md p-2 resize-none"
                   />
                 </div>
               </div>
