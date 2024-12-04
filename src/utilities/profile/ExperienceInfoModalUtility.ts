@@ -18,13 +18,16 @@ import DesignationModel from "../../model/master/DesignationModel";
 import { getDesignations } from "../../services/master/DesignationService";
 import ExperienceInfoViewModel from "../../model/profile/ExperienceInfoViewModel";
 
-const ExperienceInfoUtility = (loginUserId: number) => {
+const ExperienceInfoModalUtility = (
+  loginUserId: number,
+  experienceInfoId: number
+) => {
   const intialExperienceInfo: ExperienceInfoModel = {
     id: 0,
     companyName: "",
     description: "",
-    startDate: null,
-    endDate: null,
+    startDate: dayjs(),
+    endDate: dayjs(),
     designationId: 0,
     userId: loginUserId,
     isCurrentlyWorking: false,
@@ -45,18 +48,6 @@ const ExperienceInfoUtility = (loginUserId: number) => {
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
   const [isExpanded, setIsExpanded] = useState<Number[]>([]);
 
-  async function fetchExperienceInfo() {
-    let response = await getExperienceInfoByUserIdAsync(loginUserId);
-    if (response.status === 200) {
-      if (response.data !== null) {
-        setExperienceInfos(response.data);
-        //alert(JSON.stringify(response.data));
-      }
-    } else {
-      // alert(response.message);
-    }
-  }
-
   useEffect(() => {
     async function fetchDesignations() {
       let response = await getDesignations();
@@ -68,7 +59,6 @@ const ExperienceInfoUtility = (loginUserId: number) => {
       }
     }
     fetchDesignations();
-    fetchExperienceInfo();
   }, []);
 
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,18 +118,23 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     }));
   };
 
-  const onExperienceInfoEdit = async (id: number) => {
-    let response;
-    response = await getExperienceInfoAsync(id);
-    //alert(JSON.stringify(response));
-    if (response.data != null) {
-      setExperienceInfo(response.data);
+  useEffect(() => {
+    const onExperienceInfoEdit = async (id: number) => {
+      let response;
+      response = await getExperienceInfoAsync(id);
+      //alert(JSON.stringify(response));
+      if (response.data != null) {
+        setExperienceInfo(response.data);
+      }
+    };
+    if (experienceInfoId > 0) {
+      onExperienceInfoEdit(experienceInfoId);
     }
-  };
+  }, [experienceInfoId]);
+
   const onExperienceInfoDelete = async (id: number) => {
     let response = await deleteExperienceInfoAsync(id);
     if (response.status === 200) {
-      fetchExperienceInfo();
     }
   };
 
@@ -147,6 +142,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     //alert(JSON.stringify(experienceInfo));
     setExperienceInfo(intialExperienceInfo);
   };
+
   const onExperienceInfoSave = async () => {
     // alert(JSON.stringify(experienceInfo));
     if (isValidate()) {
@@ -165,7 +161,6 @@ const ExperienceInfoUtility = (loginUserId: number) => {
       }
       if (response.status === 200) {
         setExperienceInfo(intialExperienceInfo);
-        fetchExperienceInfo();
       }
       const snackbarSeverity = response.status === 200 ? "success" : "error";
 
@@ -174,6 +169,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     }
     //alert(JSON.stringify(experienceInfo));
   };
+
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
 
@@ -228,11 +224,10 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     onExperienceInfoSave,
     errorInfo,
     onExperienceInfoDelete,
-    onExperienceInfoEdit,
     onAddExperienceInfo,
     designations,
     isExpanded,
     setIsExpanded,
   };
 };
-export default ExperienceInfoUtility;
+export default ExperienceInfoModalUtility;

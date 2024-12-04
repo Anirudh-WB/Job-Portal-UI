@@ -128,7 +128,7 @@ const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({
                 name="designationId"
                 value={utility.experienceInfo.designationId.toString()}
                 label="Designation"
-                onChange={utility.onSelectFieldChanged}
+                // onChange={utility.onSelectFieldChanged}
               >
                 <MenuItem value={0}>Select State</MenuItem>
                 {utility.designations.map((designation) => (
@@ -270,7 +270,7 @@ const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({
           </Grid>
         </Grid>
       </Box>
-      <Snackbar
+      {/* <Snackbar
         open={utility.snackbarOpen}
         autoHideDuration={6000}
         onClose={utility.handleSnackbarClose}
@@ -283,7 +283,7 @@ const ExperienceInfoPage: React.FC<{ loginUserId: number }> = ({
         >
           {utility.snackbarMessage}
         </Alert>
-      </Snackbar>
+      </Snackbar> */}
     </>
   );
 };
