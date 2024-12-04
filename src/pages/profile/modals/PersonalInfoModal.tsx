@@ -60,7 +60,7 @@ function PersonalInfoModal({
                         value={utility.personalInfo.firstName}
                         id="firstName"
                         name="firstName"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className="peer"
                         onChange={utility.onTextFieldChanged}
                       />
                       <label
@@ -82,7 +82,7 @@ function PersonalInfoModal({
                         value={utility.personalInfo.lastName}
                         id="lastName"
                         name="lastName"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className="peer"
                         onChange={utility.onTextFieldChanged}
                       />
                       <label
@@ -287,7 +287,7 @@ function PersonalInfoModal({
                       type="number"
                       id="mobileNumber"
                       name="mobileNumber"
-                      className="w-full outline-none border rounded-md p-2 peer"
+                      className="peer"
                       value={utility.personalInfo.mobileNumber}
                       onChange={utility.onTextFieldChanged}
                     />
@@ -312,7 +312,7 @@ function PersonalInfoModal({
                       type="text"
                       id="emailAddress"
                       name="emailAddress"
-                      className="w-full outline-none border rounded-md p-2 peer"
+                      className="peer"
                       value={utility.personalInfo.emailAddress}
                       onChange={utility.onTextFieldChanged}
                     />
@@ -353,13 +353,17 @@ function PersonalInfoModal({
               <div className="mt-4 flex justify-end gap-10 font-semibold">
                 <button
                   className="text-blue-700"
+                  onClick={setIsProfileHeaderOpen((prev: boolean) => !prev)}
                   //   onClick={() => dispatch(toggleProfileHeaderModal())}
                 >
                   Cancel
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                  onClick={utility.onPersonalInfoSave}
+                  onClick={() => {
+                    utility.onPersonalInfoSave();
+                    setIsProfileHeaderOpen((prev: boolean) => !prev);
+                  }}
                 >
                   Save
                 </button>

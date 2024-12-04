@@ -36,7 +36,7 @@ const JobInfoPage: React.FC<{
               type="text"
               id="jobTitle"
               name="jobTitle"
-              className={`w-full outline-none border rounded-md p-2 peer ${
+              className={`peer ${
                 utility.errorInfo.find(
                   (error) => error.fieldName === "jobTitle"
                 )
@@ -80,7 +80,7 @@ const JobInfoPage: React.FC<{
                 type="number"
                 id="minimumSalary"
                 name="minimumSalary"
-                className={`w-full outline-none border rounded-md p-2 peer ${
+                className={`peer ${
                   utility.errorInfo.find(
                     (error) => error.fieldName === "minimumSalary"
                   )
@@ -122,7 +122,7 @@ const JobInfoPage: React.FC<{
                 type="number"
                 id="maximumSalary"
                 name="maximumSalary"
-                className={`w-full outline-none border rounded-md p-2 peer ${
+                className={`peer ${
                   utility.errorInfo.find(
                     (error) => error.fieldName === "maximumSalary"
                   )
@@ -164,7 +164,7 @@ const JobInfoPage: React.FC<{
             <select
               id="designationId"
               name="designationId"
-              className={`w-full outline-none border rounded-md p-2 ${
+              className={`${
                 utility.errorInfo.find(
                   (error) => error.fieldName === "designationId"
                 )
@@ -201,7 +201,7 @@ const JobInfoPage: React.FC<{
             <select
               id="trainLineId"
               name="trainLineId"
-              className={`w-full outline-none border rounded-md p-2 ${
+              className={`${
                 utility.errorInfo.find(
                   (error) => error.fieldName === "trainLineId"
                 )

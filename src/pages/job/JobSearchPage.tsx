@@ -104,7 +104,7 @@ const JobSearchPage: React.FC = () => {
               id="experienceId"
               name="experienceId"
               value={utility.jobSearchField.experienceId.toString()}
-              className="w-full px-2 py-2.5 border border-gray-300 rounded-sm focus:outline-none text-gray-500 text-base"
+              className="w-full px-2 py-2.5 border border-gray-300 rounded-sm text-gray-500 text-base"
               onChange={utility.onSelectFieldChanged}
             >
               <option value="0">Experiences...</option>

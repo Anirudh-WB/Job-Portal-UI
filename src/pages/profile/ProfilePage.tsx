@@ -38,7 +38,7 @@ const ProfilePage = () => {
   return (
     <>
       <div className="py-10 px-48 flex flex-col gap-8">
-        <PersonalInfo logInUserId={loginUserId} />
+        <PersonalInfo loginUserId={loginUserId} />
         <div className="flex gap-8 w-full">
           <QuickLinks />
           <div className="flex flex-col flex-1 gap-5">
