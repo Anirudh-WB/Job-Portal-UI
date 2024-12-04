@@ -16,7 +16,10 @@ import SkillInfoModel from "../../model/profile/SkillInfoModel";
 import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 import { getSkillsAsync } from "../../services/master/SkillService";
 
-const SkillInfoUtility = (loginUserId: number) => {
+const SkillInfoModalUtility = (
+  loginUserId: number,
+  employeeSkillInfoId: number
+) => {
   const initialPersonalInfo: PersonalInfoModel = {
     id: 0,
     firstName: "default",
@@ -177,6 +180,22 @@ const SkillInfoUtility = (loginUserId: number) => {
     return false;
   };
 
+  useEffect(() => {
+    const onSkillInfoEdit = async (id: number) => {
+      let response;
+      response = await getSkillInfoAsync(id);
+      if (response.data != null) {
+        setSkillInfo(response.data);
+      }
+    };
+
+    if (employeeSkillInfoId > 0) {
+      onSkillInfoEdit(employeeSkillInfoId);
+    } else {
+      setSkillInfo(intitalSkillInfo);
+    }
+  }, [employeeSkillInfoId]);
+
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
 
@@ -196,16 +215,6 @@ const SkillInfoUtility = (loginUserId: number) => {
     setErrorInfo(newErrors);
     return newErrors.length === 0;
   };
-
-  const onSkillInfoEdit = async (id: number) => {
-    let response;
-    response = await getSkillInfoAsync(id);
-    //alert(JSON.stringify(response));
-    if (response.data != null) {
-      setSkillInfo(response.data);
-    }
-  };
-
 
   const onSkillInfoDelete = async (id: number) => {
     const response = await deleteSkillInfoAsync(id);
@@ -229,10 +238,9 @@ const SkillInfoUtility = (loginUserId: number) => {
     exportLevels,
     skillInfo,
     skillInfoViewModel,
-    onSkillInfoEdit,
     onSkillInfoDelete,
     onAddSkillInfoSave,
   };
 };
 
-export default SkillInfoUtility;
+export default SkillInfoModalUtility;
