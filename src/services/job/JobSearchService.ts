@@ -17,7 +17,6 @@ export const jobSearchAsync = async (
     .post(`${API_BASE_URL}/JobSearch`, jobsearch)
     .then(function (response) {
       // console.log()
-      // alert(JSON.stringify(response));
       result = {
         data: response.data,
         status: response.status,
@@ -25,30 +24,23 @@ export const jobSearchAsync = async (
       };
     })
     .catch(function (error) {
-      // alert(JSON.stringify(error));
 
       if (error.response) {
         if (error.response.data.errors) {
-          // alert("b")
+         
           result = {
             data: null,
             status: error.response.status,
             message: error.response.data.title,
           };
         } else {
-          // alert(JSON.stringify(error.message));
           result = {
             data: null,
             status: error.response.status,
             message: error.message,
           };
         }
-      } else if (error.request) {
-        alert("request");
-        alert(JSON.stringify(error));
       } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 
@@ -66,7 +58,6 @@ export const jobSearchAsync1 = async (): Promise<ApiResponse<any>> => {
     .post(`${API_BASE_URL}/JobSearch`)
     .then(function (response) {
       // console.log()
-      // alert(JSON.stringify(response));
       result = {
         data: response.data,
         status: response.status,
@@ -74,30 +65,23 @@ export const jobSearchAsync1 = async (): Promise<ApiResponse<any>> => {
       };
     })
     .catch(function (error) {
-      // alert(JSON.stringify(error));
 
       if (error.response) {
         if (error.response.data.errors) {
-          // alert("b")
           result = {
             data: null,
             status: error.response.status,
             message: error.response.data.title,
           };
         } else {
-          // alert(JSON.stringify(error.message));
           result = {
             data: null,
             status: error.response.status,
             message: error.message,
           };
         }
-      } else if (error.request) {
-        alert("request");
-        alert(JSON.stringify(error));
       } else {
-        alert("other");
-        alert(JSON.stringify(error));
+       
       }
     });
 
