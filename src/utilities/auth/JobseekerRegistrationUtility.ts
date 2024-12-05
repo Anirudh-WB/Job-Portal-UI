@@ -76,11 +76,6 @@ const JobseekerRegistrationUtility = () => {
             theme: "colored",
             transition: Bounce,
           });
-
-      // alert(JSON.stringify(response.message))
-      // console.log(response);
-    } else {
-      alert("else");
     }
   };
 

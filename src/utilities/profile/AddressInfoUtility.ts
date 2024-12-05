@@ -60,8 +60,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         if (response.data !== null) {
           setAddressInfo(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
 
@@ -71,8 +69,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         if (response.data !== null) {
           setStates(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
     async function fetchCities() {
@@ -81,8 +77,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         if (response.data !== null) {
           setCities(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
     async function fetchTrainLines() {
@@ -92,8 +86,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         if (response.data !== null) {
           setTrainLines(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
     async function fetchCountries() {
@@ -102,8 +94,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         if (response.data !== null) {
           setCountries(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
 
@@ -122,8 +112,6 @@ const AddressInfoUtility = (loginUserId: number) => {
       if (response.data !== null) {
         setCountries(response.data);
       }
-    } else {
-      // alert(response.message);
     }
   }
 
@@ -184,14 +172,11 @@ const AddressInfoUtility = (loginUserId: number) => {
       setSnackbarMessage(response.message);
       setSnackbarOpen(true);
       setSnackbarSeverity(snackbarSeverity);
-
-      //  alert(JSON.stringify(response));
     } else {
       setSnackbarMessage("Fields marked in red are required");
       setSnackbarOpen(true);
       setSnackbarSeverity("error");
     }
-    //alert(JSON.stringify(addressInfo));
   };
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];

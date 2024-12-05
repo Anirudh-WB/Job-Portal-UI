@@ -6,7 +6,6 @@ import SkillInfoModel from "../../model/profile/SkillInfoModel";
 import SkillDetailModel from "../../model/profile/SkillInfoModel";
 import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 
-
 // export const createSkillInfoAsync = async (personalInfo: SkillInfoModel[]): Promise<ApiResponse<SkillInfoModel[]>> => {
 //   let result: ApiResponse<SkillInfoModel[]> = {
 //     data: null,
@@ -17,8 +16,6 @@ import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 //   await axios
 //     .post(`${API_BASE_URL}/SkillInfo`, personalInfo)
 //     .then(function (response) {
-//       // console.log()
-//       // alert(JSON.stringify(response));
 //       result = {
 //         data: response.data,
 //         status: response.status,
@@ -26,7 +23,6 @@ import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 //       };
 //     })
 //     .catch(function (error) {
-//       alert(JSON.stringify(error));
 
 //       if (error.response) {
 //         if (error.response.data.errors) {
@@ -42,19 +38,15 @@ import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 //             message: error.response.data,
 //           };
 //         }
-//       } else if (error.request) {
-//         alert("request");
-//         alert(JSON.stringify(error));
-//       } else {
-//         alert("other");
-//         alert(JSON.stringify(error));
 //       }
 //     });
 
 //   return result;
 // };
 
-export const createSkillInfoAsync = async (personalInfo: SkillInfoModel): Promise<ApiResponse<SkillInfoModel>> => {
+export const createSkillInfoAsync = async (
+  personalInfo: SkillInfoModel
+): Promise<ApiResponse<SkillInfoModel>> => {
   let result: ApiResponse<SkillInfoModel> = {
     data: null,
     status: 0,
@@ -64,8 +56,6 @@ export const createSkillInfoAsync = async (personalInfo: SkillInfoModel): Promis
   await axios
     .post(`${API_BASE_URL}/SkillInfo`, personalInfo)
     .then(function (response) {
-      // console.log()
-      // alert(JSON.stringify(response));
       result = {
         data: response.data,
         status: response.status,
@@ -73,8 +63,6 @@ export const createSkillInfoAsync = async (personalInfo: SkillInfoModel): Promis
       };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
-
       if (error.response) {
         if (error.response.data.errors) {
           result = {
@@ -89,12 +77,6 @@ export const createSkillInfoAsync = async (personalInfo: SkillInfoModel): Promis
             message: error.response.data,
           };
         }
-      } else if (error.request) {
-        alert("request");
-        alert(JSON.stringify(error));
-      } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 
@@ -134,16 +116,6 @@ export const updateSkillInfoAsync = async (
             message: error.response.data,
           };
         }
-      } else if (error.request) {
-        alert("request");
-        alert(JSON.stringify(error));
-      } else {
-        alert("other");
-        alert(JSON.stringify(error));
-        //  console.log("3");
-        // Something happened in setting up the request that triggered an Error
-        //result.error = "No response received from server";
-        //result.errorCode = error.response.status;
       }
     });
 
@@ -165,8 +137,6 @@ export const getSkillInfoByUserIdAsync = async (
       result = { data: response.data, status: response.status, message: "ok" };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
-
       if (error.response) {
         if (error.response.data.errors) {
           result = {
@@ -187,9 +157,6 @@ export const getSkillInfoByUserIdAsync = async (
           status: error.request.status,
           message: error.message,
         };
-      } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 
@@ -211,8 +178,6 @@ export const getSkillInfoAsync = async (
       result = { data: response.data, status: response.status, message: "ok" };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
-
       if (error.response) {
         if (error.response.data.errors) {
           result = {
@@ -233,9 +198,6 @@ export const getSkillInfoAsync = async (
           status: error.request.status,
           message: error.message,
         };
-      } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 
@@ -254,11 +216,13 @@ export const deleteSkillInfoAsync = async (
   await axios
     .delete(`${API_BASE_URL}/SkillInfo/${id}`)
     .then(function (response) {
-      result = { data: response.data, status: response.status, message: "Skill information deleted" };
+      result = {
+        data: response.data,
+        status: response.status,
+        message: "Skill information deleted",
+      };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
-
       if (error.response) {
         if (error.response.data.errors) {
           result = {
@@ -279,9 +243,6 @@ export const deleteSkillInfoAsync = async (
           status: error.request.status,
           message: error.message,
         };
-      } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 

@@ -48,7 +48,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
 
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
-  //alert(jobId);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
@@ -81,8 +80,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
         if (response.data !== null) {
           setTrainLines(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
     async function fetchDesignations() {
@@ -91,13 +88,10 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
         if (response.data !== null) {
           setDesignations(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
     async function fetchJobInfoById() {
       let response = await getJobInfoByIdAsync(jobId);
-      //alert(JSON.stringify(response));
       if (response.status === 200) {
         if (response.data !== null) {
           setJobInfo(response.data);
@@ -105,13 +99,9 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
           //const test123 = response.data.jobDescription;
           // setEditorContent(test123);
 
-          // alert(test123)
-
           //setJobInfo((pre)=>({ ...pre, jobDescription : "sdsadsadsa"}))
           // setJobInfo((prev) => ({ ...prev, ["jobDescription"]: editor.getHTML() }));
         }
-      } else {
-        // alert(response.message);
       }
     }
 
@@ -130,8 +120,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     //content: content,
 
     onUpdate: ({ editor }) => {
-
-
       setJobInfo((prev) => ({ ...prev, ["jobDescription"]: editor.getHTML() }));
     },
   });
@@ -170,7 +158,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
   };
 
   const onJobInfoSave = async () => {
-    //  alert(JSON.stringify(jobInfo));
     if (isValidate()) {
       let response;
       if (jobInfo.id > 0) {
@@ -209,8 +196,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
             theme: "colored",
             transition: Bounce,
           });
-    } else {
-        alert("Please Ok")
     }
   };
 
@@ -225,11 +210,11 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     }
 
     if (jobInfo.minimumSalary === 0) {
-        newErrors.push({
-          fieldName: "minimumSalary",
-          errorMessage: "Enter minimum Salary",
-        });
-      }
+      newErrors.push({
+        fieldName: "minimumSalary",
+        errorMessage: "Enter minimum Salary",
+      });
+    }
 
     if (jobInfo.maximumSalary === 0) {
       newErrors.push({

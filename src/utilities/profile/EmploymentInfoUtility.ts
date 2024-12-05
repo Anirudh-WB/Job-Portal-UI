@@ -51,31 +51,23 @@ const EmploymentInfoUtility = (loginUserId: number) => {
   useEffect(() => {
     async function fetchNoticePeriods() {
       let response = await getNoticePeriods();
-      //alert(JSON.stringify(response));
       if (response.status === 200) {
         if (response.data !== null) {
           setNoticePeriods(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
 
     async function getEmploymentInfo() {
       let response = await getEmploymentInfoByUserIdAsync(loginUserId);
-      // alert(JSON.stringify(response));
       console.log(response);
       if (response.status === 200) {
         if (response.data !== null) {
-          // alert(JSON.stringify(response.data));
-
           setEmploymentInfo(
             response.data ? response.data : initialEmploymentInfo
           );
           // setSnackbarSeverity("info");
         }
-      } else {
-        // alert(response.message);
       }
     }
     fetchNoticePeriods();
@@ -111,7 +103,6 @@ const EmploymentInfoUtility = (loginUserId: number) => {
   };
 
   const onEmploymentInfoSave = async () => {
-    //alert(JSON.stringify(employmentInfo));
     if (isValidate()) {
       let response;
       if (employmentInfo.id > 0) {
@@ -134,8 +125,6 @@ const EmploymentInfoUtility = (loginUserId: number) => {
       setSnackbarMessage(response.message);
       setSnackbarOpen(true);
       setSnackbarSeverity(snackbarSeverity);
-
-      //  alert(JSON.stringify(response));
     } else {
       setSnackbarMessage("Fields marked in red are required");
       setSnackbarOpen(true);

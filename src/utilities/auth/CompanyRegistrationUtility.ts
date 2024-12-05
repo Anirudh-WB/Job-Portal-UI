@@ -72,8 +72,6 @@ const CompanyRegistrationUtility = () => {
             theme: "colored",
             transition: Bounce,
           });
-    } else {
-      alert("else");
     }
   };
 

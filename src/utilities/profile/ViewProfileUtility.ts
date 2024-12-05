@@ -23,8 +23,6 @@ const ViewProfileUtility = (loginUserId: number) => {
         if (response.data !== null) {
           setAddressInfoDetail(response.data);
         }
-      } else {
-        // alert(response.message);
       }
     }
 

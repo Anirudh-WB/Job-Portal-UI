@@ -34,9 +34,7 @@ const LoginUtility = () => {
   let userRoleId: number = Number(getSessionValue("userRole"));
 
   useEffect(() => {
-    const test = getSessionValue("loginUserId");
-
-    alert(test);
+    getSessionValue("loginUserId");
   }, [loginUserId]);
 
   const onLogin = async () => {
@@ -44,8 +42,6 @@ const LoginUtility = () => {
       let response;
 
       response = await LoginAsync(login);
-      console.log({ response });
-      // alert(JSON.stringify(response.data));
       if (response.data != null && response.status === 200) {
         setSessionValue("accessToken", response.data.accessToken);
         setSessionValue("refreshToken", response.data.accessToken);
@@ -99,8 +95,6 @@ const LoginUtility = () => {
             theme: "colored",
             transition: Bounce,
           });
-
-      //  alert(JSON.stringify(response));
     } else {
       setSnackbarMessage("Fields marked in red are required");
       setSnackbarOpen(true);
@@ -128,8 +122,6 @@ const LoginUtility = () => {
         errorMessage: "Invalid email address",
       });
     }
-
-    // alert(JSON.stringify(newErrors));
 
     setErrorInfo(newErrors);
     return newErrors.length === 0;

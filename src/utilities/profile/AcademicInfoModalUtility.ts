@@ -69,7 +69,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
   };
 
   const onAcademicInfoSave = async () => {
-    // alert(JSON.stringify(academicInfo));
     if (isValidate()) {
       let response;
       if (academicInfo.id > 0) {
@@ -89,14 +88,11 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
       setSnackbarMessage(response.message);
       setSnackbarOpen(true);
       setSnackbarSeverity(snackbarSeverity);
-
-      //  alert(JSON.stringify(response));
     } else {
       setSnackbarMessage("Fields marked in red are required");
       setSnackbarOpen(true);
       setSnackbarSeverity("error");
     }
-    //alert(JSON.stringify(academicInfo));
   };
 
   const isValidate = () => {

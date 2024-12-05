@@ -139,7 +139,6 @@ const ExperienceInfoModalUtility = (
   };
 
   const onAddExperienceInfo = async () => {
-    //alert(JSON.stringify(experienceInfo));
     setExperienceInfo(intialExperienceInfo);
   };
 
