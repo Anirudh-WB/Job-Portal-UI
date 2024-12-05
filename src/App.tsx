@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Router,
+  Routes,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import SettingPage from "./pages/SettingPage";
@@ -30,6 +36,7 @@ function App() {
         <div className="overflow-auto h-full">
           <Routes>
             {/* Public routes */}
+            <Route path="/" element={<Navigate to="/job-search" />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/jobseeker-registration"
