@@ -9,7 +9,6 @@ import JobCard from "./JobCard";
 import "../../css/JobSearch.css";
 import SkillModel from "../../model/master/SkillModel";
 import CityModel from "../../model/CityModel";
-import DesignationModel from "../../model/master/DesignationModel";
 import TrainLineModel from "../../model/TrainLineModel";
 
 const JobSearchPage: React.FC = () => {
@@ -45,6 +44,7 @@ const JobSearchPage: React.FC = () => {
       {/* Search Filters Section */}
       <div className="flex flex-col gap-5 p-5 sticky top-0 bg-white z-10">
         <div className="flex gap-5">
+          {/* Skills Multi-Select */}
           <Select
             id="skills"
             isMulti
@@ -62,6 +62,7 @@ const JobSearchPage: React.FC = () => {
             styles={selectStyles}
           />
 
+          {/* Cities Multi-Select */}
           <Select
             id="cities"
             isMulti
@@ -81,57 +82,77 @@ const JobSearchPage: React.FC = () => {
         </div>
 
         <div className="flex gap-5">
-          <Select
-            id="designations"
-            isMulti
-            options={designationUtility.designations}
-            closeMenuOnSelect={false}
-            noOptionsMessage={() => "No designation found"}
-            value={utility.selectedDesignation}
-            getOptionLabel={(option) => option.designationName}
-            getOptionValue={(option) => option.id.toString()}
-            onChange={(selected) =>
-              utility.onDesignationChange(selected as DesignationModel[])
-            }
-            placeholder="Add Designation..."
-            className="w-full"
-            styles={selectStyles}
-          />
+          {/* Designation Dropdown */}
+          <div className="w-full">
+            <select
+              id="designationId"
+              name="designationId"
+              value={utility.jobSearchField.designationId} // Bind to selected designation
+              className="w-full px-2 py-2.5 border border-gray-300 bg-white text-gray-500 rounded-sm text-base"
+              onChange={(e) => utility.onSelectFieldChanged(e)}
+            >
+              <option value="0" disabled>
+                Select Designation...
+              </option>
+              {designationUtility.designations.map((designation) => (
+                <option
+                  key={designation.id}
+                  value={designation.id}
+                  className="text-black"
+                >
+                  {designation.designationName}
+                </option>
+              ))}
+            </select>
+          </div>
 
           {/* Experience Dropdown */}
           <div className="w-full">
             <select
               id="experienceId"
               name="experienceId"
-              value={utility.jobSearchField.experienceId.toString()}
-              className="w-full px-2 py-2.5 border border-gray-300 rounded-sm text-gray-500 text-base"
-              onChange={utility.onSelectFieldChanged}
+              value={utility.jobSearchField.experienceId}
+              className="w-full px-2 py-2.5 border border-gray-300 bg-white text-gray-500 rounded-sm text-base"
+              onChange={(e) => utility.onSelectFieldChanged(e)}
             >
-              <option value="0">Experiences...</option>
-              {utility.experiences.map((item) => (
-                <option key={item.value} value={item.value}>
-                  {item.label}
+              <option value="0" disabled>
+                Select Experience...
+              </option>
+              {utility.experiences.map((experience) => (
+                <option
+                  key={experience.value}
+                  value={experience.value}
+                  className="text-black"
+                >
+                  {experience.label}
                 </option>
               ))}
             </select>
           </div>
 
-          <Select
-            id="trainlines"
-            isMulti
-            options={trainLineUtility.trainLines}
-            closeMenuOnSelect={false}
-            noOptionsMessage={() => "No trainlines found"}
-            value={utility.selectedTrainLine}
-            getOptionLabel={(option) => option.trainLineName}
-            getOptionValue={(option) => option.id.toString()}
-            onChange={(selected) =>
-              utility.onTrainLineChange(selected as TrainLineModel[])
-            }
-            placeholder="Add Trainlines..."
-            className="w-full"
-            styles={selectStyles}
-          />
+          {/* Trainline Dropdown */}
+          <div className="w-full">
+            <select
+              id="trainLineId"
+              name="trainLineId"
+              value={utility.jobSearchField.trainLineId} // Bind to selected trainline
+              className="w-full px-2 py-2.5 border border-gray-300 bg-white text-gray-500 rounded-sm text-base"
+              onChange={(e) => utility.onSelectFieldChanged(e)}
+            >
+              <option value="0" disabled>
+                Select Trainline...
+              </option>
+              {trainLineUtility.trainLines.map((trainLine) => (
+                <option
+                  key={trainLine.id}
+                  value={trainLine.id}
+                  className="text-black"
+                >
+                  {trainLine.trainLineName}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
 
         {/* Search Button */}
