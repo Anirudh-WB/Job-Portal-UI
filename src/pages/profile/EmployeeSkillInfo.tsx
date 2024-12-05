@@ -19,7 +19,7 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
       <div className="p-5 bg-white rounded-xl shadow-md h-fit flex flex-col gap-4">
         {/* Header Section */}
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-lg" id="IT-skills">
+          <h2 className="font-semibold text-lg" id="skill-info">
             IT Skills
           </h2>
           <button
@@ -53,7 +53,9 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
                     {/* Skill Name */}
                     <h4 className="w-1/2">{skillInfo.skillName}</h4>
                     {/* Experience Level */}
-                    <h4 className="w-1/2 flex justify-center">{skillInfo.expertLevelName}</h4>
+                    <h4 className="w-1/2 flex justify-center">
+                      {skillInfo.expertLevelName}
+                    </h4>
 
                     {/* Action Buttons */}
                     <div className="w-full flex gap-2 ml-auto">
@@ -73,8 +75,12 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
                       {/* Delete Button */}
                       <button
                         onClick={() => {
-                          if(window.confirm(`Are you sure you want to delete this skill ${skillInfo.skillName}`)){
-                            utility.onSkillInfoDelete(skillInfo.id)
+                          if (
+                            window.confirm(
+                              `Are you sure you want to delete this skill ${skillInfo.skillName}`
+                            )
+                          ) {
+                            utility.onSkillInfoDelete(skillInfo.id);
                           }
                         }}
                         className="w-1/2 flex items-center justify-center text-gray-700 hover:text-red-600"
@@ -96,12 +102,12 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
       </div>
 
       {/* Modal */}
-        <EmployeeSkillInfoModal
-          isEmployeeSkillInfoOpen={isEmployeeSkillInfoOpen}
-          setIsEmployeeSkillInfoOpen={setIsEmployeeSkillInfoOpen}
-          loginUserId={loginUserId}
-          employeeSkillInfoId={employeeSkillInfoId}
-        />
+      <EmployeeSkillInfoModal
+        isEmployeeSkillInfoOpen={isEmployeeSkillInfoOpen}
+        setIsEmployeeSkillInfoOpen={setIsEmployeeSkillInfoOpen}
+        loginUserId={loginUserId}
+        employeeSkillInfoId={employeeSkillInfoId}
+      />
     </>
   );
 }

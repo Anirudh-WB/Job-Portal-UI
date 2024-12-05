@@ -16,8 +16,8 @@ function ExperienceInfo({ loginUserId }: Props) {
     <>
       <div className="p-5 bg-white rounded-xl shadow-md h-fit flex flex-col gap-4">
         <div className="flex items-center justify-between">
-          <h2 className="font-semibold text-lg" id="IT-skills">
-            Professional Experiences
+          <h2 className="font-semibold text-lg" id="experience-info">
+            Experience Info
           </h2>
 
           {/* {hasAccess && ( */}
@@ -50,7 +50,11 @@ function ExperienceInfo({ loginUserId }: Props) {
               </button>
               <button
                 onClick={() => {
-                  if(window.confirm(`Delete Experience of ${employment.designationName}`)){
+                  if (
+                    window.confirm(
+                      `Delete Experience of ${employment.designationName}`
+                    )
+                  ) {
                     utility.onExperienceInfoDelete(employment.id);
                   }
                 }}

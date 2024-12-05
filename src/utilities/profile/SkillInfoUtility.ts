@@ -206,7 +206,6 @@ const SkillInfoUtility = (loginUserId: number) => {
     }
   };
 
-
   const onSkillInfoDelete = async (id: number) => {
     const response = await deleteSkillInfoAsync(id);
     if (response.status === 200) {
