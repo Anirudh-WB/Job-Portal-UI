@@ -19,15 +19,12 @@ export const createCompanyRegistrationAsync = async ( jobApplication: CompanyReg
           })
           .catch(function (error) {
     
-           // alert(JSON.stringify(error.response));
            
             if (error.response) {
               if (error.response.data.errors){
-              //  alert("A");
               
                 result =  {data :null,  status:error.response.status , message : error.response.data.title};
               }else{
-               // alert("AB");
               
                 //console.log(error.response);
                // console.log(error.response.status);
@@ -40,14 +37,7 @@ export const createCompanyRegistrationAsync = async ( jobApplication: CompanyReg
                
               }
       
-            } else if (error.request) {
-               
-                alert("request")
-                alert(JSON.stringify(error));
-            } else {
-                alert("other")
-                alert(JSON.stringify(error));
-           
+            } else {         
             }
           });
       

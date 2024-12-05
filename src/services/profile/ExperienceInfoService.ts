@@ -17,8 +17,7 @@ export const createExperienceInfoAsync = async (
   await axios
     .post(`${API_BASE_URL}/ExperienceInfo`, personalInfo)
     .then(function (response) {
-      // console.log()
-      // alert(JSON.stringify(response));
+     
       result = {
         data: response.data,
         status: response.status,
@@ -26,7 +25,7 @@ export const createExperienceInfoAsync = async (
       };
     })
     .catch(function (error) {
-      alert(JSON.stringify(error));
+     
 
       if (error.response) {
         if (error.response.data.errors) {
@@ -42,12 +41,8 @@ export const createExperienceInfoAsync = async (
             message: error.response.data,
           };
         }
-      } else if (error.request) {
-        alert("request");
-        alert(JSON.stringify(error));
       } else {
-        alert("other");
-        alert(JSON.stringify(error));
+       
       }
     });
 
@@ -87,16 +82,8 @@ export const updateExperienceInfoAsync = async (
             message: error.response.data,
           };
         }
-      } else if (error.request) {
-        alert("request");
-        alert(JSON.stringify(error));
-      } else {
-        alert("other");
-        alert(JSON.stringify(error));
-        //  console.log("3");
-        // Something happened in setting up the request that triggered an Error
-        //result.error = "No response received from server";
-        //result.errorCode = error.response.status;
+      } else  {
+       
       }
     });
 
@@ -118,7 +105,6 @@ export const getExperienceInfoByUserIdAsync = async (
       result = { data: response.data, status: response.status, message: "ok" };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
 
       if (error.response) {
         if (error.response.data.errors) {
@@ -141,8 +127,7 @@ export const getExperienceInfoByUserIdAsync = async (
           message: error.message,
         };
       } else {
-        alert("other");
-        alert(JSON.stringify(error));
+        
       }
     });
 
@@ -164,7 +149,6 @@ export const getExperienceInfoAsync = async (
       result = { data: response.data, status: response.status, message: "ok" };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
 
       if (error.response) {
         if (error.response.data.errors) {
@@ -187,8 +171,6 @@ export const getExperienceInfoAsync = async (
           message: error.message,
         };
       } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 
@@ -210,7 +192,6 @@ export const deleteExperienceInfoAsync = async (
       result = { data: response.data, status: response.status, message: "Experience information deleted" };
     })
     .catch(function (error) {
-      //alert(JSON.stringify(error));
 
       if (error.response) {
         if (error.response.data.errors) {
@@ -233,8 +214,6 @@ export const deleteExperienceInfoAsync = async (
           message: error.message,
         };
       } else {
-        alert("other");
-        alert(JSON.stringify(error));
       }
     });
 
