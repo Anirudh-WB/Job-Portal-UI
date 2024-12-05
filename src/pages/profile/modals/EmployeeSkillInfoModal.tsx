@@ -50,9 +50,9 @@ function EmployeeSkillInfoModal({
                 IT Skills Info
               </DialogTitle>
 
-              <div className="mt-4 flex flex-1 gap-5">
+              <div className="mt-4 flex flex-1 gap-5 w-full">
                 {/* Skill Selection */}
-                <div className="flex flex-col gap-2 w-full">
+                <div className="flex flex-col gap-2">
                   <label className="font-semibold text-sm">
                     Skills <span className="text-red-600">*</span>
                   </label>
@@ -79,7 +79,7 @@ function EmployeeSkillInfoModal({
                 </div>
 
                 {/* Proficiency Level Selection */}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col flex-1 gap-2">
                   <label className="font-semibold text-sm">
                     Proficiency <span className="text-red-600">*</span>
                   </label>
