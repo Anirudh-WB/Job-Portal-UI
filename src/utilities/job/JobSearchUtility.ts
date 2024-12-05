@@ -25,9 +25,13 @@ const JobSearchUtility = () => {
 
   const [selectedSkills, setSelectedSkills] = useState<SkillModel[]>([]);
   const [selectedCities, setSelectedCities] = useState<CityModel[]>([]);
-  const [selectedDesignation, setSelectedDesignation] = useState<DesignationModel[]>([]);
-  const [selectedTrainLine, setSelectedTrainLine] = useState<TrainLineModel[]>([]);
-  
+  const [selectedDesignation, setSelectedDesignation] = useState<number | null>(
+    null
+  );
+  const [selectedTrainLine, setSelectedTrainLine] = useState<number | null>(
+    null
+  );
+
   const [jobSearchField, setJobSearchField] = useState<JobSearchModel>({
     skills: [],
     cities: [],
@@ -36,28 +40,37 @@ const JobSearchUtility = () => {
     trainLineId: 0,
   });
 
-  const [jobSearchResult, setJobSearchResult] = useState<JobSearchResultModel[] | null>(null);
+  const [jobSearchResult, setJobSearchResult] = useState<
+    JobSearchResultModel[] | null
+  >(null);
   const [loading, setLoading] = useState<boolean>(false); // Add loading state
 
-  const onSkillChange = (selectedOptions: SkillModel[]) => setSelectedSkills(selectedOptions || []);
-  const onCityChange = (selectedOptions: CityModel[]) => setSelectedCities(selectedOptions || []);
-  const onDesignationChange = (selectedOption: DesignationModel[]) => setSelectedDesignation(selectedOption || []);
-  const onTrainLineChange = (selectedOption: TrainLineModel[]) => setSelectedTrainLine(selectedOption || []);
-  
-  const onSelectFieldChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onSkillChange = (selectedOptions: SkillModel[]) =>
+    setSelectedSkills(selectedOptions || []);
+  const onCityChange = (selectedOptions: CityModel[]) =>
+    setSelectedCities(selectedOptions || []);
+  // const onDesignationChange = (selectedOption: DesignationModel) =>
+  //   setSelectedDesignation(selectedOption?.id || null);
+  // const onTrainLineChange = (selectedOption: TrainLineModel) =>
+  //   setSelectedTrainLine(selectedOption?.id || null);
+  const onSelectFieldChanged = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
+    console.log(name, value);
+
     setJobSearchField((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSearch = async () => {
     setLoading(true);
-    
+
     const updatedJobSearchField = {
       ...jobSearchField,
       skills: selectedSkills,
       cities: selectedCities,
-      designationId: selectedDesignation.length > 0? selectedDesignation[0].id : 0,
-      trainLineId: selectedTrainLine.length > 0? selectedTrainLine[0].id : 0,
+      designationId: selectedDesignation || 0,
+      trainLineId: selectedTrainLine || 0,
     };
 
     try {
@@ -79,14 +92,14 @@ const JobSearchUtility = () => {
     selectedCities,
     onCityChange,
     selectedDesignation,
-    onDesignationChange,
+    // onDesignationChange,
     selectedTrainLine,
-    onTrainLineChange,
+    // onTrainLineChange,
     onSelectFieldChanged,
     experiences,
     jobSearchField,
     jobSearchResult,
-    loading, 
+    loading,
     handleSearch,
   };
 };
