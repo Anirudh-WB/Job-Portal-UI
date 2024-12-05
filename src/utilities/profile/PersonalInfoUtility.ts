@@ -50,7 +50,6 @@ const PersonalInfoUtility = (loginUserId: number) => {
   };
 
   useEffect(() => {
-    //alert("aa" + loginUserId);
     getPersonalInfo(loginUserId);
   }, [loginUserId]);
 
@@ -58,11 +57,8 @@ const PersonalInfoUtility = (loginUserId: number) => {
     let response = await getPersonalInfoByUserIdAsync(loginUserId);
     if (response.status === 200) {
       if (response.data !== null) {
-        //alert(JSON.stringify(response.data));
         setPersonalInfo(response.data);
       }
-    } else {
-      // alert(response.message);
     }
   }
 
@@ -123,8 +119,6 @@ const PersonalInfoUtility = (loginUserId: number) => {
       setSnackbarMessage(response.message);
       setSnackbarOpen(true);
       setSnackbarSeverity(snackbarSeverity);
-
-      //  alert(JSON.stringify(response));
     } else {
       setSnackbarMessage("Fields marked in red are required");
       setSnackbarOpen(true);

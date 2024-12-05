@@ -200,7 +200,6 @@ const SkillInfoUtility = (loginUserId: number) => {
   const onSkillInfoEdit = async (id: number) => {
     let response;
     response = await getSkillInfoAsync(id);
-    //alert(JSON.stringify(response));
     if (response.data != null) {
       setSkillInfo(response.data);
     }

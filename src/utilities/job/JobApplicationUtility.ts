@@ -29,7 +29,7 @@ const JobApplicationUtility = (
       } catch (error) {
         console.error("Error fetching job applications:", error);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     }
 
@@ -47,8 +47,7 @@ const JobApplicationUtility = (
         id: 0,
       };
 
-      let response = await createJobApplicationAsync(jobApplicationModel);
-      alert(`Application Response: ${JSON.stringify(response)}`);
+      await createJobApplicationAsync(jobApplicationModel);
     } catch (error) {
       console.error("Error applying for job:", error);
     } finally {
@@ -59,14 +58,13 @@ const JobApplicationUtility = (
   const onJobApplicationSave = async (
     jobApplicationModel: JobApplicationModel
   ) => {
-    setLoading(true); 
+    setLoading(true);
     try {
-      let response = await createJobApplicationAsync(jobApplicationModel);
-      alert(`Save Response: ${JSON.stringify(response)}`);
+      await createJobApplicationAsync(jobApplicationModel);
     } catch (error) {
       console.error("Error saving job application:", error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -75,7 +73,7 @@ const JobApplicationUtility = (
     onJobApplicationSave,
     onApplyJob,
     jobApplications,
-    loading, 
+    loading,
   };
 };
 

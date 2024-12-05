@@ -5,9 +5,8 @@ import { createMemberAsync } from "../services/MemberService";
 import { FieldError } from "../common/FieldError";
 import axios, { AxiosError } from "axios";
 const MemberUtility = () => {
- 
   const initialMember: MemberModel = {
-    id:0,
+    id: 0,
     firstName: "Anzar",
     lastName: "",
     emailAddress: "anzar@yahoo.com",
@@ -50,60 +49,14 @@ const MemberUtility = () => {
     };
     status: number;
     statusText: string;
-    data :string;
+    data: string;
   }
   const handleSave = async () => {
     const isValid = isValidate();
-
-    //console.log('Saving:', member);
     if (isValid) {
-      console.log("Saving:", member);
-
       try {
-        var newMember = await createMemberAsync(member);
-       // console.log("newMember:", newMember);
-        //alert(JSON.stringify(newMember.status));
-        if (newMember.status===200){
-          alert("record saved");
-        }else{
-          alert("record not saved");
-        }
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-
-          //alert(JSON.stringify(error));
-
-          console.log(error);
-
-          //const axiosError = error as AxiosError;
-          //const responseData = axiosError.response?.data as ErrorResponse;
-          //const responseData = axiosError.response?.status
-         // alert(JSON.stringify(responseData.errors));
-         //alert(JSON.stringify(responseData));
-           //if (responseData.errors){
-             // alert(JSON.stringify(errors));
-           //}else{
-            //alert(JSON.stringify(responseData.statusText));
-           //}
-
-           const axiosError = error as AxiosError;
-           const data = axiosError.response?.data
-           const status = axiosError.response?.status
-
-           alert(status);
-           alert(data);
-
-
-          
-        } else { 
-
-        }
-      }
-
-      // Perform save operation here
-    } else {
-      console.log("Form validation failed:", errors);
-      // Handle validation errors (e.g., display error messages)
+        await createMemberAsync(member);
+      } catch (error) {}
     }
   };
 

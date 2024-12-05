@@ -51,7 +51,6 @@ const ExperienceInfoUtility = (loginUserId: number) => {
       if (response.data !== null) {
         setExperienceInfos(response.data);
         console.log("Data : ", experienceInfos);
-        
       }
     } else {
     }
@@ -132,7 +131,6 @@ const ExperienceInfoUtility = (loginUserId: number) => {
   const onExperienceInfoEdit = async (id: number) => {
     let response;
     response = await getExperienceInfoAsync(id);
-    //alert(JSON.stringify(response));
     if (response.data != null) {
       setExperienceInfo(response.data);
     }
@@ -145,11 +143,9 @@ const ExperienceInfoUtility = (loginUserId: number) => {
   };
 
   const onAddExperienceInfo = async () => {
-    //alert(JSON.stringify(experienceInfo));
     setExperienceInfo(intialExperienceInfo);
   };
   const onExperienceInfoSave = async () => {
-    // alert(JSON.stringify(experienceInfo));
     if (isValidate()) {
       let response;
       if (experienceInfo.id > 0) {
@@ -169,11 +165,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
         fetchExperienceInfo();
       }
       const snackbarSeverity = response.status === 200 ? "success" : "error";
-
-      //  alert(JSON.stringify(response));
-    } else {
     }
-    //alert(JSON.stringify(experienceInfo));
   };
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
