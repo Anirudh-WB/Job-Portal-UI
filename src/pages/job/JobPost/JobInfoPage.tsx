@@ -11,6 +11,7 @@ import React from "react";
 import "../../../css/Richtexteditor.css";
 import JobInfoUtility from "../../../utilities/job/JobInfoUtility";
 import { Bounce, ToastContainer } from "react-toastify";
+import ReactQuill from "react-quill";
 
 const JobInfoPage: React.FC<{
   parentJobId: number;
@@ -231,21 +232,27 @@ const JobInfoPage: React.FC<{
           </div>
         </div>
 
-        {/* Rich Text Editor */}
         <div>
-          <RichTextEditorProvider editor={utility.editor}>
-            <RichTextField
-              className="h-64 w-full outline-none border rounded-md"
-              controls={
-                <MenuControlsContainer>
-                  <MenuSelectHeading />
-                  <MenuDivider />
-                  <MenuButtonBold />
-                  <MenuButtonItalic />
-                </MenuControlsContainer>
-              }
-            />
-          </RichTextEditorProvider>
+          <ReactQuill
+            ref={utility.editorRef}
+            value={utility.jobInfo.jobDescription}
+            onChange={utility.editor}
+            modules={{
+              toolbar: [
+                [
+                  { header: "1" },
+                  { header: "2" },
+                ],
+                [{ list: "ordered" }, { list: "bullet" }],
+                ["bold", "italic", "underline"],
+                ["link"],
+                [{ color: [] }, { background: [] }],
+                ["clean"], 
+                ["image"],
+              ],
+            }}
+            // theme="snow"
+          />
         </div>
 
         {/* Save Button */}

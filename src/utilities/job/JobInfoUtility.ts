@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import JobInfoModel from "../../model/job/JobInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import { SelectChangeEvent, SnackbarOrigin } from "@mui/material";
 import DesignationModel from "../../model/master/DesignationModel";
 import TrainLineModel from "../../model/TrainLineModel";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 import {
   EditorProvider,
@@ -49,6 +51,7 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [content, setContent] = useState("");
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
     vertical: "top",
@@ -95,12 +98,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
       if (response.status === 200) {
         if (response.data !== null) {
           setJobInfo(response.data);
-
-          //const test123 = response.data.jobDescription;
-          // setEditorContent(test123);
-
-          //setJobInfo((pre)=>({ ...pre, jobDescription : "sdsadsadsa"}))
-          // setJobInfo((prev) => ({ ...prev, ["jobDescription"]: editor.getHTML() }));
         }
       }
     }
@@ -113,20 +110,21 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     }
   }, [jobId]);
 
-  const editor = useEditor({
-    extensions: [StarterKit],
-    content: editorContent,
+  const editorRef = useRef<ReactQuill | null>(null); // Type the ref
 
-    //content: content,
-
-    onUpdate: ({ editor }) => {
-      setJobInfo((prev) => ({ ...prev, ["jobDescription"]: editor.getHTML() }));
-    },
-  });
+  const editor = (value: string) => {
+    setJobInfo((prev) => ({ ...prev, jobDescription: value }));
+  };
 
   useEffect(() => {
-    if (editor && !editor.isDestroyed) {
-      editor.commands.setContent(jobInfo.jobDescription);
+    // If jobInfo.jobDescription changes, update the editor content
+    if (jobInfo.jobDescription) {
+      if (editorRef.current) {
+        const quill = editorRef.current.getEditor(); // Access Quill instance
+        if (quill) {
+          quill.root.innerHTML = jobInfo.jobDescription;
+        }
+      }
     }
   }, [jobInfo.jobDescription]);
 
@@ -170,6 +168,7 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
           onUpdateJobId(responseData.id);
         }
       }
+      console.log("Job info updated : ", jobInfo.jobDescription);
 
       response.status === 200
         ? toast.success(response.message, {
@@ -249,6 +248,7 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     designations,
     trainLines,
     editor,
+    editorRef,
     onJobInfoSave,
 
     snackbarOpen,
