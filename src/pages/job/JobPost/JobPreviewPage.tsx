@@ -12,7 +12,7 @@ const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
   if (!utility || !utility.jobInfo) {
     return <p className="text-gray-500">Job details are unavailable.</p>;
   }
-  
+
   return (
     <>
       <div className="flex flex-col gap-3 bg-white border rounded-md border-gray-200 shadow-lg p-5">
@@ -65,9 +65,9 @@ const JobPreviewPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) => {
           ))}
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
+        <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700 remove-tw">
           <p
-            className="font-semibold text-sm"
+            className="text-sm remove-tw"
             dangerouslySetInnerHTML={{ __html: utility.jobInfo.jobDescription }}
           />
         </div>

@@ -20,6 +20,43 @@
   }
 }
 
+@layer components {
+  .remove-tw {
+    all: unset !important;
+  }
+
+  .remove-tw li {
+    list-style-position: inside !important;
+    padding-left: 1.25rem;
+  }
+
+  .remove-tw > * {
+    all: unset !important;
+  }
+
+  .remove-tw ul {
+    list-style: disc inside !important;
+    padding-left: 1.5rem;
+  }
+
+  .remove-tw ol {
+    list-style: decimal inside !important;
+    padding-left: 1.5rem;
+  }
+
+  .remove-tw ol ol {
+    list-style: lower-alpha inside !important;
+    padding-left: 3rem;
+  }
+
+  .remove-tw ol ol ol {
+    list-style: lower-roman inside !important;
+    padding-left: 4
+    
+    .5rem;
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
