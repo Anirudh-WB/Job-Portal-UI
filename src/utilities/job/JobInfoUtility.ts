@@ -116,17 +116,16 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     setJobInfo((prev) => ({ ...prev, jobDescription: value }));
   };
 
-  useEffect(() => {
-    // If jobInfo.jobDescription changes, update the editor content
-    if (jobInfo.jobDescription) {
-      if (editorRef.current) {
-        const quill = editorRef.current.getEditor(); // Access Quill instance
-        if (quill) {
-          quill.root.innerHTML = jobInfo.jobDescription;
-        }
-      }
-    }
-  }, [jobInfo.jobDescription]);
+  // useEffect(() => {
+  //   if (jobInfo.jobDescription) {
+  //     if (editorRef.current) {
+  //       const quill = editorRef.current.getEditor(); 
+  //       if (quill) {
+  //         quill.root.innerHTML = jobInfo.jobDescription;
+  //       }
+  //     }
+  //   }
+  // }, [jobInfo.jobDescription]);
 
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;

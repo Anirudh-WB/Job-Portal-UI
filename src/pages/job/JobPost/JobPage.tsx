@@ -25,7 +25,7 @@ const JobPage: React.FC = () => {
         <JobInfoPage parentJobId={jobId} onUpdateJobId={handleJobIdChange} />
         <PreferredSkillPage parentJobId={jobId} />
         <PreferredLocationPage parentJobId={jobId} />
-        <JobPreviewPage parentJobId={jobId} />
+        {/* <JobPreviewPage parentJobId={jobId} /> */}
       </div>
     </div>
   );
