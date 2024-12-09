@@ -27,6 +27,7 @@ import JobseekerRegistration from "./pages/auth/JobseekerRegistration";
 import CompanyRegistration from "./pages/auth/CompanyRegistration";
 import Navbar from "./components/Navbar";
 import JobLandingPage from "./pages/job/JobLandingPage";
+import JobDetails from "./pages/job/JobDetails/JobDetails";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Navigate to="/job-search" />} />
+            <Route path='/job-details/:id' element={<JobDetails />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/jobseeker-registration"
@@ -59,6 +61,8 @@ function App() {
               <Route path="/job/:id?" element={<JobPage />} />
               {/* <Route path='/contact' element={<ContactPage />} /> */}
 
+
+              
               <Route
                 path="/job-applications"
                 element={<JobApplicationsPage />}

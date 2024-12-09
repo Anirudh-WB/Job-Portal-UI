@@ -2,7 +2,7 @@ import JobListUtility from "../../../utilities/job/JobListUtility";
 import CompanyJobInfo from "../CompanyHeaders/CompanyJobInfo";
 import { FaTrain, FaUser } from "react-icons/fa6";
 import { BiRupee } from "react-icons/bi";
-import { FiEdit2 } from "react-icons/fi";
+import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
 const JobsPage: React.FC = () => {
@@ -29,6 +29,9 @@ const JobsPage: React.FC = () => {
                     <h1 className="text-xl font-semibold">{job.jobTitle}</h1>
                     <button onClick={() => utility.editJob(job.id)}>
                       <FiEdit2 className="text-sm text-gray-700 mt-1" />
+                    </button>
+                    <button onClick={() => utility.deleteJobAsync(job.id)}>
+                      <FiTrash2 className="text-sm text-gray-700 mt-1" />
                     </button>
                   </div>
                   <div className="flex items-center">
@@ -77,9 +80,15 @@ const JobsPage: React.FC = () => {
               </div>
               <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
                 <p
+                  dangerouslySetInnerHTML={{
+                    __html:
+                      job.jobDescription.slice(0, 300) +
+                      (job.jobDescription.length > 300
+                        ? `... <button onClick="window.location.href='/job-details/${job.id}'" class="text-blue-600  text-sm">Read More</button>`
+                        : ""),
+                  }}
                   className="font-semibold text-sm"
-                  dangerouslySetInnerHTML={{ __html: job.jobDescription }}
-                />
+                ></p>
               </div>
             </div>
           ))
