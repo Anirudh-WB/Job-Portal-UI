@@ -53,19 +53,19 @@ function Navbar({}: Props) {
             className="hidden w-full md:flex md:items-center md:w-auto"
           >
             <div className="mt-1 flex items-center gap-8 text-gray-500">
-              <div className="relative">
+              {/* <div className="relative">
                 <BsBell className="text-2xl" />
                 <span className="bg-red-600 text-white text-xs rounded-full px-1 absolute -top-1 -right-1">
                   5
                 </span>
-              </div>
+              </div> */}
               <div className="border rounded-full flex items-center gap-4 px-2.5 py-2">
                 <HiOutlineMenuAlt2 className="text-2xl" />
                 <div className="relative" onClick={() => navigate("/profile")}>
                   <img
                     src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
                     alt="profile_pic"
-                    className="h-7 w-7 object-center rounded-full"
+                    className="h-7 w-7 object-center rounded-full cursor-pointer"
                   />
                   <span className="bg-red-600 text-white text-xs rounded-full px-1 absolute -top-1 -right-1">
                     2

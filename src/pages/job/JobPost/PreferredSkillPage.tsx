@@ -11,7 +11,7 @@ const PreferredSkillPage: React.FC<{ parentJobId: number }> = ({ parentJobId }) 
     <>
       <div className="p-10 bg-white rounded-xl shadow-md flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="font-semibold text-lg">Add Preferred Skill</h2>
+          <h2 className="font-semibold text-lg" id="add-prefer-skill">Add Preferred Skill</h2>
         </div>
         <div className="flex flex-col gap-1 w-full">
           <Select

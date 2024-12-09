@@ -11,7 +11,7 @@ const PreferredCityPage: React.FC<{ parentJobId: number }> = ({
     <>
       <div className="p-10 bg-white rounded-xl shadow-md flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="font-semibold text-lg">Add Preferred Location</h2>
+          <h2 className="font-semibold text-lg" id="add-prefer-city">Add Preferred Location</h2>
         </div>
         <div className="flex flex-col gap-1 w-full">
           <Select
