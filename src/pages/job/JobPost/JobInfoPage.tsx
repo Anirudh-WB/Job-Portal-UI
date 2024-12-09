@@ -23,7 +23,7 @@ const JobInfoPage: React.FC<{
     <>
       <div className="p-10 bg-white rounded-xl shadow-md h-fit flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <h2 className="font-semibold text-lg" id="careers">
+          <h2 className="font-semibold text-lg" id="add-job-description">
             Add Job Description
           </h2>
         </div>

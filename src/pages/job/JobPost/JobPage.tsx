@@ -4,6 +4,7 @@ import PreferredLocationPage from "./PreferredCityPage";
 import JobPreviewPage from "./JobPreviewPage";
 import JobInfoPage from "./JobInfoPage";
 import { useParams } from "react-router-dom";
+import QuickLinks from "./QuickLinks";
 
 const JobPage: React.FC = () => {
   const { id } = useParams();
@@ -17,12 +18,14 @@ const JobPage: React.FC = () => {
   };
 
   return (
-    <div className="py-8 px-40 w-full h-full overflow-auto flex flex-col gap-5">
-      <div className="flex flex-col gap-5">
+    <div className="py-8 px-40 w-full h-full overflow-auto flex flex-1 gap-5">
+      <QuickLinks />
+
+      <div className="flex flex-col gap-5 w-full">
         <JobInfoPage parentJobId={jobId} onUpdateJobId={handleJobIdChange} />
         <PreferredSkillPage parentJobId={jobId} />
         <PreferredLocationPage parentJobId={jobId} />
-        <JobPreviewPage parentJobId={jobId}/>
+        <JobPreviewPage parentJobId={jobId} />
       </div>
     </div>
   );
