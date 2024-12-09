@@ -12,10 +12,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { DateField } from "@mui/x-date-pickers/DateField";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import dayjs from "dayjs";
 import useGenericHandleFieldChange from "../hooks/useGenericHandleFieldChange";
 import MemberUtility from "../utilities/memberUtility";
@@ -137,7 +133,7 @@ const MemberPage: React.FC = () => {
               format="MM-DD-YYYY"
             /> */}
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DemoContainer components={["DateField", "DateField"]}>
                 <DateField
                   label="DOB"
@@ -150,7 +146,7 @@ const MemberPage: React.FC = () => {
                   }
                 />
               </DemoContainer>
-            </LocalizationProvider>
+            </LocalizationProvider> */}
           </Grid>
           <Grid item xs={1} sm={2} md={3} lg={4} xl={5}>
             <FormControl fullWidth>
