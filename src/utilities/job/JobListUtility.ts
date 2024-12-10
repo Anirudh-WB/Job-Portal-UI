@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import JobInfoModel from "../../model/job/JobInfoModel";
-import { getJobInfosAsync } from "../../services/job/JobInfoService";
+import {
+  deleteJobInfoByIdAsync,
+  getJobInfosAsync,
+} from "../../services/job/JobInfoService";
 import { useNavigate } from "react-router-dom";
 
 const JobListUtility = () => {
@@ -31,11 +34,26 @@ const JobListUtility = () => {
     }
   }
 
+  const deleteJobAsync = async (jobId: number) => {
+    try {
+      if (
+        window.confirm("Are you SURE you want to delete this jobs Info")
+      ) {
+        let response = await deleteJobInfoByIdAsync(jobId);
+        if (response.status === 200) {
+          fetchJobsAsync();
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+    }
+  };
+
   const editJob = (id: number) => {
     navigate(`/job/${id}`);
   };
 
-  return { jobs, editJob, loading };
+  return { jobs, editJob, loading, deleteJobAsync };
 };
 
 export default JobListUtility;

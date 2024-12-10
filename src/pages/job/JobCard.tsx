@@ -4,12 +4,14 @@ import { BiRupee } from "react-icons/bi";
 import JobSearchResultModel from "../../model/job/JobSearchResultModel";
 import JobApplicationUtility from "../../utilities/job/JobApplicationUtility";
 import JobApplicationRequest from "../../model/job/JobApplicationRequest";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   job: JobSearchResultModel;
 };
 
 const JobCard = (props: Props) => {
+  const navigate = useNavigate();
   const jobApplicationRequest: JobApplicationRequest = {
     jobId: 0,
   };
@@ -20,7 +22,12 @@ const JobCard = (props: Props) => {
       <div className="flex flex-col gap-3 bg-white border rounded-md border-gray-200 shadow-lg p-5">
         <div className="flex justify-between items-center">
           <div className="flex flex-col">
-            <h1 className="text-xl font-semibold">{props.job.jobTitle}</h1>
+            <h1
+              className="text-xl font-semibold cursor-pointer"
+              onClick={() => navigate(`/job-details/${props.job.id}`)}
+            >
+              {props.job.jobTitle}
+            </h1>
             <p className="text-sm text-gray-600">{props.job.designationName}</p>
           </div>
           <button
@@ -73,7 +80,13 @@ const JobCard = (props: Props) => {
 
         <div className="flex items-center gap-2 flex-wrap text-sm text-gray-700">
           <p
-            dangerouslySetInnerHTML={{ __html: props.job.jobDescription }}
+            dangerouslySetInnerHTML={{
+              __html:
+                props.job.jobDescription.slice(0, 300) +
+                (props.job.jobDescription.length > 300
+                  ? `... <button onClick="window.location.href='/job-details/${props.job.id}'" class="text-blue-600  text-sm">Read More</button>`
+                  : ""),
+            }}
             className="font-semibold text-sm"
           ></p>
         </div>
