@@ -7,8 +7,6 @@ import {
   CloseButton,
 } from "@headlessui/react";
 import { RiCloseLargeFill } from "react-icons/ri";
-import { Bounce, toast, ToastContainer } from "react-toastify";
-import PersonalInfoUtility from "../../../utilities/profile/PersonalInfoUtility";
 import AddressInfoUtility from "../../../utilities/profile/AddressInfoUtility";
 
 type Props = {
@@ -51,9 +49,9 @@ function AddressInfoModal({
 
               <div className="mt-4 flex flex-col gap-4">
                 <div className="w-full flex flex-col gap-1.5">
-                  <h3 className="text-base font-semibold">
+                  <label className="text-base font-semibold" htmlFor="address">
                     Address <span className="text-red-600">*</span>
-                  </h3>
+                  </label>
                   <div className="relative">
                     <textarea
                       value={utility.addressInfo.address}
@@ -61,6 +59,7 @@ function AddressInfoModal({
                       name="address"
                       className="peer"
                       onChange={utility.onTextFieldChanged}
+                      autoComplete="off"
                     />
                     <label
                       htmlFor="address"
@@ -182,9 +181,12 @@ function AddressInfoModal({
                 </div>
 
                 <div className="w-full flex flex-col gap-1.5">
-                  <h3 className="text-base font-semibold">
+                  <label
+                    className="text-base font-semibold"
+                    htmlFor="postalCode"
+                  >
                     Postal Code <span className="text-red-600">*</span>
-                  </h3>
+                  </label>
                   <div className="relative">
                     <input
                       type="number"
@@ -208,7 +210,6 @@ function AddressInfoModal({
                 <button
                   className="text-blue-700"
                   onClick={() => setIsAddressInfoOpen((prev: boolean) => !prev)}
-                  //   onClick={() => dispatch(toggleAddressInfoModal())}
                 >
                   Cancel
                 </button>

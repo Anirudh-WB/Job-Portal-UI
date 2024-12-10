@@ -232,22 +232,20 @@ const JobInfoPage: React.FC<{
           </div>
         </div>
 
-        <div>
+        <div className="h-40">
           <ReactQuill
+            className="h-28"
             ref={utility.editorRef}
             value={utility.jobInfo.jobDescription}
             onChange={utility.editor}
             modules={{
               toolbar: [
-                [
-                  { header: "1" },
-                  { header: "2" },
-                ],
+                [{ header: "1" }, { header: "2" }],
                 [{ list: "ordered" }, { list: "bullet" }],
                 ["bold", "italic", "underline"],
                 ["link"],
                 [{ color: [] }, { background: [] }],
-                ["clean"], 
+                ["clean"],
                 ["image"],
               ],
             }}
