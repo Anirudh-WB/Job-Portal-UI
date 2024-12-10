@@ -30,12 +30,12 @@ const JobCard = (props: Props) => {
             </h1>
             <p className="text-sm text-gray-600">{props.job.designationName}</p>
           </div>
-          <button
+          {/* <button
             className="bg-blue-600 p-2 text-white font-semibold rounded-md shadow-md hover:shadow-lg transition duration-500 hover:bg-blue-700"
             onClick={() => jobApplicationUtility.onApplyJob(props.job.id)}
           >
             Apply
-          </button>
+          </button> */}
         </div>
         <div className="flex justify-start items-center gap-2">
           <div className="flex items-center">
