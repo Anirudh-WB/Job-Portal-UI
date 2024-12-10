@@ -4,6 +4,7 @@ import {
   deleteAcademicInfoAsync,
   getAcademicInfoByUserIdAsync,
 } from "../../services/profile/AcademicInfoService";
+import { Bounce, toast } from "react-toastify";
 
 const AcademicInfoUtility = (loginUserId: number) => {
   const [academicInfos, setAcademicInfos] = useState<AcademicInfoModel[]>([]);
@@ -31,10 +32,31 @@ const AcademicInfoUtility = (loginUserId: number) => {
   };
 
   const onAcademicInfoDelete = async (id: number) => {
-    if (window.confirm("Are you SUAR you want to delete this Academic Info")) {
+    if (
+      window.confirm(
+        `Delete Academic Info of ${
+          academicInfos.find((acad) => acad.id === id)?.degree
+        }?`
+      )
+    ) {
       let response = await deleteAcademicInfoAsync(id);
       if (response.status === 200) {
         fetchAcademicInfo();
+        toast.success(`Academic Info Deleted`, {
+          // toastId: "academic__info__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+      } else {
+        toast.error(response.message, {
+          // toastId: "academic__info__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
       }
     }
   };

@@ -42,15 +42,7 @@ function ExperienceInfo({ loginUserId }: Props) {
                 />
               </button>
               <button
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      `Delete Experience of ${employment.designationName}`
-                    )
-                  ) {
-                    utility.onExperienceInfoDelete(employment.id);
-                  }
-                }}
+                onClick={() => utility.onExperienceInfoDelete(employment.id)}
               >
                 <FiTrash2 className="text-sm text-gray-700" />
               </button>

@@ -41,11 +41,7 @@ function AcademicInfo({ loginUserId }: Props) {
                 >
                   <FiEdit2 className="text-sm text-gray-700" />
                 </button>
-                <button
-                  onClick={() => {
-                    utility.onAcademicInfoDelete(edu.id);
-                  }}
-                >
+                <button onClick={() => utility.onAcademicInfoDelete(edu.id)}>
                   <FiTrash2 className="text-sm text-gray-700" />
                 </button>
                 {/* )} */}

@@ -4,6 +4,7 @@ import {
   getExperienceInfoByUserIdAsync,
 } from "../../services/profile/ExperienceInfoService";
 import ExperienceInfoViewModel from "../../model/profile/ExperienceInfoViewModel";
+import { Bounce, toast } from "react-toastify";
 
 const ExperienceInfoUtility = (loginUserId: number) => {
   const [experienceInfos, setExperienceInfos] = useState<
@@ -19,9 +20,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
     if (response.status === 200) {
       if (response.data !== null) {
         setExperienceInfos(response.data);
-        console.log("Data : ", experienceInfos);
       }
-    } else {
     }
   };
 
@@ -37,9 +36,32 @@ const ExperienceInfoUtility = (loginUserId: number) => {
   };
 
   const onExperienceInfoDelete = async (id: number) => {
-    let response = await deleteExperienceInfoAsync(id);
-    if (response.status === 200) {
-      fetchExperienceInfo();
+    if (
+      window.confirm(
+        `Delete Experience Info of ${
+          experienceInfos.find((exp) => exp.id === id)?.designationName
+        }?`
+      )
+    ) {
+      let response = await deleteExperienceInfoAsync(id);
+      if (response.status === 200) {
+        fetchExperienceInfo();
+        toast.success(`Experience Info Deleted`, {
+          // toastId: "experience__info__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+      } else {
+        toast.error(response.message, {
+          // toastId: "experience__info__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
     }
   };
 

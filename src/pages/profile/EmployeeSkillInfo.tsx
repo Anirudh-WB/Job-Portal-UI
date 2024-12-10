@@ -64,15 +64,7 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
 
                       {/* Delete Button */}
                       <button
-                        onClick={() => {
-                          if (
-                            window.confirm(
-                              `Are you sure you want to delete this skill ${skillInfo.skillName}`
-                            )
-                          ) {
-                            utility.onSkillInfoDelete(skillInfo.id);
-                          }
-                        }}
+                        onClick={() => utility.onSkillInfoDelete(skillInfo.id)}
                         className="w-1/2 flex items-center justify-center text-gray-700 hover:text-red-600"
                         aria-label="Delete Skill"
                       >
