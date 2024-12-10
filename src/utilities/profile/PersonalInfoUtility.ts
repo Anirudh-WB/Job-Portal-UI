@@ -90,41 +90,31 @@ const PersonalInfoUtility = (loginUserId: number) => {
       }
 
       response.status === 200
-        ? toast.success("Personal Info Saved", {
-            toastId: "personal__info__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
+        ? toast.success("Personal Info Updated", {
+            // toastId: "personal__info__toast",
             draggable: true,
             progress: undefined,
             theme: "colored",
             transition: Bounce,
           })
         : toast.error(response.message, {
-            toastId: "personal__info__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
+            // toastId: "personal__info__toast",
             draggable: true,
             progress: undefined,
             theme: "colored",
             transition: Bounce,
           });
-
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
     } else {
-      setSnackbarMessage("Fields marked in red are required");
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
+      toast.error("All conditions marked in red are compulsory", {
+        // toastId: "personal__info__toast",
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   };
+  
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
 

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import ExperienceInfoUtility from "../../utilities/profile/ExperienceInfoUtility";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import dayjs from "dayjs";
@@ -7,9 +6,6 @@ import ExperienceInfoModal from "./modals/ExperienceInfoModal";
 type Props = { loginUserId: number };
 
 function ExperienceInfo({ loginUserId }: Props) {
-  const [isExperienceInfoOpen, setIsExperienceInfoOpen] =
-    useState<boolean>(false);
-  const [experienceInfoId, setExperienceInfoId] = useState<number>(0);
   const utility = ExperienceInfoUtility(loginUserId);
 
   return (
@@ -25,7 +21,6 @@ function ExperienceInfo({ loginUserId }: Props) {
             className="font-semibold text-blue-700"
             onClick={() => {
               utility.onAddExperienceInfo();
-              setIsExperienceInfoOpen((prev) => !prev);
             }}
           >
             Add details
@@ -43,8 +38,6 @@ function ExperienceInfo({ loginUserId }: Props) {
                   className="text-sm text-gray-700"
                   onClick={() => {
                     utility.onExperienceInfoEdit(employment.id);
-                    setExperienceInfoId(employment.id);
-                    setIsExperienceInfoOpen((prev) => !prev);
                   }}
                 />
               </button>
@@ -94,10 +87,10 @@ function ExperienceInfo({ loginUserId }: Props) {
       </div>
 
       <ExperienceInfoModal
-        isExperienceInfoOpen={isExperienceInfoOpen}
-        setIsExperienceInfoOpen={setIsExperienceInfoOpen}
+        isExperienceInfoOpen={utility.isExperienceInfoOpen}
+        toggleModal={utility.toggleModal}
         loginUserId={loginUserId}
-        experienceInfoId={experienceInfoId}
+        experienceInfoId={utility.experienceInfoId}
       />
     </>
   );

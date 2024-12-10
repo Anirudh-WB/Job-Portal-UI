@@ -1,58 +1,26 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
+import React, { useEffect, useState } from "react";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import SkillModel from "../../model/master/SkillModel";
-import SkillDetailModel from "../../model/profile/SkillInfoModel";
 import ExportLevelModel from "../../model/master/ExportLevelModel";
 import { getExportLevels } from "../../services/master/ExportLevelService";
 import {
   createSkillInfoAsync,
-  deleteSkillInfoAsync,
   getSkillInfoAsync,
-  getSkillInfoByUserIdAsync,
   updateSkillInfoAsync,
 } from "../../services/profile/SkillInfoService";
 import SkillInfoModel from "../../model/profile/SkillInfoModel";
-import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
 import { getSkillsAsync } from "../../services/master/SkillService";
+import { Bounce, toast } from "react-toastify";
+import ApiResponse from "../../common/ApiResponse";
 
 const SkillInfoModalUtility = (
   loginUserId: number,
   employeeSkillInfoId: number
 ) => {
-  const initialPersonalInfo: PersonalInfoModel = {
-    id: 0,
-    firstName: "default",
-    lastName: "",
-    emailAddress: "tee@test.com",
-    mobileNumber: "1236897",
-    phoneNumber: "",
-    description: "",
-    isActive: true,
-    userId: loginUserId,
-  };
-
-  const [personalInfo, setPersonalInfo] =
-    useState<PersonalInfoModel>(initialPersonalInfo);
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>([]);
 
-  const [searchSkillTerm, setSearchSkillTerm] = useState("");
   const [skills, setSkills] = useState<SkillModel[]>([]);
   const [exportLevels, setExportLevels] = useState<ExportLevelModel[]>([]);
-
-  const initialSkillDetails: SkillDetailModel[] = Array.from(
-    { length: 8 },
-    (_, index) => ({
-      id: 0,
-      skillId: 0,
-      skillName: "",
-      expertLevelId: 2,
-      userId: loginUserId,
-    })
-  );
-
-  const [selectedSkillDetails, setSelectedSkillDetails] =
-    useState<SkillDetailModel[]>(initialSkillDetails);
 
   const intitalSkillInfo: SkillInfoModel = {
     id: 0,
@@ -62,18 +30,6 @@ const SkillInfoModalUtility = (
     userId: loginUserId,
   };
   const [skillInfo, setSkillInfo] = useState<SkillInfoModel>(intitalSkillInfo);
-  const [skillInfoViewModel, setSkillInfoViewModel] = useState<
-    SkillInfoViewModel[]
-  >([]);
-
-  const getSkillInfo = async () => {
-    const response = await getSkillInfoByUserIdAsync(loginUserId);
-    if (response.status === 200 && response.data) {
-      setSkillInfoViewModel(response.data);
-    } else {
-      setSkillInfoViewModel([]);
-    }
-  };
 
   useEffect(() => {
     const fetchSkills = async () => {
@@ -92,60 +48,7 @@ const SkillInfoModalUtility = (
 
     fetchSkills();
     fetchExportLevels();
-    getSkillInfo();
   }, [loginUserId]);
-
-  const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setPersonalInfo((prev) => ({ ...prev, [name]: value }));
-
-    setErrorInfo((prevErrors) =>
-      prevErrors.filter((error) => error.fieldName !== name)
-    );
-  };
-
-  // const onSkillInputChange = async (
-  //   event: SyntheticEvent<Element, Event>,
-  //   value: string
-  // ) => {
-  //   if (value.trim() !== "" && value.length >= 2) {
-  //     const response = await searchSkill(value);
-  //     if (response.status === 200 && response.data) {
-  //       const mappedData: SkillModel[] = response.data((item) => ({
-  //         id: item.id || 0,
-  //         skillName: item.skillName || "",
-  //       }));
-  //       setSkills(mappedData);
-  //     }
-  //   } else {
-  //     setSkills([]);
-  //   }
-  // };
-
-  const onSkillChange =
-    () =>
-    (
-      event: React.SyntheticEvent<Element, Event>,
-      newValue: SkillModel | null
-    ) => {
-      if (newValue) {
-        setSkillInfo((prev) => ({
-          ...prev,
-          skillId: newValue.id,
-          skillName: newValue.skillName,
-        }));
-
-        setErrorInfo((prevErrors) =>
-          prevErrors.filter((error) => error.fieldName !== "skillName")
-        );
-      } else {
-        setSkillInfo((prev) => ({
-          ...prev,
-          skillId: 0,
-          skillName: "",
-        }));
-      }
-    };
 
   const onSelectFieldChanged = (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -158,13 +61,9 @@ const SkillInfoModalUtility = (
     );
   };
 
-  const onAddSkillInfoSave = () => {
-    setSkillInfo(intitalSkillInfo);
-  };
-
   const onSkillInfoSave = async () => {
     if (isValidate()) {
-      let response;
+      let response: ApiResponse<SkillInfoModel>;
       if (skillInfo.id > 0) {
         response = await updateSkillInfoAsync(skillInfo, skillInfo.id);
       } else {
@@ -173,11 +72,50 @@ const SkillInfoModalUtility = (
 
       if (response?.status === 200) {
         setSkillInfo(intitalSkillInfo);
-        getSkillInfo();
-        return true;
       }
+
+      const isActive = toast.isActive("skill__info__toast");
+
+      if (isActive) {
+        toast.dismiss("skill__info__toast");
+      }
+
+      setTimeout(
+        () => {
+          response.status === 200
+            ? toast.success(
+                `Skill Info ${skillInfo.id > 0 ? "Updated" : "Saved"}`,
+                {
+                  toastId: "skill__info__toast",
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                  transition: Bounce,
+                }
+              )
+            : toast.error(response.message, {
+                toastId: "skill__info__toast",
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+              });
+        },
+        isActive ? 900 : 0
+      );
+
+      return true;
+    } else {
+      toast.error("All conditions marked in red are compulsory", {
+        toastId: "skill__info__toast",
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+
+      return false;
     }
-    return false;
   };
 
   useEffect(() => {
@@ -216,30 +154,13 @@ const SkillInfoModalUtility = (
     return newErrors.length === 0;
   };
 
-  const onSkillInfoDelete = async (id: number) => {
-    const response = await deleteSkillInfoAsync(id);
-    if (response.status === 200) {
-      getSkillInfo();
-    }
-  };
-
   return {
-    personalInfo,
-    setPersonalInfo,
-    onTextFieldChanged,
     onSkillInfoSave,
     errorInfo,
-    searchSkillTerm,
-    setSearchSkillTerm,
     skills,
-    onSkillChange,
-    selectedSkillDetails,
     onSelectFieldChanged,
     exportLevels,
     skillInfo,
-    skillInfoViewModel,
-    onSkillInfoDelete,
-    onAddSkillInfoSave,
   };
 };
 

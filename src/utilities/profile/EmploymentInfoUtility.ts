@@ -9,6 +9,7 @@ import { SelectChangeEvent, SnackbarOrigin } from "@mui/material";
 import NoticePeriodModel from "../../model/master/NoticePeriodModel";
 import EmploymentInfoModel from "../../model/profile/EmploymentInfoModel";
 import { getNoticePeriods } from "../../services/master/NoticePeriodService";
+import { Bounce, toast } from "react-toastify";
 
 const EmploymentInfoUtility = (loginUserId: number) => {
   //const userId = 1;
@@ -121,14 +122,29 @@ const EmploymentInfoUtility = (loginUserId: number) => {
         }
       }
 
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
+      response.status === 200
+        ? toast.success("Employment Info Updated", {
+            // toastId: "employment__info__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          })
+        : toast.error(response.message, {
+            // toastId: "employment__info__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
     } else {
-      setSnackbarMessage("Fields marked in red are required");
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
+      toast.error("All conditions marked in red are compulsory", {
+        // toastId: "employment__info__toast",
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   };
   const isValidate = () => {

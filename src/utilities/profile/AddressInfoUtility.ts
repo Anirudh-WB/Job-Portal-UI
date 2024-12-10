@@ -17,6 +17,7 @@ import {
   updateAddressInfoAsync,
 } from "../../services/profile/AddressInfoService";
 import { SnackbarOrigin } from "@mui/material";
+import { Bounce, toast } from "react-toastify";
 
 const AddressInfoUtility = (loginUserId: number) => {
   const intialAddressInfoModel: AddressInfoModel = {
@@ -168,14 +169,29 @@ const AddressInfoUtility = (loginUserId: number) => {
         }
       }
 
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
+      response.status === 200
+        ? toast.success("Address Info Updated", {
+            // toastId: "address__info__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          })
+        : toast.error(response.message, {
+            // toastId: "address__info__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
     } else {
-      setSnackbarMessage("Fields marked in red are required");
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
+      toast.error("All conditions marked in red are compulsory", {
+        // toastId: "address__info__toast",
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   };
   const isValidate = () => {
