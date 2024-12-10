@@ -1,7 +1,6 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import AcademicInfoUtility from "../../utilities/profile/AcademicInfoUtility";
 import AcademicInfoModal from "./modals/AcademicInfoModal";
-import { useParams } from "react-router-dom";
 
 type Props = { loginUserId: number; isRemoveCUD: boolean };
 

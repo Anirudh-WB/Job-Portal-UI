@@ -56,25 +56,30 @@ function ExperienceInfo({ loginUserId, isRemoveCUD }: Props) {
                 ? "Present"
                 : dayjs(employment.endDate).format("DD/MM/YYYY")}
             </p>
-            <p className="text-gray-900 text-sm">
-              {utility.isExpanded.includes(employment.id)
-                ? employment.description
-                : `${employment.description.slice(0, 200)}... `}
-              <button
-                onClick={() =>
-                  utility.setIsExpanded((prev) =>
-                    !prev.includes(employment.id)
-                      ? [employment.id, ...prev]
-                      : prev.filter((item) => item !== employment.id)
-                  )
-                }
-                className="text-blue-700 text-xs font-semibold"
-              >
-                {utility.isExpanded.includes(employment.id)
-                  ? "Read Less"
-                  : "Read More"}
-              </button>
-            </p>
+            {employment.description.length > 0 && (
+              <p className="text-gray-900 text-sm">
+                {utility.isExpanded.includes(employment.id) ||
+                employment.description.length < 200
+                  ? employment.description
+                  : `${employment.description.slice(0, 200)}... `}
+                {employment.description.length >= 200 && (
+                  <button
+                    onClick={() =>
+                      utility.setIsExpanded((prev) =>
+                        !prev.includes(employment.id)
+                          ? [employment.id, ...prev]
+                          : prev.filter((item) => item !== employment.id)
+                      )
+                    }
+                    className="text-blue-700 text-xs font-semibold"
+                  >
+                    {utility.isExpanded.includes(employment.id)
+                      ? "Read Less"
+                      : "Read More"}
+                  </button>
+                )}
+              </p>
+            )}
           </div>
         ))}
       </div>

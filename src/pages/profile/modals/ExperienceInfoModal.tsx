@@ -73,11 +73,15 @@ function ExperienceInfoModal({
 
                 {/* Designation */}
                 <div className="flex flex-col gap-2">
-                  <label className="font-semibold text-sm">
+                  <label
+                    className="font-semibold text-sm"
+                    htmlFor="designationId"
+                  >
                     Designation <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="designationId"
+                    id="designationId"
                     value={utility.experienceInfo.designationId}
                     onChange={utility.onSelectFieldChanged}
                   >
@@ -98,24 +102,35 @@ function ExperienceInfoModal({
                 </div>
 
                 {/* Checkbox */}
-                <label className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                   <input
                     type="checkbox"
                     name="isCurrentlyWorking"
+                    id="isCurrentlyWorking"
                     checked={utility.experienceInfo.isCurrentlyWorking}
                     onChange={utility.onCheckBoxFieldChange}
-                    className="form-checkbox"
+                    className="w-fit"
                   />
-                  I am currently working in this company
-                </label>
+                  <label
+                    className="flex items-center gap-2 w-fit"
+                    htmlFor="isCurrentlyWorking"
+                  >
+                    I am currently working in this company
+                  </label>
+                </div>
 
                 {/* Dates */}
                 <div className="flex gap-4">
                   <div className="w-1/2 flex flex-col gap-2">
-                    <label className="font-semibold text-sm">
+                    <label
+                      className="font-semibold text-sm"
+                      htmlFor="startDate"
+                    >
                       Start Date <span className="text-red-600">*</span>
                     </label>
                     <DatePicker
+                      name="startDate"
+                      id="startDate"
                       selected={
                         utility.experienceInfo.startDate
                           ? new Date(
@@ -129,13 +144,15 @@ function ExperienceInfoModal({
                     />
                   </div>
                   <div className="flex flex-col gap-2 w-1/2">
-                    <label className="font-semibold text-sm">
+                    <label className="font-semibold text-sm" htmlFor="endDate">
                       End Date{" "}
                       {!utility.experienceInfo.isCurrentlyWorking && (
                         <span className="text-red-600">*</span>
                       )}
                     </label>
                     <DatePicker
+                      name="endDate"
+                      id="endDate"
                       selected={
                         utility.experienceInfo.endDate
                           ? new Date(utility.experienceInfo.endDate.toString())
@@ -156,11 +173,15 @@ function ExperienceInfoModal({
 
                 {/* Description */}
                 <div className="flex flex-col gap-2">
-                  <label className="font-semibold text-sm">
-                    Description <span className="text-red-600">*</span>
+                  <label
+                    className="font-semibold text-sm"
+                    htmlFor="description"
+                  >
+                    Description
                   </label>
                   <textarea
                     name="description"
+                    id="description"
                     value={utility.experienceInfo.description}
                     onChange={utility.onTextAreaChanged}
                   />
