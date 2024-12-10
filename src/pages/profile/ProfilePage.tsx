@@ -6,6 +6,7 @@ import PersonalInfo from "./PersonalInfo";
 import QuickLinks from "./QuickLinks";
 import EmployeeSkillInfo from "./EmployeeSkillInfo";
 import { Bounce, ToastContainer } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const ProfilePage = () => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -15,24 +16,43 @@ const ProfilePage = () => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  // const loginUserId : number = getSessionValue("loginUserId");
-  //alert(loginUserId);
   let loginUserId: number = Number(getSessionValue("loginUserId"));
+  const params = useParams();
+  const paramId = params.id ? parseInt(params.id, 10) : 0;
 
   if (isNaN(loginUserId)) {
     // If loginUserId is not a valid number, assign 0 as the default value
     loginUserId = 0;
   }
+
+  const removeCUD = () => {
+    const userId = getSessionValue("loginUserId");
+    const userRole = getSessionValue("userRole");
+    return userId === paramId && userRole === "jobseaker";
+  };
+  const isRemoveCUD = removeCUD();
   return (
     <>
       <div className="py-10 px-48 flex flex-col gap-8">
-        <PersonalInfo loginUserId={loginUserId} />
+        <PersonalInfo
+          loginUserId={paramId ? paramId : loginUserId}
+          isRemoveCUD={isRemoveCUD}
+        />
         <div className="flex gap-8 w-full">
           <QuickLinks />
           <div className="flex flex-col flex-1 gap-5">
-            <AcademicInfo loginUserId={loginUserId} />
-            <ExperienceInfo loginUserId={loginUserId} />
-            <EmployeeSkillInfo loginUserId={loginUserId} />
+            <AcademicInfo
+              loginUserId={paramId ? paramId : loginUserId}
+              isRemoveCUD={isRemoveCUD}
+            />
+            <ExperienceInfo
+              loginUserId={paramId ? paramId : loginUserId}
+              isRemoveCUD={isRemoveCUD}
+            />
+            <EmployeeSkillInfo
+              loginUserId={paramId ? paramId : loginUserId}
+              isRemoveCUD={isRemoveCUD}
+            />
           </div>
         </div>
       </div>
