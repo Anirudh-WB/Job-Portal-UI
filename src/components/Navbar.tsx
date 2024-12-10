@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { BsBell } from "react-icons/bs";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { getSessionValue } from "../utilities/SessionStorageUtility";
@@ -10,6 +10,17 @@ type Props = {};
 function Navbar({}: Props) {
   const navigate = useNavigate();
   const utility = LoginUtility();
+
+
+  const userId = utility.loginUserId;
+  const userRole = getSessionValue("userRole"); 
+  const handleProfileClick = () => {
+    if (userRole === "jobseaker") {
+      navigate("/profile");
+    } else if (userRole === "company") {
+      navigate("/company-profile");
+    }
+  };
 
   return (
     <nav className="bg-white border-gray-200 shadow-lg w-full h-fit top-0 sticky z-40">
@@ -47,21 +58,17 @@ function Navbar({}: Props) {
           </svg>
         </button>
 
-        {utility.loginUserId ? (
+        {userId ? (
           <div
             id="navbar-menu"
             className="hidden w-full md:flex md:items-center md:w-auto"
           >
             <div className="mt-1 flex items-center gap-8 text-gray-500">
-              {/* <div className="relative">
-                <BsBell className="text-2xl" />
-                <span className="bg-red-600 text-white text-xs rounded-full px-1 absolute -top-1 -right-1">
-                  5
-                </span>
-              </div> */}
+              
+              {/* Profile & Logout */}
               <div className="border rounded-full flex items-center gap-4 px-2.5 py-2">
                 <HiOutlineMenuAlt2 className="text-2xl" />
-                <div className="relative" onClick={() => navigate("/profile")}>
+                <div className="relative" onClick={handleProfileClick}>
                   <img
                     src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
                     alt="profile_pic"
