@@ -7,6 +7,7 @@ import {
 import { getSessionValue } from "../SessionStorageUtility";
 import JobApplicationViewModel from "../../model/job/JobApplicationViewModel";
 import JobApplicationRequest from "../../model/job/JobApplicationRequest";
+import { Bounce, toast } from "react-toastify";
 
 const JobApplicationUtility = (
   jobApplicationRequest: JobApplicationRequest
@@ -47,8 +48,29 @@ const JobApplicationUtility = (
         id: 0,
       };
 
-      await createJobApplicationAsync(jobApplicationModel);
-    } catch (error) {
+      const res = await createJobApplicationAsync(jobApplicationModel);
+      res.status === 200
+        ? toast.success(res.message, {
+            toastId: "application__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          })
+        : toast.error(res.message, {
+          toastId: "application__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+    } catch (error: any) {
+      // Extract and show the error message from the response
+      const errorMessage =
+        error?.response?.data?.message ||
+        "Error applying for job. Please try again.";
+      toast.error(errorMessage);
+
       console.error("Error applying for job:", error);
     } finally {
       setLoading(false);
