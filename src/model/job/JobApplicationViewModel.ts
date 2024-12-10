@@ -1,15 +1,12 @@
 interface JobApplicationViewModel {
-    // id: number,
-    // jobId : number,
-    // userId : number,
-    // applyDate : Date
-
-   jobId:number, 
-   jobTitle:string, 
-   firstName:string,
-   lastName:string
-   companyName:string
-
-
+  userId: number;
+  jobId: number;
+  jobTitle: string;
+  firstName: string;
+  lastName: string;
+  companyName: string;
+  emailAddress: string;
+  mobileNumber: string;
+  createdAt: string;
 }
 export default JobApplicationViewModel;

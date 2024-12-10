@@ -50,6 +50,7 @@ function App() {
               path="/company-registration"
               element={<CompanyRegistration />}
             />
+            <Route path="/view-profile/:id" element={<ViewProfilePage />} />
 
             {/* Protected routes for role 1 */}
             <Route
@@ -78,7 +79,6 @@ function App() {
               element={<PrivateRoutes allowedRoles={["jobseaker", "admin"]} />}
             >
               <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/view-profile/:id?" element={<ViewProfilePage />} />
             </Route>
           </Routes>
         </div>
