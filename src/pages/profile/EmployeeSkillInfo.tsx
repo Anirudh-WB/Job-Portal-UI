@@ -2,10 +2,11 @@ import SkillInfoUtility from "../../utilities/profile/SkillInfoUtility";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import EmployeeSkillInfoModal from "./modals/EmployeeSkillInfoModal";
 
-type Props = { loginUserId: number };
+type Props = { loginUserId: number; isRemoveCUD: boolean };
 
-function EmployeeSkillInfo({ loginUserId }: Props) {
+function EmployeeSkillInfo({ loginUserId, isRemoveCUD }: Props) {
   const utility = SkillInfoUtility(loginUserId);
+  console.log(isRemoveCUD);
 
   return (
     <>
@@ -15,14 +16,16 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
           <h2 className="font-semibold text-lg" id="skill-info">
             IT Skills
           </h2>
-          <button
-            className="font-semibold text-blue-700"
-            onClick={() => {
-              utility.onAddSkillInfoSave();
-            }}
-          >
-            Add Details
-          </button>
+          {isRemoveCUD && (
+            <button
+              className="font-semibold text-blue-700"
+              onClick={() => {
+                utility.onAddSkillInfoSave();
+              }}
+            >
+              Add Details
+            </button>
+          )}
         </div>
 
         {/* Skills List */}
@@ -31,7 +34,13 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
             {/* Header Row */}
             <div className="border-b w-full flex py-1 text-gray-700">
               <h4 className="w-1/4">Skills</h4>
-              <h4 className="w-1/4 flex justify-center">Experience</h4>
+              <h4 className="w-1/4">Experience</h4>
+              {isRemoveCUD && (
+                <>
+                  <h4 className="w-1/4"></h4>
+                  <h4 className="w-1/4"></h4>
+                </>
+              )}
             </div>
 
             {/* Skills Data */}
@@ -42,35 +51,37 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
                     key={skillInfo.id}
                     className="flex items-center w-full py-2 border-b"
                   >
-                    {/* Skill Name */}
-                    <h4 className="w-1/2">{skillInfo.skillName}</h4>
-                    {/* Experience Level */}
-                    <h4 className="w-1/2 flex justify-center">
-                      {skillInfo.expertLevelName}
-                    </h4>
+                    <h5 className="w-1/4">{skillInfo.skillName}</h5>
+                    <h5 className="w-1/4">{skillInfo.expertLevelName}</h5>
 
-                    {/* Action Buttons */}
-                    <div className="w-full flex gap-2 ml-auto">
-                      {/* Edit Button */}
-                      <button
-                        onClick={() => {
-                          utility.onSkillInfoEdit(skillInfo.id);
-                        }}
-                        className="w-1/2 flex items-center justify-center text-gray-700 hover:text-blue-600"
-                        aria-label="Edit Skill"
-                      >
-                        <FiEdit2 className="text-sm" />
-                      </button>
-
-                      {/* Delete Button */}
-                      <button
-                        onClick={() => utility.onSkillInfoDelete(skillInfo.id)}
-                        className="w-1/2 flex items-center justify-center text-gray-700 hover:text-red-600"
-                        aria-label="Delete Skill"
-                      >
-                        <FiTrash2 className="text-sm" />
-                      </button>
-                    </div>
+                    {isRemoveCUD && (
+                      <>
+                        <h5 className="w-1/4 flex gap-2 ml-auto">
+                          {/* Edit Button */}
+                          <button
+                            onClick={() =>
+                              utility.onSkillInfoEdit(skillInfo.id)
+                            }
+                            className="w-1/2 flex items-center justify-center text-gray-700 hover:text-blue-600"
+                            aria-label="Edit Skill"
+                          >
+                            <FiEdit2 className="text-sm" />
+                          </button>
+                        </h5>
+                        <h5 className="w-1/4">
+                          {/* Delete Button */}
+                          <button
+                            onClick={() =>
+                              utility.onSkillInfoDelete(skillInfo.id)
+                            }
+                            className="w-1/2 flex items-center justify-center text-gray-700 hover:text-red-600"
+                            aria-label="Delete Skill"
+                          >
+                            <FiTrash2 className="text-sm" />
+                          </button>
+                        </h5>
+                      </>
+                    )}
                   </div>
                 ))
               ) : (

@@ -1,10 +1,11 @@
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import AcademicInfoUtility from "../../utilities/profile/AcademicInfoUtility";
 import AcademicInfoModal from "./modals/AcademicInfoModal";
+import { useParams } from "react-router-dom";
 
-type Props = { loginUserId: number };
+type Props = { loginUserId: number; isRemoveCUD: boolean };
 
-function AcademicInfo({ loginUserId }: Props) {
+function AcademicInfo({ loginUserId, isRemoveCUD }: Props) {
   const utility = AcademicInfoUtility(loginUserId);
 
   return (
@@ -14,16 +15,16 @@ function AcademicInfo({ loginUserId }: Props) {
           <h2 className="font-semibold text-lg" id="academic-info">
             Academics Info
           </h2>
-          {/* {hasAccess && ( */}
-          <button
-            className="text-blue-700 text-base font-semibold"
-            onClick={() => {
-              utility.onAddAcademicInfo();
-            }}
-          >
-            Add
-          </button>
-          {/* )} */}
+          {isRemoveCUD && (
+            <button
+              className="text-blue-700 text-base font-semibold"
+              onClick={() => {
+                utility.onAddAcademicInfo();
+              }}
+            >
+              Add
+            </button>
+          )}
         </div>
 
         <div className="flex flex-col gap-8">
@@ -33,18 +34,18 @@ function AcademicInfo({ loginUserId }: Props) {
                 <h3>
                   {edu.degree} from {edu.institutionName}
                 </h3>
-                {/* {hasAccess && ( */}
-                <button
-                  onClick={() => {
-                    utility.onAcademicInfoEdit(edu.id);
-                  }}
-                >
-                  <FiEdit2 className="text-sm text-gray-700" />
-                </button>
-                <button onClick={() => utility.onAcademicInfoDelete(edu.id)}>
-                  <FiTrash2 className="text-sm text-gray-700" />
-                </button>
-                {/* )} */}
+                {isRemoveCUD && (
+                  <>
+                    <button onClick={() => utility.onAcademicInfoEdit(edu.id)}>
+                      <FiEdit2 className="text-sm text-gray-700" />
+                    </button>
+                    <button
+                      onClick={() => utility.onAcademicInfoDelete(edu.id)}
+                    >
+                      <FiTrash2 className="text-sm text-gray-700" />
+                    </button>
+                  </>
+                )}
               </div>
               <h3 className="text-gray-500">
                 {edu.startYear} - {edu.endYear}

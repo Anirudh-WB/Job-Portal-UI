@@ -22,7 +22,6 @@ import JobsPage from "./pages/job/JobList/JobsPage";
 import TestTablePage from "./pages/job/TestTablePage";
 import JobSearchPage from "./pages/job/JobSearchPage";
 import JobApplicationsPage from "./pages/job/JobApplicationsPage";
-import ViewProfilePage from "./pages/profile/ViewProfilePage";
 import JobseekerRegistration from "./pages/auth/JobseekerRegistration";
 import CompanyRegistration from "./pages/auth/CompanyRegistration";
 import Navbar from "./components/Navbar";
@@ -50,7 +49,7 @@ function App() {
               path="/company-registration"
               element={<CompanyRegistration />}
             />
-            <Route path="/view-profile/:id" element={<ViewProfilePage />} />
+            <Route path="/profile/:id" element={<ProfilePage />} />
 
             {/* Protected routes for role 1 */}
             <Route

@@ -3,9 +3,9 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import dayjs from "dayjs";
 import ExperienceInfoModal from "./modals/ExperienceInfoModal";
 
-type Props = { loginUserId: number };
+type Props = { loginUserId: number; isRemoveCUD: boolean };
 
-function ExperienceInfo({ loginUserId }: Props) {
+function ExperienceInfo({ loginUserId, isRemoveCUD }: Props) {
   const utility = ExperienceInfoUtility(loginUserId);
 
   return (
@@ -16,37 +16,38 @@ function ExperienceInfo({ loginUserId }: Props) {
             Experience Info
           </h2>
 
-          {/* {hasAccess && ( */}
-          <button
-            className="font-semibold text-blue-700"
-            onClick={() => {
-              utility.onAddExperienceInfo();
-            }}
-          >
-            Add details
-          </button>
-          {/* )} */}
+          {isRemoveCUD && (
+            <button
+              className="font-semibold text-blue-700"
+              onClick={() => {
+                utility.onAddExperienceInfo();
+              }}
+            >
+              Add details
+            </button>
+          )}
         </div>
 
         {utility.experienceInfos.map((employment, index) => (
           <div key={index} className="flex flex-col gap-1">
             <div className="flex items-center gap-4">
               <h3 className="font-semibold">{employment.designationName}</h3>
-              {/* {hasAccess && ( */}
-              <button>
-                <FiEdit2
-                  className="text-sm text-gray-700"
-                  onClick={() => {
-                    utility.onExperienceInfoEdit(employment.id);
-                  }}
-                />
-              </button>
-              <button
-                onClick={() => utility.onExperienceInfoDelete(employment.id)}
-              >
-                <FiTrash2 className="text-sm text-gray-700" />
-              </button>
-              {/* )} */}
+              {isRemoveCUD && (
+                <>
+                  <button
+                    onClick={() => utility.onExperienceInfoEdit(employment.id)}
+                  >
+                    <FiEdit2 className="text-sm text-gray-700" />
+                  </button>
+                  <button
+                    onClick={() =>
+                      utility.onExperienceInfoDelete(employment.id)
+                    }
+                  >
+                    <FiTrash2 className="text-sm text-gray-700" />
+                  </button>
+                </>
+              )}
             </div>
             <h4>{employment.companyName}</h4>
             <p className="text-gray-500 text-sm">

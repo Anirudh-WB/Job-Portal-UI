@@ -28,7 +28,7 @@ const JobApplicationsPage = () => {
     return (
       <div className="py-64 px-40 flex flex-col items-center">
         <p className="text-lg font-semibold text-gray-500">
-          No job applications available.
+          No job applicants available.
         </p>
       </div>
     );
@@ -49,7 +49,7 @@ const JobApplicationsPage = () => {
           <div
             className="flex items-center gap-5 p-3 cursor-pointer hover:bg-slate-100 border shadow-md"
             key={row.jobId}
-            onClick={() => navigate(`/view-profile/${row.userId}`)}
+            onClick={() => navigate(`/profile/${row.userId}`)}
           >
             <h2 className="w-32 text-center">{index + 1}</h2>
             <h2 className="w-2/5">{row.firstName}</h2>

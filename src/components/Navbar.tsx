@@ -11,12 +11,11 @@ function Navbar({}: Props) {
   const navigate = useNavigate();
   const utility = LoginUtility();
 
-
   const userId = utility.loginUserId;
-  const userRole = getSessionValue("userRole"); 
+  const userRole = getSessionValue("userRole");
   const handleProfileClick = () => {
     if (userRole === "jobseaker") {
-      navigate("/profile");
+      navigate(`/profile/${userId}`);
     } else if (userRole === "company") {
       navigate("/company-profile");
     }
@@ -64,7 +63,6 @@ function Navbar({}: Props) {
             className="hidden w-full md:flex md:items-center md:w-auto"
           >
             <div className="mt-1 flex items-center gap-8 text-gray-500">
-              
               {/* Profile & Logout */}
               <div className="border rounded-full flex items-center gap-4 px-2.5 py-2">
                 <HiOutlineMenuAlt2 className="text-2xl" />

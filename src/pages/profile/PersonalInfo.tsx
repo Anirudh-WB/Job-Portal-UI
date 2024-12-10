@@ -14,9 +14,9 @@ import EmploymentInfoUtility from "../../utilities/profile/EmploymentInfoUtility
 import AddressInfoModal from "./modals/AddressInfoModal";
 import EmploymentInfoModal from "./modals/EmploymentInfoModal";
 
-type Props = { loginUserId: number };
+type Props = { loginUserId: number; isRemoveCUD: boolean };
 
-function PersonalInfo({ loginUserId }: Props) {
+function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
   const [isProfileHeaderOpen, setIsProfileHeaderOpen] = useState(false);
   const [isAddressInfoOpen, setIsAddressInfoOpen] = useState(false);
   const [isEmploymentInfoOpen, setIsEmploymentInfoOpen] = useState(false);
@@ -44,13 +44,13 @@ function PersonalInfo({ loginUserId }: Props) {
                     {utility.personalInfo.firstName}{" "}
                     {utility.personalInfo.lastName}
                   </h1>
-                  {/* {hasAccess && ( */}
-                  <button
-                    onClick={() => setIsProfileHeaderOpen((prev) => !prev)}
-                  >
-                    <FiEdit2 className="text-sm text-gray-700 mb-1" />
-                  </button>
-                  {/* )} */}
+                  {isRemoveCUD && (
+                    <button
+                      onClick={() => setIsProfileHeaderOpen((prev) => !prev)}
+                    >
+                      <FiEdit2 className="text-sm text-gray-700 mb-1" />
+                    </button>
+                  )}
                 </div>
                 <p className="font-semibold text-lg text-gray-700">
                   Team Lead
@@ -75,11 +75,11 @@ function PersonalInfo({ loginUserId }: Props) {
           <div className="flex flex-col gap-2 text-sm text-gray-700">
             <div className="flex items-end gap-2">
               <h3 className="text-base font-semibold">Address Info</h3>
-              {/* {hasAccess && ( */}
-              <button onClick={() => setIsAddressInfoOpen((prev) => !prev)}>
-                <FiEdit2 className="text-sm text-gray-700 mb-1" />
-              </button>
-              {/* )} */}
+              {isRemoveCUD && (
+                <button onClick={() => setIsAddressInfoOpen((prev) => !prev)}>
+                  <FiEdit2 className="text-sm text-gray-700 mb-1" />
+                </button>
+              )}
             </div>
             <div className="flex flex-col gap-2">
               <p className="flex items-center gap-2">
@@ -125,15 +125,15 @@ function PersonalInfo({ loginUserId }: Props) {
           <div className="flex flex-col gap-2 text-sm text-gray-700">
             <div className="flex items-end gap-2">
               <h3 className="text-base font-semibold">Employment Info</h3>
-              {/* {hasAccess && ( */}
-              <button
-                onClick={() =>
-                  setIsEmploymentInfoOpen((prev: boolean) => !prev)
-                }
-              >
-                <FiEdit2 className="text-sm text-gray-700 mb-1" />
-              </button>
-              {/* )} */}
+              {isRemoveCUD && (
+                <button
+                  onClick={() =>
+                    setIsEmploymentInfoOpen((prev: boolean) => !prev)
+                  }
+                >
+                  <FiEdit2 className="text-sm text-gray-700 mb-1" />
+                </button>
+              )}
             </div>
             <div className="flex justify-between">
               <p className="flex gap-1 items-center">
