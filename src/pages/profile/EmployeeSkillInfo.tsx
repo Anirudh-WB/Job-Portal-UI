@@ -59,9 +59,9 @@ function EmployeeSkillInfo({ loginUserId, isRemoveCUD }: Props) {
                         <h5 className="w-1/4 flex gap-2 ml-auto">
                           {/* Edit Button */}
                           <button
-                            onClick={() => {
-                              utility.onSkillInfoEdit(skillInfo.id);
-                            }}
+                            onClick={() =>
+                              utility.onSkillInfoEdit(skillInfo.id)
+                            }
                             className="w-1/2 flex items-center justify-center text-gray-700 hover:text-blue-600"
                             aria-label="Edit Skill"
                           >
@@ -71,15 +71,9 @@ function EmployeeSkillInfo({ loginUserId, isRemoveCUD }: Props) {
                         <h5 className="w-1/4">
                           {/* Delete Button */}
                           <button
-                            onClick={() => {
-                              if (
-                                window.confirm(
-                                  `Are you sure you want to delete this skill ${skillInfo.skillName}`
-                                )
-                              ) {
-                                utility.onSkillInfoDelete(skillInfo.id);
-                              }
-                            }}
+                            onClick={() =>
+                              utility.onSkillInfoDelete(skillInfo.id)
+                            }
                             className="w-1/2 flex items-center justify-center text-gray-700 hover:text-red-600"
                             aria-label="Delete Skill"
                           >

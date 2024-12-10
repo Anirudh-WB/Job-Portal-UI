@@ -36,17 +36,11 @@ function AcademicInfo({ loginUserId, isRemoveCUD }: Props) {
                 </h3>
                 {isRemoveCUD && (
                   <>
-                    <button
-                      onClick={() => {
-                        utility.onAcademicInfoEdit(edu.id);
-                      }}
-                    >
+                    <button onClick={() => utility.onAcademicInfoEdit(edu.id)}>
                       <FiEdit2 className="text-sm text-gray-700" />
                     </button>
                     <button
-                      onClick={() => {
-                        utility.onAcademicInfoDelete(edu.id);
-                      }}
+                      onClick={() => utility.onAcademicInfoDelete(edu.id)}
                     >
                       <FiTrash2 className="text-sm text-gray-700" />
                     </button>

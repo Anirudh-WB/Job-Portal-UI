@@ -34,24 +34,15 @@ function ExperienceInfo({ loginUserId, isRemoveCUD }: Props) {
               <h3 className="font-semibold">{employment.designationName}</h3>
               {isRemoveCUD && (
                 <>
-                  <button>
-                    <FiEdit2
-                      className="text-sm text-gray-700"
-                      onClick={() => {
-                        utility.onExperienceInfoEdit(employment.id);
-                      }}
-                    />
+                  <button
+                    onClick={() => utility.onExperienceInfoEdit(employment.id)}
+                  >
+                    <FiEdit2 className="text-sm text-gray-700" />
                   </button>
                   <button
-                    onClick={() => {
-                      if (
-                        window.confirm(
-                          `Delete Experience of ${employment.designationName}`
-                        )
-                      ) {
-                        utility.onExperienceInfoDelete(employment.id);
-                      }
-                    }}
+                    onClick={() =>
+                      utility.onExperienceInfoDelete(employment.id)
+                    }
                   >
                     <FiTrash2 className="text-sm text-gray-700" />
                   </button>

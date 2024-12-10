@@ -4,6 +4,7 @@ import {
   getSkillInfoByUserIdAsync,
 } from "../../services/profile/SkillInfoService";
 import SkillInfoViewModel from "../../model/profile/SkillInfoViewModel";
+import { Bounce, toast } from "react-toastify";
 
 const SkillInfoUtility = (loginUserId: number) => {
   const [isEmployeeSkillInfoOpen, setIsEmployeeSkillInfoOpen] =
@@ -40,10 +41,31 @@ const SkillInfoUtility = (loginUserId: number) => {
   };
 
   const onSkillInfoDelete = async (id: number) => {
-    if (window.confirm("Are you SUAR you want to delete this Academic Info")) {
+    if (
+      window.confirm(
+        `Delete Skill Info of ${
+          skillInfoViewModel.find((skill) => skill.id === id)?.skillName
+        }?`
+      )
+    ) {
       const response = await deleteSkillInfoAsync(id);
       if (response.status === 200) {
         getSkillInfo();
+        toast.success(`Skill Info Deleted`, {
+          toastId: "skill__info__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+      } else {
+        toast.error(response.message, {
+          toastId: "skill__info__toast",
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
       }
     }
   };
