@@ -7,23 +7,22 @@ import {
 } from "@headlessui/react";
 import { RiCloseLargeFill } from "react-icons/ri";
 import { Bounce, ToastContainer } from "react-toastify";
-import SkillInfoUtility from "../../../utilities/profile/SkillInfoUtility";
 import SkillInfoModalUtility from "../../../utilities/profile/SkillInfoModalUtility";
 
 type Props = {
   isEmployeeSkillInfoOpen: boolean;
-  setIsEmployeeSkillInfoOpen: any;
+  toggleModal: any;
   loginUserId: number;
   employeeSkillInfoId: number;
 };
 
 function EmployeeSkillInfoModal({
   isEmployeeSkillInfoOpen,
-  setIsEmployeeSkillInfoOpen,
+  toggleModal,
   loginUserId,
   employeeSkillInfoId,
 }: Props) {
-  const utility = SkillInfoModalUtility(loginUserId,employeeSkillInfoId);
+  const utility = SkillInfoModalUtility(loginUserId, employeeSkillInfoId);
 
   return (
     <>
@@ -31,18 +30,14 @@ function EmployeeSkillInfoModal({
         open={isEmployeeSkillInfoOpen}
         as="div"
         className="relative z-50 focus:outline-none"
-        onClose={() => setIsEmployeeSkillInfoOpen(false)}
+        onClose={toggleModal}
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30" />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel className="w-1/2 rounded-3xl bg-white p-10 backdrop-blur-2xl">
               <div className="flex justify-end w-full">
-                <CloseButton
-                  as="button"
-                  className="text-xl text-gray-500"
-                  onClick={() => setIsEmployeeSkillInfoOpen(false)}
-                >
+                <CloseButton as="button" className="text-xl text-gray-500">
                   <RiCloseLargeFill />
                 </CloseButton>
               </div>
@@ -53,18 +48,31 @@ function EmployeeSkillInfoModal({
               <div className="mt-4 flex flex-1 gap-5 w-full">
                 {/* Skill Selection */}
                 <div className="flex flex-col gap-2">
-                  <label className="font-semibold text-sm">
+                  <label className="font-semibold text-sm" htmlFor="skillId">
                     Skills <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="skillId"
-                    value={utility.skillInfo.skillId || ""}
+                    id="skillId"
+                    value={utility.skillInfo.skillId || 0}
                     onChange={utility.onSelectFieldChanged}
-                    className="outline-none border rounded-md p-2"
+                    className={`outline-none border rounded-md p-2 ${
+                      utility.errorInfo.find(
+                        (err) => err.fieldName === "skillId"
+                      )
+                        ? "border-red-500 text-red-500"
+                        : ""
+                    }`}
                   >
-                    <option value="">Select skills</option>
+                    <option value="" className="text-black">
+                      Select skills
+                    </option>
                     {utility.skills.map((skill) => (
-                      <option key={skill.id} value={skill.id}>
+                      <option
+                        key={skill.id}
+                        value={skill.id}
+                        className="text-black"
+                      >
                         {skill.skillName}
                       </option>
                     ))}
@@ -80,18 +88,34 @@ function EmployeeSkillInfoModal({
 
                 {/* Proficiency Level Selection */}
                 <div className="flex flex-col flex-1 gap-2">
-                  <label className="font-semibold text-sm">
+                  <label
+                    className="font-semibold text-sm"
+                    htmlFor="expertLevelId"
+                  >
                     Proficiency <span className="text-red-600">*</span>
                   </label>
                   <select
                     name="expertLevelId"
-                    value={utility.skillInfo.expertLevelId || ""}
+                    id="expertLevelId"
+                    value={utility.skillInfo.expertLevelId || 0}
                     onChange={utility.onSelectFieldChanged}
-                    className="outline-none border rounded-md p-2"
+                    className={`outline-none border rounded-md p-2 ${
+                      utility.errorInfo.find(
+                        (err) => err.fieldName === "expertLevelId"
+                      )
+                        ? "border-red-500 text-red-500"
+                        : ""
+                    }`}
                   >
-                    <option value="">Select proficiency</option>
+                    <option value="" className="text-black">
+                      Select proficiency
+                    </option>
                     {utility.exportLevels.map((level) => (
-                      <option key={level.id} value={level.id}>
+                      <option
+                        key={level.id}
+                        value={level.id}
+                        className="text-black"
+                      >
                         {level.exportLevelName}
                       </option>
                     ))}
@@ -107,17 +131,17 @@ function EmployeeSkillInfoModal({
               </div>
 
               <div className="mt-4 flex justify-end gap-10 font-semibold">
-                <button
-                  className="text-blue-700"
-                  onClick={() => setIsEmployeeSkillInfoOpen(false)}
-                >
+                <button className="text-blue-700" onClick={toggleModal}>
                   Cancel
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
                   onClick={() => {
-                    utility.onSkillInfoSave();
-                    setIsEmployeeSkillInfoOpen(false);
+                    utility.onSkillInfoSave().then((res) => {
+                      if (res) {
+                        toggleModal();
+                      }
+                    });
                   }}
                 >
                   Save
@@ -129,16 +153,8 @@ function EmployeeSkillInfoModal({
       </Dialog>
 
       <ToastContainer
-        containerId="employee__skill__info"
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
+        containerId="skill__info__toast"
         draggable
-        pauseOnHover
         theme="colored"
         transition={Bounce}
       />

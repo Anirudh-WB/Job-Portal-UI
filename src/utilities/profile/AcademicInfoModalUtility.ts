@@ -3,12 +3,10 @@ import AcademicInfoModel from "../../model/profile/AcademicInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import {
   createAcademicInfoAsync,
-  deleteAcademicInfoAsync,
   getAcademicInfoAsync,
   updateAcademicInfoAsync,
 } from "../../services/profile/AcademicInfoService";
-import { SnackbarOrigin } from "@mui/material";
-import AcademicInfoUtility from "./AcademicInfoUtility";
+import { Bounce, toast } from "react-toastify";
 
 function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
   const intialAcademicInfo: AcademicInfoModel = {
@@ -21,18 +19,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
     userId: loginUserId,
   };
   const initialErrors: FieldErrorModel[] = [];
-
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] =
-    React.useState<SnackbarOrigin>({
-      vertical: "top",
-      horizontal: "center",
-    });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
   const [academicInfo, setAcademicInfo] =
     useState<AcademicInfoModel>(intialAcademicInfo);
 
@@ -54,8 +40,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
     }
   }, [academicInfoId]);
 
-  const utility = AcademicInfoUtility(loginUserId);
-
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;
     const value = event.currentTarget.value;
@@ -75,23 +59,42 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
         response = await updateAcademicInfoAsync(academicInfo, academicInfo.id);
       } else {
         response = await createAcademicInfoAsync(academicInfo);
-        if (response.data != null) {
-          const responseData = response.data;
-          setAcademicInfo((prev) => ({ ...prev, id: responseData.id }));
-        }
       }
+
       if (response.status === 200) {
-        utility.fetchAcademicInfo();
         setAcademicInfo(intialAcademicInfo);
       }
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
-      setSnackbarMessage(response.message);
-      setSnackbarOpen(true);
-      setSnackbarSeverity(snackbarSeverity);
+
+      response.status === 200
+        ? toast.success(
+            `Academic Info ${academicInfo.id > 0 ? "Updated" : "Saved"}`,
+            {
+              // toastId: "academic__info__toast",
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Bounce,
+            }
+          )
+        : toast.error(response.message, {
+            // toastId: "academic__info__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+
+      return true;
     } else {
-      setSnackbarMessage("Fields marked in red are required");
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
+      toast.error("All conditions marked in red are compulsory", {
+        // toastId: "academic__info__toast",
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+
+      return false;
     }
   };
 
@@ -169,10 +172,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
     onTextFieldChanged,
     onAcademicInfoSave,
     errorInfo,
-    snackbarOpen,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
   };
 }
 

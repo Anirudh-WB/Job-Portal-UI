@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { GrLocation } from "react-icons/gr";
 import { FiPhone } from "react-icons/fi";
 import { MdMailOutline } from "react-icons/md";
-import { LuCalendar } from "react-icons/lu";
-import { CiWallet } from "react-icons/ci";
-import { IoBriefcaseOutline } from "react-icons/io5";
 import { FaTrainSubway } from "react-icons/fa6";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { FiEdit2 } from "react-icons/fi";
@@ -15,7 +12,7 @@ import PersonalInfoModal from "./modals/PersonalInfoModal";
 import AddressInfoUtility from "../../utilities/profile/AddressInfoUtility";
 import EmploymentInfoUtility from "../../utilities/profile/EmploymentInfoUtility";
 import AddressInfoModal from "./modals/AddressInfoModal";
-import EmploymentInfoModal from "./modals/EmploymentInfoModat";
+import EmploymentInfoModal from "./modals/EmploymentInfoModal";
 
 type Props = { loginUserId: number };
 

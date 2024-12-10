@@ -5,6 +5,7 @@ import ExperienceInfo from "./ExperienceInfo";
 import PersonalInfo from "./PersonalInfo";
 import QuickLinks from "./QuickLinks";
 import EmployeeSkillInfo from "./EmployeeSkillInfo";
+import { Bounce, ToastContainer } from "react-toastify";
 
 const ProfilePage = () => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -35,6 +36,13 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+
+      <ToastContainer
+        // containerId="personal__info__toast"
+        draggable
+        theme="colored"
+        transition={Bounce}
+      />
     </>
   );
 };

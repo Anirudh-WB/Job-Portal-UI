@@ -1,17 +1,10 @@
-import React, { useState } from "react";
 import SkillInfoUtility from "../../utilities/profile/SkillInfoUtility";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import EmployeeSkillInfoModal from "./modals/EmployeeSkillInfoModal";
-import SkillInfoModalUtility from "../../utilities/profile/SkillInfoModalUtility";
 
 type Props = { loginUserId: number };
 
 function EmployeeSkillInfo({ loginUserId }: Props) {
-  const [isEmployeeSkillInfoOpen, setIsEmployeeSkillInfoOpen] =
-    useState<boolean>(false);
-  const [employeeSkillInfoId, setEmployeeSkillInfoId] = useState<number>(0);
-
-  // Utility object for handling skill-related operations
   const utility = SkillInfoUtility(loginUserId);
 
   return (
@@ -26,7 +19,6 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
             className="font-semibold text-blue-700"
             onClick={() => {
               utility.onAddSkillInfoSave();
-              setIsEmployeeSkillInfoOpen((prev) => !prev);
             }}
           >
             Add Details
@@ -63,8 +55,6 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
                       <button
                         onClick={() => {
                           utility.onSkillInfoEdit(skillInfo.id);
-                          setEmployeeSkillInfoId(skillInfo.id);
-                          setIsEmployeeSkillInfoOpen((prev) => !prev);
                         }}
                         className="w-1/2 flex items-center justify-center text-gray-700 hover:text-blue-600"
                         aria-label="Edit Skill"
@@ -103,10 +93,10 @@ function EmployeeSkillInfo({ loginUserId }: Props) {
 
       {/* Modal */}
       <EmployeeSkillInfoModal
-        isEmployeeSkillInfoOpen={isEmployeeSkillInfoOpen}
-        setIsEmployeeSkillInfoOpen={setIsEmployeeSkillInfoOpen}
+        isEmployeeSkillInfoOpen={utility.isEmployeeSkillInfoOpen}
+        toggleModal={utility.toggleModal}
         loginUserId={loginUserId}
-        employeeSkillInfoId={employeeSkillInfoId}
+        employeeSkillInfoId={utility.employeeSkillInfoId}
       />
     </>
   );

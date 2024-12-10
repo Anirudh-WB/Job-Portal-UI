@@ -1,22 +1,15 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import CountryModel from "../../model/CountryModel";
-import CityModel from "../../model/master/CityModel";
-import TrainLineModel from "../../model/TrainLineModel";
 import dayjs from "dayjs";
 import ExperienceInfoModel from "../../model/profile/ExperienceInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { SelectChangeEvent } from "@mui/material/Select";
 import {
   createExperienceInfoAsync,
-  deleteExperienceInfoAsync,
   getExperienceInfoAsync,
-  getExperienceInfoByUserIdAsync,
   updateExperienceInfoAsync,
 } from "../../services/profile/ExperienceInfoService";
-import { SnackbarOrigin } from "@mui/material";
 import DesignationModel from "../../model/master/DesignationModel";
 import { getDesignations } from "../../services/master/DesignationService";
-import ExperienceInfoViewModel from "../../model/profile/ExperienceInfoViewModel";
+import { Bounce, toast } from "react-toastify";
 
 const ExperienceInfoModalUtility = (
   loginUserId: number,
@@ -36,14 +29,6 @@ const ExperienceInfoModalUtility = (
 
   const [experienceInfo, setExperienceInfo] =
     useState<ExperienceInfoModel>(intialExperienceInfo);
-
-  const [experienceInfoData, setExperienceInfosData] = useState<
-    ExperienceInfoViewModel[]
-  >([]);
-
-  const [experienceInfos, setExperienceInfos] = useState<
-    ExperienceInfoViewModel[]
-  >([]);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
@@ -127,20 +112,13 @@ const ExperienceInfoModalUtility = (
         setExperienceInfo(response.data);
       }
     };
+
     if (experienceInfoId > 0) {
       onExperienceInfoEdit(experienceInfoId);
+    } else {
+      setExperienceInfo(intialExperienceInfo);
     }
   }, [experienceInfoId]);
-
-  const onExperienceInfoDelete = async (id: number) => {
-    let response = await deleteExperienceInfoAsync(id);
-    if (response.status === 200) {
-    }
-  };
-
-  const onAddExperienceInfo = async () => {
-    setExperienceInfo(intialExperienceInfo);
-  };
 
   const onExperienceInfoSave = async () => {
     if (isValidate()) {
@@ -160,8 +138,37 @@ const ExperienceInfoModalUtility = (
       if (response.status === 200) {
         setExperienceInfo(intialExperienceInfo);
       }
-      const snackbarSeverity = response.status === 200 ? "success" : "error";
+
+      response.status === 200
+        ? toast.success(
+            `Experience Info ${experienceInfo.id > 0 ? "Updated" : "Saved"}`,
+            {
+              // toastId: "experience__info__toast",
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Bounce,
+            }
+          )
+        : toast.error(response.message, {
+            // toastId: "experience__info__toast",
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+
+      return true;
     } else {
+      toast.error("All conditions marked in red are compulsory", {
+        // toastId: "experience__info__toast",
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
+
+      return false;
     }
   };
 
@@ -210,7 +217,6 @@ const ExperienceInfoModalUtility = (
 
   return {
     experienceInfo,
-    experienceInfos,
     onTextFieldChanged,
     onSelectFieldChanged,
     onDateFieldChanged,
@@ -218,14 +224,9 @@ const ExperienceInfoModalUtility = (
     onCheckBoxFieldChange,
     onExperienceInfoSave,
     errorInfo,
-    onExperienceInfoDelete,
-    onAddExperienceInfo,
     designations,
     isExpanded,
     setIsExpanded,
-    setExperienceInfos,
-    experienceInfoData,
-    setExperienceInfosData,
   };
 };
 export default ExperienceInfoModalUtility;

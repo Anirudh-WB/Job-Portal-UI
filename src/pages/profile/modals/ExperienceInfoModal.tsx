@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogPanel,
@@ -9,20 +8,19 @@ import {
 import { RiCloseLargeFill } from "react-icons/ri";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import ExperienceInfoUtility from "../../../utilities/profile/ExperienceInfoUtility";
 import ExperienceInfoModalUtility from "../../../utilities/profile/ExperienceInfoModalUtility";
-import { getExperienceInfoByUserIdAsync } from "../../../services/profile/ExperienceInfoService";
+import { Bounce, ToastContainer } from "react-toastify";
 
 type Props = {
   isExperienceInfoOpen: boolean;
-  setIsExperienceInfoOpen: any;
+  toggleModal: any;
   loginUserId: number;
   experienceInfoId: number;
 };
 
 function ExperienceInfoModal({
   isExperienceInfoOpen,
-  setIsExperienceInfoOpen,
+  toggleModal,
   loginUserId,
   experienceInfoId,
 }: Props) {
@@ -34,18 +32,14 @@ function ExperienceInfoModal({
         open={isExperienceInfoOpen}
         as="div"
         className="relative z-50 focus:outline-none"
-        onClose={() => setIsExperienceInfoOpen((prev: boolean) => !prev)}
+        onClose={toggleModal}
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30" />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel className="w-1/2 rounded-3xl bg-white p-10">
               <div className="flex justify-end w-full">
-                <CloseButton
-                  as="button"
-                  className="text-xl text-gray-500"
-                  onClick={() => setIsExperienceInfoOpen(false)}
-                >
+                <CloseButton as="button" className="text-xl text-gray-500">
                   <RiCloseLargeFill />
                 </CloseButton>
               </div>
@@ -55,12 +49,16 @@ function ExperienceInfoModal({
               <div className="mt-4 flex flex-col gap-4">
                 {/* Company Name */}
                 <div className="flex flex-col gap-2">
-                  <label className="font-semibold text-sm">
+                  <label
+                    className="font-semibold text-sm"
+                    htmlFor="companyName"
+                  >
                     Company Name <span className="text-red-600">*</span>
                   </label>
                   <input
                     type="text"
                     name="companyName"
+                    id="companyName"
                     value={utility.experienceInfo.companyName}
                     onChange={utility.onTextFieldChanged}
                   />
@@ -171,17 +169,17 @@ function ExperienceInfoModal({
 
               {/* Buttons */}
               <div className="mt-4 flex justify-end gap-4">
-                <button
-                  className="text-blue-700"
-                  onClick={() => setIsExperienceInfoOpen(false)}
-                >
+                <button className="text-blue-700" onClick={toggleModal}>
                   Cancel
                 </button>
                 <button
                   className="bg-blue-600 text-white px-6 py-2 rounded-md"
                   onClick={() => {
-                    utility.onExperienceInfoSave();
-                    setIsExperienceInfoOpen(false);
+                    utility.onExperienceInfoSave().then((res) => {
+                      if (res) {
+                        toggleModal();
+                      }
+                    });
                   }}
                 >
                   Save
@@ -191,6 +189,13 @@ function ExperienceInfoModal({
           </div>
         </div>
       </Dialog>
+
+      <ToastContainer
+        containerId="experience__info__toast"
+        draggable
+        theme="colored"
+        transition={Bounce}
+      />
     </>
   );
 }
