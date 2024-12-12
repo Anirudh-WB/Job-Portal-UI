@@ -14,7 +14,7 @@ const formatDynamicErrorMessages = (
     .join(", ");
 };
 export const createPersonalInfoAsync = async (
-  personalInfo: PersonalInfoModel
+  personalInfo: FormData
 ): Promise<ApiResponse<PersonalInfoModel>> => {
   let result: ApiResponse<PersonalInfoModel> = {
     data: null,
@@ -32,7 +32,6 @@ export const createPersonalInfoAsync = async (
       };
     })
     .catch(function (error) {
-
       if (error.response) {
         if (error.response.data.errors) {
           //const dynamicErrorMessages = formatDynamicErrorMessages(error.response.data.errors);
@@ -61,7 +60,7 @@ export const createPersonalInfoAsync = async (
   return result;
 };
 export const updatePersonalInfoAsync = async (
-  personalInfo: PersonalInfoModel,
+  personalInfo: FormData,
   id: number
 ): Promise<ApiResponse<PersonalInfoModel>> => {
   let result: ApiResponse<PersonalInfoModel> = {
@@ -69,6 +68,10 @@ export const updatePersonalInfoAsync = async (
     status: 0,
     message: "",
   };
+
+  // const config = {
+  //   headers: { "content-type": "multipart/form-data" },
+  // };
 
   await axios
     .put(`${API_BASE_URL}/PersonalInfo/${id}`, personalInfo)
@@ -80,9 +83,7 @@ export const updatePersonalInfoAsync = async (
       };
     })
     .catch(function (error) {
-
       if (error.response) {
-
         if (error.response.data.errors) {
           //const dynamicErrorMessages = formatDynamicErrorMessages(error.response.data.errors);
           result = {

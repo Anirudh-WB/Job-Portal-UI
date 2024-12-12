@@ -1,4 +1,5 @@
 interface JobseekerRegistrationModel {
+    profilePic: File | null;
     firstName: string;
     lastName :string;
     emailAddress:string;

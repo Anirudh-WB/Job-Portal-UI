@@ -21,7 +21,7 @@ function PersonalInfoModal({
   setIsProfileHeaderOpen,
   loginUserId,
 }: Props) {
-  const utility = PersonalInfoUtility(loginUserId);
+  const utility = PersonalInfoUtility({ loginUserId });
 
   return (
     <>
@@ -48,123 +48,152 @@ function PersonalInfoModal({
                 Basic Details
               </DialogTitle>
 
-              <div className="mt-4 flex flex-col gap-5">
-                <div className="flex gap-2">
-                  <div className="w-1/2 flex flex-col gap-1.5">
+              <form
+                onSubmit={(e) => {
+                  utility.handleSubmit(e);
+                  setIsProfileHeaderOpen((prev: boolean) => !prev);
+                }}
+              >
+                <div className="mt-4 flex flex-col gap-5">
+                  <div className="w-full flex flex-col gap-1.5">
                     <h3 className="text-base font-semibold">
-                      First Name <span className="text-red-600">*</span>
+                      Profile Pic <span className="text-red-600">*</span>
                     </h3>
+                    <div className="flex gap-2">
+                      <div className="rounded-full h-20 w-24">
+                        <img
+                          src={`data:image/png;base64,${utility.personalInfo.profilePic}`}
+                          alt="profile-pic"
+                          className="rounded-full h-full object-cover object-center"
+                        />
+                      </div>
+                      <input
+                        type="file"
+                        id="proifilePic"
+                        name="proifilePic"
+                        className="peer"
+                        onChange={utility.onFileChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="w-1/2 flex flex-col gap-1.5">
+                      <h3 className="text-base font-semibold">
+                        First Name <span className="text-red-600">*</span>
+                      </h3>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={utility.personalInfo.firstName}
+                          id="firstName"
+                          name="firstName"
+                          className="peer"
+                          onChange={utility.onTextFieldChanged}
+                        />
+                        <label
+                          htmlFor="firstName"
+                          className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                        >
+                          First Name
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="w-1/2 flex flex-col gap-1.5">
+                      <h3 className="text-base font-semibold">
+                        Last Name <span className="text-red-600">*</span>
+                      </h3>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={utility.personalInfo.lastName}
+                          id="lastName"
+                          name="lastName"
+                          className="peer"
+                          onChange={utility.onTextFieldChanged}
+                        />
+                        <label
+                          htmlFor="lastName"
+                          className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
+                        >
+                          Last Name
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <span className="text-base font-semibold">
+                      Mobile Number <span className="text-red-600">*</span>
+                    </span>
+                    <span className="text-sm font-semibold text-gray-500">
+                      This helps us reach out to you
+                    </span>
                     <div className="relative">
                       <input
-                        type="text"
-                        value={utility.personalInfo.firstName}
-                        id="firstName"
-                        name="firstName"
+                        type="number"
+                        id="mobileNumber"
+                        name="mobileNumber"
                         className="peer"
+                        value={utility.personalInfo.mobileNumber}
                         onChange={utility.onTextFieldChanged}
                       />
                       <label
-                        htmlFor="firstName"
+                        htmlFor="mobileNumber"
                         className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
                       >
-                        First Name
+                        Conatact No.
                       </label>
                     </div>
                   </div>
 
-                  <div className="w-1/2 flex flex-col gap-1.5">
-                    <h3 className="text-base font-semibold">
-                      Last Name <span className="text-red-600">*</span>
-                    </h3>
+                  <div className="flex flex-col gap-2">
+                    <span className="text-base font-semibold">
+                      Email Address <span className="text-red-600">*</span>
+                    </span>
+                    <span className="text-sm font-semibold text-gray-500">
+                      We will send relevant jobs and updates to this email
+                    </span>
                     <div className="relative">
                       <input
                         type="text"
-                        value={utility.personalInfo.lastName}
-                        id="lastName"
-                        name="lastName"
+                        id="emailAddress"
+                        name="emailAddress"
                         className="peer"
+                        value={utility.personalInfo.emailAddress}
                         onChange={utility.onTextFieldChanged}
                       />
                       <label
-                        htmlFor="lastName"
+                        htmlFor="emailAddress"
                         className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
                       >
-                        Last Name
+                        Email
                       </label>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <span className="text-base font-semibold">
-                    Mobile Number <span className="text-red-600">*</span>
-                  </span>
-                  <span className="text-sm font-semibold text-gray-500">
-                    This helps us reach out to you
-                  </span>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      id="mobileNumber"
-                      name="mobileNumber"
-                      className="peer"
-                      value={utility.personalInfo.mobileNumber}
-                      onChange={utility.onTextFieldChanged}
-                    />
-                    <label
-                      htmlFor="mobileNumber"
-                      className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                    >
-                      Conatact No.
-                    </label>
-                  </div>
+                <div className="mt-4 flex justify-end gap-10 font-semibold">
+                  <button
+                    className="text-blue-700"
+                    onClick={() =>
+                      setIsProfileHeaderOpen((prev: boolean) => !prev)
+                    }
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="text-white bg-blue-600 px-7 py-2 rounded-full"
+                    // onClick={async () => {
+                    //   await utility.onPersonalInfoSave();
+                    //   await setIsProfileHeaderOpen((prev: boolean) => !prev);
+                    // }}
+                  >
+                    Save
+                  </button>
                 </div>
-
-                <div className="flex flex-col gap-2">
-                  <span className="text-base font-semibold">
-                    Email Address <span className="text-red-600">*</span>
-                  </span>
-                  <span className="text-sm font-semibold text-gray-500">
-                    We will send relevant jobs and updates to this email
-                  </span>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="emailAddress"
-                      name="emailAddress"
-                      className="peer"
-                      value={utility.personalInfo.emailAddress}
-                      onChange={utility.onTextFieldChanged}
-                    />
-                    <label
-                      htmlFor="emailAddress"
-                      className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-                    >
-                      Email
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-4 flex justify-end gap-10 font-semibold">
-                <button
-                  className="text-blue-700"
-                  onClick={() =>
-                    setIsProfileHeaderOpen((prev: boolean) => !prev)
-                  }
-                >
-                  Cancel
-                </button>
-                <button
-                  className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                  onClick={async () => {
-                    await utility.onPersonalInfoSave();
-                    await setIsProfileHeaderOpen((prev: boolean) => !prev);
-                  }}
-                >
-                  Save
-                </button>
-              </div>
+              </form>
             </DialogPanel>
           </div>
         </div>
