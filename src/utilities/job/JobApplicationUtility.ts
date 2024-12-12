@@ -12,7 +12,6 @@ import { Bounce, toast } from "react-toastify";
 const JobApplicationUtility = (
   jobApplicationRequest: JobApplicationRequest
 ) => {
-  const [jobApplication, setJobApplication] = useState<JobApplicationModel>();
   const [jobApplications, setJobApplications] = useState<
     JobApplicationViewModel[]
   >([]);
@@ -35,7 +34,7 @@ const JobApplicationUtility = (
     }
 
     fetchJobApplicationsAsync();
-  }, [jobApplicationRequest.jobId]);
+  }, [jobApplicationRequest]);
 
   const onApplyJob = async (id: number) => {
     setLoading(true);
@@ -91,7 +90,6 @@ const JobApplicationUtility = (
   };
 
   return {
-    jobApplication,
     onJobApplicationSave,
     onApplyJob,
     jobApplications,
