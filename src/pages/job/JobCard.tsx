@@ -2,8 +2,6 @@ import React from "react";
 import { FaTrain } from "react-icons/fa6";
 import { BiRupee } from "react-icons/bi";
 import JobSearchResultModel from "../../model/job/JobSearchResultModel";
-import JobApplicationUtility from "../../utilities/job/JobApplicationUtility";
-import JobApplicationRequest from "../../model/job/JobApplicationRequest";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
@@ -12,10 +10,6 @@ type Props = {
 
 const JobCard = (props: Props) => {
   const navigate = useNavigate();
-  const jobApplicationRequest: JobApplicationRequest = {
-    jobId: 0,
-  };
-  const jobApplicationUtility = JobApplicationUtility(jobApplicationRequest);
 
   return (
     <>

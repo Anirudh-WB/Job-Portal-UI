@@ -1,12 +1,8 @@
-import React from "react";
-import { PiHandbagSimple } from "react-icons/pi";
 import { BiRupee } from "react-icons/bi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useNavigate, useParams } from "react-router-dom";
 import JobDetailsUtility from "../../../utilities/job/JobDetailsUtility";
 import { FaTrain } from "react-icons/fa6";
-import JobInfoUtility from "../../../utilities/job/JobInfoUtility";
-import JobCityUtility from "../../../utilities/job/JobCityUtility";
 import { GiSkills } from "react-icons/gi";
 import JobApplicationRequest from "../../../model/job/JobApplicationRequest";
 import JobApplicationUtility from "../../../utilities/job/JobApplicationUtility";
@@ -22,7 +18,6 @@ function SingleJobs() {
     jobId: 0,
   };
   const jobApplicationUtility = JobApplicationUtility(jobApplicationRequest);
-  const cities = JobCityUtility(paramId);
 
   // Simulate loginUserId (replace with actual implementation)
   const loginUserId = localStorage.getItem("loginUserId"); // Example: Retrieve from localStorage

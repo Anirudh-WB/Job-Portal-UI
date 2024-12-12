@@ -1,12 +1,3 @@
-import {
-  RichTextEditorProvider,
-  RichTextField,
-  MenuButtonBold,
-  MenuButtonItalic,
-  MenuControlsContainer,
-  MenuDivider,
-  MenuSelectHeading,
-} from "mui-tiptap";
 import React from "react";
 import "../../../css/Richtexteditor.css";
 import JobInfoUtility from "../../../utilities/job/JobInfoUtility";
