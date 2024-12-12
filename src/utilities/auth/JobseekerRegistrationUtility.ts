@@ -5,16 +5,20 @@ import { SnackbarOrigin } from "@mui/material";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 import { createJobseekerRegistrationAsync } from "../../services/auth/JobseekerRegistrationService";
 import { Bounce, toast } from "react-toastify";
+
 const initialJobseekerRegistration: JobseekerRegistrationModel = {
-  emailAddress: "test@test.com",
-  firstName: "a",
-  lastName: "a",
-  password: "Abcd@1234",
+  profilePic: null,
+  emailAddress: "",
+  firstName: "",
+  lastName: "",
+  password: "",
   roleId: 7,
-  mobileNo: "a",
-  confirmPassword: "Abcd@1234",
+  mobileNo: "",
+  confirmPassword: "",
 };
+
 const initialErrors: FieldErrorModel[] = [];
+
 const JobseekerRegistrationUtility = () => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
@@ -30,108 +34,106 @@ const JobseekerRegistrationUtility = () => {
     useState<JobseekerRegistrationModel>(initialJobseekerRegistration);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
+
   const handleSnackbarClose = (
     event: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
+    if (reason === "clickaway") return;
     setSnackbarOpen(false);
   };
-  const onJobseekerRegistration = async () => {
+
+  const onJobseekerRegistration = async (formData: FormData) => {
     if (isValidate()) {
       const response = await createJobseekerRegistrationAsync(
-        jobseekerRegistration
+        formData
       );
-      // if (response.data != null && response.status === 200 ) {
 
-      // }else{
+      if (response.status === 200) {
+        toast.success(response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+      } else {
+        toast.error(response.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
+    }
+  };
 
-      // }
-
-      response.status === 200
-        ? toast.success(response.message, {
-            // toastId: "jobseeker__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          })
-        : toast.error(response.message, {
-            // toastId: "jobseeker__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setJobseekerRegistration((previous) => ({
+          ...previous,
+          profilePic: file, // Set the base64 string
+        }));
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const onTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const name = event.target.name;
-    const value = event.currentTarget.value;
+    const { name, value } = event.target;
     setJobseekerRegistration((previous) => ({ ...previous, [name]: value }));
 
-    setErrorInfo((previous) => {
-      if (value !== "") {
-        return previous.filter((error) => error.fieldName !== name);
-      }
-      return previous;
-    });
+    // Remove error if field is valid
+    setErrorInfo((previous) =>
+      value !== ""
+        ? previous.filter((error) => error.fieldName !== name)
+        : previous
+    );
   };
 
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
-    if (jobseekerRegistration.firstName === "") {
+
+    if (!jobseekerRegistration.profilePic) {
       newErrors.push({
-        fieldName: "firstName",
-        errorMessage: "Enter first name",
+        fieldName: "profilePic",
+        errorMessage: "Select a profile picture",
       });
     }
-    if (jobseekerRegistration.lastName === "") {
-      newErrors.push({
-        fieldName: "lastName",
-        errorMessage: "Enter last name",
-      });
+    if (!jobseekerRegistration.firstName) {
+      newErrors.push({ fieldName: "firstName", errorMessage: "Enter first name" });
     }
-    if (jobseekerRegistration.mobileNo === "") {
-      newErrors.push({
-        fieldName: "mobileNo",
-        errorMessage: "Enter mobile number",
-      });
+    if (!jobseekerRegistration.lastName) {
+      newErrors.push({ fieldName: "lastName", errorMessage: "Enter last name" });
     }
-    if (jobseekerRegistration.emailAddress === "") {
+    if (!jobseekerRegistration.mobileNo) {
+      newErrors.push({ fieldName: "mobileNo", errorMessage: "Enter mobile number" });
+    }
+    if (!jobseekerRegistration.emailAddress) {
       newErrors.push({
         fieldName: "emailAddress",
         errorMessage: "Enter email address",
       });
-    } else {
-      if (!isValidEmailAddress(jobseekerRegistration.emailAddress)) {
-        newErrors.push({
-          fieldName: "emailAddress",
-          errorMessage: "Enter valid email address",
-        });
-      }
-    }
-    if (jobseekerRegistration.password === "") {
+    } else if (!isValidEmailAddress(jobseekerRegistration.emailAddress)) {
       newErrors.push({
-        fieldName: "password",
-        errorMessage: "Enter password",
+        fieldName: "emailAddress",
+        errorMessage: "Enter a valid email address",
       });
     }
-    if (jobseekerRegistration.confirmPassword === "") {
+    if (!jobseekerRegistration.password) {
+      newErrors.push({ fieldName: "password", errorMessage: "Enter password" });
+    }
+    if (!jobseekerRegistration.confirmPassword) {
       newErrors.push({
         fieldName: "confirmPassword",
         errorMessage: "Enter confirm password",
@@ -139,34 +141,26 @@ const JobseekerRegistrationUtility = () => {
     }
 
     if (
-      jobseekerRegistration.confirmPassword !== "" &&
-      jobseekerRegistration.password !== ""
+      jobseekerRegistration.password &&
+      jobseekerRegistration.confirmPassword
     ) {
-      // Regex for password validation: Minimum 5 characters, at least one letter, one uppercase letter, one number, and one special character
-      //const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{5,}$/;
       const passwordRegex =
-        /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>[\]\\\/\-_\+;]).{5,}$/;
+        /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>[\]\\/\-_+;]).{5,}$/;
 
-      if (
-        jobseekerRegistration.confirmPassword !== jobseekerRegistration.password
-      ) {
-        newErrors.push({
-          fieldName: "confirmPassword",
-          errorMessage: "Password not match",
-        });
+      if (jobseekerRegistration.password !== jobseekerRegistration.confirmPassword) {
         newErrors.push({
           fieldName: "password",
-          errorMessage: "Password not match",
+          errorMessage: "Passwords do not match",
         });
-      }
-
-      // Regex for password validation: Minimum 5 characters, at least one letter, one uppercase letter, one number, and one special character
-      // const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{5,}$/;
-      if (!passwordRegex.test(jobseekerRegistration.password)) {
+        newErrors.push({
+          fieldName: "confirmPassword",
+          errorMessage: "Passwords do not match",
+        });
+      } else if (!passwordRegex.test(jobseekerRegistration.password)) {
         newErrors.push({
           fieldName: "password",
           errorMessage:
-            "Password must be at least 5 characters long, contain at least one letter, one uppercase letter, one number, and one special character",
+            "Password must be at least 5 characters long, contain at least one uppercase letter, one number, and one special character",
         });
       }
     }
@@ -175,9 +169,25 @@ const JobseekerRegistrationUtility = () => {
     return newErrors.length === 0;
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Create a FormData object
+    const formData = new FormData();
+
+    // Append form fields
+    Object.entries(jobseekerRegistration).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    // Call the utility function to handle form submission
+    onJobseekerRegistration(formData);
+  };
+
   return {
     jobseekerRegistration,
     onJobseekerRegistration,
+    onFileChange,
     onTextFieldChange,
     errorInfo,
     snackbarOpen,
@@ -185,7 +195,8 @@ const JobseekerRegistrationUtility = () => {
     snackbarMessage,
     snackbarPosition,
     snackbarSeverity,
+    handleSubmit,
   };
 };
+
 export default JobseekerRegistrationUtility;
-//export default JobseekerRegistrationService;

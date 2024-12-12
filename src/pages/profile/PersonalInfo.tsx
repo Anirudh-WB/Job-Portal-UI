@@ -21,18 +21,18 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
   const [isAddressInfoOpen, setIsAddressInfoOpen] = useState(false);
   const [isEmploymentInfoOpen, setIsEmploymentInfoOpen] = useState(false);
 
-  const utility = PersonalInfoUtility(loginUserId);
+  const utility = PersonalInfoUtility({loginUserId});
   const addressInfoUtility = AddressInfoUtility(loginUserId);
   const employmentInfoUtility = EmploymentInfoUtility(loginUserId);
 
   return (
     <>
       <div className="bg-white p-6 px-8 shadow-lg rounded-2xl flex items-center justify-center gap-8">
-        <div className="rounded-full">
+        <div className="rounded-full aspect-square h-52">
           <img
-            src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
+            src={`data:image/png;base64,${utility.personalInfo.profilePic}`}
             alt="profile-pic"
-            className="rounded-full h-52 w-52"
+            className="rounded-full h-full object-cover object-center"
           />
         </div>
         <div className="flex flex-col gap-4 w-4/5">
@@ -52,13 +52,17 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
                     </button>
                   )}
                 </div>
-                <p className="font-semibold text-lg text-gray-700">
-                  Team Lead
-                  {/* {utility.personalInfo.currentPosition} */}
-                </p>
                 <p className="text-gray-700">
-                  at WOnderBiz
-                  {/* at {utility.personalInfo.currentCompany} */}
+                  {utility.experienceInfo.length > 0
+                    ? utility.experienceInfo[0].designationName
+                    : "No designation available"}
+                </p>
+
+                <p className="text-gray-700">
+                  at{" "}
+                  {utility.experienceInfo.length > 0
+                    ? utility.experienceInfo[0].companyName
+                    : "No designation available"}
                 </p>
               </div>
             </div>

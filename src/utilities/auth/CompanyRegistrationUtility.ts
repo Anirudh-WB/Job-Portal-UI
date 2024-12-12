@@ -8,12 +8,12 @@ import CompanyRegistrationModel from "../../model/auth/CompanyRegistrationModel"
 import { createCompanyRegistrationAsync } from "../../services/auth/CompanyRegistrationService";
 import { Bounce, toast } from "react-toastify";
 const initialCompanyRegistration: CompanyRegistrationModel = {
-  emailAddress: "test@test.com",
-  companyName: "a",
-  password: "a",
+  emailAddress: "",
+  companyName: "",
+  password: "",
   roleId: 8,
-  mobileNo: "a",
-  confirmPassword: "a",
+  mobileNo: "",
+  confirmPassword: "",
 };
 const initialErrors: FieldErrorModel[] = [];
 const CompanyRegistrationUtility = () => {
