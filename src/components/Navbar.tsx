@@ -1,9 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BsBell } from "react-icons/bs";
+import { FaAngleDown } from "react-icons/fa";
+import { TbUserSearch } from "react-icons/tb";
+import { GoOrganization } from "react-icons/go";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import { getSessionValue } from "../utilities/SessionStorageUtility";
 import LoginUtility from "../utilities/LoginUtility";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
 type Props = {};
 
@@ -66,15 +69,12 @@ function Navbar({}: Props) {
               {/* Profile & Logout */}
               <div className="border rounded-full flex items-center gap-4 px-2.5 py-2">
                 <HiOutlineMenuAlt2 className="text-2xl" />
-                <div className="relative" onClick={handleProfileClick}>
+                <div onClick={handleProfileClick}>
                   <img
                     src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
                     alt="profile_pic"
                     className="h-7 w-7 object-center rounded-full cursor-pointer"
                   />
-                  <span className="bg-red-600 text-white text-xs rounded-full px-1 absolute -top-1 -right-1">
-                    2
-                  </span>
                 </div>
               </div>
               <button
@@ -97,6 +97,35 @@ function Navbar({}: Props) {
               >
                 Login
               </Link>
+              <Menu>
+                <MenuButton className="inline-flex items-center gap-2 rounded-full bg-red-500 py-2.5 px-5 text-sm font-medium text-white outline-none data-[hover]:bg-red-600 data-[open]:bg-red-600 data-[focus]:outline-1 data-[focus]:outline-white">
+                  Register
+                  <FaAngleDown />
+                </MenuButton>
+
+                <MenuItems
+                  transition
+                  anchor="bottom"
+                  className="w-fit origin-top-right rounded-xl border border-white/5 bg-red-500 p-1 text-sm text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"
+                >
+                  <MenuItem>
+                    <Link
+                      to="/company-registration"
+                      className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/20"
+                    >
+                      <GoOrganization /> Company
+                    </Link>
+                  </MenuItem>
+                  <MenuItem>
+                    <Link
+                      to="/jobseeker-registration"
+                      className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/20"
+                    >
+                      <TbUserSearch /> JobSeaker
+                    </Link>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
             </div>
           </div>
         )}
