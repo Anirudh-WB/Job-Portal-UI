@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PersonalInfoModel from "../../model/profile/PersonalInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
@@ -7,7 +7,6 @@ import {
   getPersonalInfoByUserIdAsync,
   updatePersonalInfoAsync,
 } from "../../services/profile/PersonalInfoService";
-import { SnackbarOrigin } from "@mui/material";
 import { Bounce, toast } from "react-toastify";
 import { getExperienceInfoByUserIdAsync } from "../../services/profile/ExperienceInfoService";
 import ExperienceInfoViewModel from "../../model/profile/ExperienceInfoViewModel";
@@ -37,28 +36,6 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     ExperienceInfoViewModel[]
   >([]);
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
-
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] =
-    React.useState<SnackbarOrigin>({
-      vertical: "top",
-      horizontal: "center",
-    });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackbarOpen(false);
-  };
 
   useEffect(() => {
     getPersonalInfo(loginUserId);
@@ -137,7 +114,6 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
         let response;
 
         const id = Number(data.get("id"));
-        
 
         if (id > 0) {
           // console.log("DATA :",typeof formDataObject);
@@ -236,11 +212,6 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     onTextFieldChanged,
     onPersonalInfoSave,
     errorInfo,
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
     handleSubmit,
   };
 };

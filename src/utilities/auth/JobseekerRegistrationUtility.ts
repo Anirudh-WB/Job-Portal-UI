@@ -1,7 +1,6 @@
 import { useState } from "react";
 import JobseekerRegistrationModel from "../../model/auth/JobseekerRegistrationModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { SnackbarOrigin } from "@mui/material";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 import { createJobseekerRegistrationAsync } from "../../services/auth/JobseekerRegistrationService";
 import { Bounce, toast } from "react-toastify";
@@ -20,34 +19,14 @@ const initialJobseekerRegistration: JobseekerRegistrationModel = {
 const initialErrors: FieldErrorModel[] = [];
 
 const JobseekerRegistrationUtility = () => {
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
-    vertical: "top",
-    horizontal: "center",
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
   const [jobseekerRegistration, setJobseekerRegistration] =
     useState<JobseekerRegistrationModel>(initialJobseekerRegistration);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
 
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") return;
-    setSnackbarOpen(false);
-  };
-
   const onJobseekerRegistration = async (formData: FormData) => {
     if (isValidate()) {
-      const response = await createJobseekerRegistrationAsync(
-        formData
-      );
+      const response = await createJobseekerRegistrationAsync(formData);
 
       if (response.status === 200) {
         toast.success(response.message, {
@@ -111,13 +90,22 @@ const JobseekerRegistrationUtility = () => {
       });
     }
     if (!jobseekerRegistration.firstName) {
-      newErrors.push({ fieldName: "firstName", errorMessage: "Enter first name" });
+      newErrors.push({
+        fieldName: "firstName",
+        errorMessage: "Enter first name",
+      });
     }
     if (!jobseekerRegistration.lastName) {
-      newErrors.push({ fieldName: "lastName", errorMessage: "Enter last name" });
+      newErrors.push({
+        fieldName: "lastName",
+        errorMessage: "Enter last name",
+      });
     }
     if (!jobseekerRegistration.mobileNo) {
-      newErrors.push({ fieldName: "mobileNo", errorMessage: "Enter mobile number" });
+      newErrors.push({
+        fieldName: "mobileNo",
+        errorMessage: "Enter mobile number",
+      });
     }
     if (!jobseekerRegistration.emailAddress) {
       newErrors.push({
@@ -147,7 +135,9 @@ const JobseekerRegistrationUtility = () => {
       const passwordRegex =
         /^(?=.*[a-zA-Z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>[\]\\/\-_+;]).{5,}$/;
 
-      if (jobseekerRegistration.password !== jobseekerRegistration.confirmPassword) {
+      if (
+        jobseekerRegistration.password !== jobseekerRegistration.confirmPassword
+      ) {
         newErrors.push({
           fieldName: "password",
           errorMessage: "Passwords do not match",
@@ -190,11 +180,6 @@ const JobseekerRegistrationUtility = () => {
     onFileChange,
     onTextFieldChange,
     errorInfo,
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
     handleSubmit,
   };
 };
