@@ -4,8 +4,12 @@ import { MdMailOutline } from "react-icons/md";
 import { LuCalendar } from "react-icons/lu";
 import React from "react";
 import { FaRegUser } from "react-icons/fa6";
+import CompanyHeaderModal from "./Modal/CompanyHeaderModal";
+import CompanyInfoUtility from "../../../utilities/company/CompanyInfoUtility";
 
-function CompanyHeader() {
+type Props = { loginUserId: number };
+function CompanyHeader({ loginUserId }: Props) {
+  const utility = CompanyInfoUtility(loginUserId);
   return (
     <>
       <div className="bg-white p-6 shadow-lg rounded-2xl flex items-center justify-center gap-10">
@@ -20,7 +24,10 @@ function CompanyHeader() {
             <div className="flex flex-col">
               <div className="flex items-end gap-4">
                 <h1 className="text-2xl font-bold">Wonderbiz</h1>
-              </div>  
+                <button onClick={() => utility.toggleModal()}>
+                  <FiEdit2 className="text-sm text-gray-700 mb-1.5" />
+                </button>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -30,18 +37,15 @@ function CompanyHeader() {
           <div className="flex gap-4 text-sm text-gray-700">
             <div className="flex flex-col gap-2 w-1/2">
               <p className="flex items-center gap-1">
-                <GrLocation />{" "}
-                Thane, Maharashtra
+                <GrLocation /> Thane, Maharashtra
               </p>
               <p className="flex items-center gap-1">
-                <LuCalendar />{" "}
-                https://www.google.com
+                <LuCalendar /> https://www.google.com
               </p>
             </div>
             <div className="flex flex-col gap-2 w-1/2">
               <p className="flex items-center gap-1">
-                <MdMailOutline />{" "}
-                test@gmail.com
+                <MdMailOutline /> test@gmail.com
               </p>
               <p className="flex items-center gap-1">
                 <FiPhone /> 7894561235
@@ -74,6 +78,12 @@ function CompanyHeader() {
           </div>
         </div>
       </div>
+      <CompanyHeaderModal
+        isCompanyInfoOpen={utility.isCompanyInfoOpen}
+        toggleModal={utility.toggleModal}
+        loginUserId={loginUserId}
+        // companyInfoId={utility.companyInfoId}
+      />
     </>
   );
 }
