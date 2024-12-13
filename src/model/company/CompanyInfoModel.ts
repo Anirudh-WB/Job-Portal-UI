@@ -1,18 +1,16 @@
-interface CompanyRegistrationModel {
+interface CompanyInfoModel {
     companyLogo: File | null,
     companyName: string;
-    companyUrl: string;
     emailAddress: string;
     mobileNo: string;
     cityId: number;
-    roleId: number;
+    companyUrl: string;
     contactPersonName: string;
     contactPersonEmail: string;
     contactPersonPhone: string;
     designationId: number;
-    password: string;
-    confirmPassword: string;
+    roleId: number;
+    userId: number;
 }
 
-
-export default CompanyRegistrationModel;
+export default CompanyInfoModel;
