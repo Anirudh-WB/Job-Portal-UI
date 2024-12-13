@@ -2,9 +2,7 @@ import JobseekerRegistrationUtility from "../../utilities/auth/JobseekerRegistra
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
 
-type Props = {};
-
-function JobSeekerRegistrationForm({}: Props) {
+function JobSeekerRegistrationForm() {
   const utility = JobseekerRegistrationUtility();
   console.log(utility.jobseekerRegistration);
 

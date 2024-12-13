@@ -1,7 +1,5 @@
 import { useState } from "react";
-
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { SnackbarOrigin } from "@mui/material";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 
 import CompanyRegistrationModel from "../../model/auth/CompanyRegistrationModel";
@@ -17,30 +15,11 @@ const initialCompanyRegistration: CompanyRegistrationModel = {
 };
 const initialErrors: FieldErrorModel[] = [];
 const CompanyRegistrationUtility = () => {
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
-    vertical: "top",
-    horizontal: "center",
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
   const [companyRegistration, setCompanyRegistration] =
     useState<CompanyRegistrationModel>(initialCompanyRegistration);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
 
-    setSnackbarOpen(false);
-  };
   const onCompanyRegistration = async () => {
     if (isValidate()) {
       const response = await createCompanyRegistrationAsync(
@@ -170,11 +149,6 @@ const CompanyRegistrationUtility = () => {
     onCompanyRegistration,
     onTextFieldChange,
     errorInfo,
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
   };
 };
 export default CompanyRegistrationUtility;
