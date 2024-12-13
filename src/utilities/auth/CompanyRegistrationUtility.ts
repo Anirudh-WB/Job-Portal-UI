@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FieldErrorModel from "../../model/FieldErrorModel";
 import { SnackbarOrigin } from "@mui/material";
@@ -7,16 +7,63 @@ import { isValidEmailAddress } from "../../common/CommonFunctions";
 import CompanyRegistrationModel from "../../model/auth/CompanyRegistrationModel";
 import { createCompanyRegistrationAsync } from "../../services/auth/CompanyRegistrationService";
 import { Bounce, toast } from "react-toastify";
+import CityModel from "../../model/master/CityModel";
+import DesignationModel from "../../model/master/DesignationModel";
+import { getCities } from "../../services/CityService";
+import { getCitiesAsync } from "../../services/master/CityService";
+import { NonNullChain } from "typescript";
+import { getDesignations } from "../../services/master/DesignationService";
 const initialCompanyRegistration: CompanyRegistrationModel = {
-  emailAddress: "",
-  companyName: "",
-  password: "",
+  companyLogo: null,
+  companyName: "amazon",
+  companyUrl: "amazon.com",
+  emailAddress: "nimesh.jethva@wonderbiz.in",
+  mobileNo: "544525454",
+  cityId: 5,
+  contactPersonName: "Nimesh",
+  contactPersonEmail: "nimesh@nimesh.com",
+  contactPersonPhone: "3545425448",
+  designationId: 9,
+  password: "Test@1234",
+  confirmPassword: "Test@1234",
   roleId: 8,
-  mobileNo: "",
-  confirmPassword: "",
 };
 const initialErrors: FieldErrorModel[] = [];
 const CompanyRegistrationUtility = () => {
+  const [cities, setCities] = useState<CityModel[] | null>([]);
+  const [designation, setDesignation] = useState<DesignationModel[] | null>([]);
+
+  async function fetchCities() {
+    try {
+      const response = await getCitiesAsync();
+      if (response.status === 200) {
+        setCities(response.data);
+      } else {
+        console.error("Failed to fetch cities:", response.message);
+      }
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  }
+
+  async function fetchDesignation() {
+    try {
+      const response = await getDesignations();
+      if (response.status === 200) {
+        setDesignation(response.data);
+      } else {
+        console.error("Failed to fetch cities:", response.message);
+      }
+    } catch (error) {
+      console.error("Error fetching cities:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCities();
+    fetchDesignation();
+  }, []);
+
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
@@ -41,7 +88,7 @@ const CompanyRegistrationUtility = () => {
 
     setSnackbarOpen(false);
   };
-  const onCompanyRegistration = async () => {
+  const onCompanyRegistration = async (companyRegistration : FormData) => {
     if (isValidate()) {
       const response = await createCompanyRegistrationAsync(
         companyRegistration
@@ -75,6 +122,20 @@ const CompanyRegistrationUtility = () => {
     }
   };
 
+  const onFileChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCompanyRegistration((previous) => ({
+          ...previous,
+          companyLogo: file, // Set the base64 string
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const onTextFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.target.name;
     const value = event.currentTarget.value;
@@ -88,12 +149,40 @@ const CompanyRegistrationUtility = () => {
     });
   };
 
+  const onSelectFieldChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = event.target;
+
+    setCompanyRegistration((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrorInfo((previous) => {
+      if (value !== "") {
+        return previous.filter((error) => error.fieldName !== name);
+      }
+      return previous;
+    });
+  };
+
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
+    if (companyRegistration.companyLogo === null) {
+      newErrors.push({
+        fieldName: "companyLogo",
+        errorMessage: "Select a company logo",
+      });
+    }
     if (companyRegistration.companyName === "") {
       newErrors.push({
         fieldName: "companyName",
         errorMessage: "Enter Company Name",
+      });
+    }
+    if (companyRegistration.companyUrl === "") {
+      newErrors.push({
+        fieldName: "companyUrl",
+        errorMessage: "Enter Company Website URL",
       });
     }
     if (companyRegistration.mobileNo === "") {
@@ -101,6 +190,43 @@ const CompanyRegistrationUtility = () => {
         fieldName: "mobileNo",
         errorMessage: "Enter mobile number",
       });
+    }
+    if (companyRegistration.cityId === 0) {
+      newErrors.push({
+        fieldName: "cityId",
+        errorMessage: "Select a location",
+      });
+    }
+    if (companyRegistration.contactPersonName === "") {
+      newErrors.push({
+        fieldName: "contactPersonName",
+        errorMessage: "Enter Contact Person Name",
+      });
+    }
+    if (companyRegistration.contactPersonPhone === "") {
+      newErrors.push({
+        fieldName: "contactPersonPhone",
+        errorMessage: "Enter Contact Person Mobile Number",
+      });
+    }
+    if (companyRegistration.designationId === 0) {
+      newErrors.push({
+        fieldName: "cityId",
+        errorMessage: "Select a designation",
+      });
+    }
+    if (companyRegistration.contactPersonEmail === "") {
+      newErrors.push({
+        fieldName: "contactPersonEmail",
+        errorMessage: "Enter contact person email address",
+      });
+    } else {
+      if (!isValidEmailAddress(companyRegistration.contactPersonEmail)) {
+        newErrors.push({
+          fieldName: "contactPersonEmail",
+          errorMessage: "Enter valid email address",
+        });
+      }
     }
     if (companyRegistration.emailAddress === "") {
       newErrors.push({
@@ -165,16 +291,36 @@ const CompanyRegistrationUtility = () => {
     return newErrors.length === 0;
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    // Create a FormData object
+    const formData = new FormData();
+
+    // Append form fields
+    Object.entries(companyRegistration).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+
+    // Call the utility function to handle form submission
+    onCompanyRegistration(formData);
+  };
+
   return {
+    cities,
+    designation,
     companyRegistration,
     onCompanyRegistration,
+    onFileChange,
     onTextFieldChange,
+    onSelectFieldChange,
     errorInfo,
     snackbarOpen,
     handleSnackbarClose,
     snackbarMessage,
     snackbarPosition,
     snackbarSeverity,
+    handleSubmit
   };
 };
 export default CompanyRegistrationUtility;
