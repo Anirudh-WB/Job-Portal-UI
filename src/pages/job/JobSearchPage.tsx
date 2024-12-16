@@ -89,7 +89,7 @@ const JobSearchPage: React.FC = () => {
               name="designationId"
               value={utility.jobSearchField.designationId} // Bind to selected designation
               className="w-full px-2 py-2.5 border border-gray-300 bg-white text-gray-500 rounded-sm text-base"
-              onChange={(e) => utility.onSelectFieldChanged(e)}
+              onChange={utility.onSelectFieldChanged}
             >
               <option value="0" disabled>
                 Select Designation...
