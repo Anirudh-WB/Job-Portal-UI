@@ -49,16 +49,14 @@ const JobSearchUtility = () => {
     setSelectedSkills(selectedOptions || []);
   const onCityChange = (selectedOptions: CityModel[]) =>
     setSelectedCities(selectedOptions || []);
-  // const onDesignationChange = (selectedOption: DesignationModel) =>
-  //   setSelectedDesignation(selectedOption?.id || null);
-  // const onTrainLineChange = (selectedOption: TrainLineModel) =>
-  //   setSelectedTrainLine(selectedOption?.id || null);
+  const onDesignationChange = (selectedOption: DesignationModel) =>
+    setSelectedDesignation(selectedOption?.id || null);
+  const onTrainLineChange = (selectedOption: TrainLineModel) =>
+    setSelectedTrainLine(selectedOption?.id || null);
   const onSelectFieldChanged = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    console.log(name, value);
-
     setJobSearchField((prevState) => ({ ...prevState, [name]: value }));
   };
 
@@ -69,8 +67,8 @@ const JobSearchUtility = () => {
       ...jobSearchField,
       skills: selectedSkills,
       cities: selectedCities,
-      designationId: selectedDesignation || 0,
-      trainLineId: selectedTrainLine || 0,
+      // designationId: selectedDesignation || 0,
+      // trainLineId: selectedTrainLine || 0,
     };
 
     try {
@@ -92,9 +90,9 @@ const JobSearchUtility = () => {
     selectedCities,
     onCityChange,
     selectedDesignation,
-    // onDesignationChange,
+    onDesignationChange,
     selectedTrainLine,
-    // onTrainLineChange,
+    onTrainLineChange,
     onSelectFieldChanged,
     experiences,
     jobSearchField,
