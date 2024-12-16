@@ -6,14 +6,32 @@ import { getCompanyInfoByUserIdAsync } from "../../services/company/CompanyInfoS
 
 
 function CompanyInfoUtility(loginUserId: number) {
-    
-  const [companyInfo, setCompanyInfo] = useState<CompanyInfoModel[]>([]);
+    const initialCompanyInfo: CompanyInfoModel = {
+        id: 0,
+        companyLogo: null,
+        companyName: "",
+        emailAddress: "",
+        roleId: 8,
+        mobileNo: "",
+        cityId: 0,
+        cityName: "",
+        companyUrl: "",
+        contactPersonName: "",
+        contactPersonEmail: "",
+        contactPersonPhone: "",
+        designationId: 0,
+        designationName: "",
+        userId: loginUserId,
+      };
+
+  const [companyInfo, setCompanyInfo] = useState<CompanyInfoModel>(initialCompanyInfo);
   const [isCompanyInfoOpen, setIsCompanyInfoOpen] = useState<boolean>(false);
+  const [companyInfoId, setCompanyInfoId] = useState<number>(0);
   const toggleModal = () => setIsCompanyInfoOpen((prev: boolean) => !prev);
 
   async function fetchCompanyInfo() {
     let response = await getCompanyInfoByUserIdAsync(loginUserId);
-    console.log(response.data);
+    console.log("Data :", response);
     if (response.status === 200) {
       if (response.data !== null) {
         setCompanyInfo(response.data);
@@ -25,10 +43,18 @@ function CompanyInfoUtility(loginUserId: number) {
     fetchCompanyInfo();
   }, []);
 
+  const onCompanyInfoEdit = async (id: number) => {
+    setCompanyInfoId(id);
+    console.log(id);
+    toggleModal();
+  };
+
   return {
     toggleModal,
     companyInfo,
-    isCompanyInfoOpen
+    isCompanyInfoOpen,
+    onCompanyInfoEdit,
+    companyInfoId
   };
 }
 

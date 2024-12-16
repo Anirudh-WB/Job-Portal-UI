@@ -6,25 +6,27 @@ import React from "react";
 import { FaRegUser } from "react-icons/fa6";
 import CompanyHeaderModal from "./Modal/CompanyHeaderModal";
 import CompanyInfoUtility from "../../../utilities/company/CompanyInfoUtility";
+import CompanyInfoModalUtility from "../../../utilities/company/CompanyInfoModalUtility";
 
 type Props = { loginUserId: number };
 function CompanyHeader({ loginUserId }: Props) {
-  const utility = CompanyInfoUtility(loginUserId);
+  const utility = CompanyInfoModalUtility(loginUserId);
+  
   return (
     <>
       <div className="bg-white p-6 shadow-lg rounded-2xl flex items-center justify-center gap-10">
         <img
-          src="https://img.freepik.com/free-vector/bird-colorful-logo-gradient-vector_343694-1365.jpg?semt=ais_hybrid"
+          src={`data:image/png;base64,${utility.CompanyInfo.companyLogo}`}
           alt="company-logo"
-          className="rounded-full h-48 w-48 shadow-2xl"
+          className="rounded-full h-48 aspect-square object-cover object-center shadow-2xl"
         />
 
         <div className="flex flex-col gap-3 w-4/5">
           <div className="flex items-end justify-between">
             <div className="flex flex-col">
               <div className="flex items-end gap-4">
-                <h1 className="text-2xl font-bold">Wonderbiz</h1>
-                <button onClick={() => utility.toggleModal()}>
+                <h1 className="text-2xl font-bold">{utility.CompanyInfo.companyName}</h1>
+                <button onClick={() => utility.onCompanyInfoEdit(utility.CompanyInfo.id)}>
                   <FiEdit2 className="text-sm text-gray-700 mb-1.5" />
                 </button>
               </div>
@@ -37,18 +39,18 @@ function CompanyHeader({ loginUserId }: Props) {
           <div className="flex gap-4 text-sm text-gray-700">
             <div className="flex flex-col gap-2 w-1/2">
               <p className="flex items-center gap-1">
-                <GrLocation /> Thane, Maharashtra
+                <GrLocation /> {utility.CompanyInfo.cityName}
               </p>
               <p className="flex items-center gap-1">
-                <LuCalendar /> https://www.google.com
+                <LuCalendar /> {utility.CompanyInfo.companyUrl}
               </p>
             </div>
             <div className="flex flex-col gap-2 w-1/2">
               <p className="flex items-center gap-1">
-                <MdMailOutline /> test@gmail.com
+                <MdMailOutline /> {utility.CompanyInfo.emailAddress}
               </p>
               <p className="flex items-center gap-1">
-                <FiPhone /> 7894561235
+                <FiPhone /> {utility.CompanyInfo.mobileNo}
               </p>
             </div>
           </div>
@@ -61,18 +63,18 @@ function CompanyHeader({ loginUserId }: Props) {
           <div className="flex gap-4 text-sm text-gray-700">
             <div className="flex flex-col gap-2 w-1/2">
               <p className="flex items-center gap-1">
-                <FaRegUser /> John Doe
+                <FaRegUser /> {utility.CompanyInfo.contactPersonName}
               </p>
               <p className="flex items-center gap-1">
-                <LuCalendar /> HR Consultancy
+                <LuCalendar /> {utility.CompanyInfo.designationName}
               </p>
             </div>
             <div className="flex flex-col gap-2 w-1/2">
               <p className="flex items-center gap-1">
-                <FiPhone /> 8956231478
+                <FiPhone /> {utility.CompanyInfo.contactPersonPhone}
               </p>
               <p className="flex items-center gap-1">
-                <MdMailOutline /> test@gmail.com
+                <MdMailOutline /> {utility.CompanyInfo.contactPersonEmail}
               </p>
             </div>
           </div>
