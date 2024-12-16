@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogPanel,
@@ -7,7 +6,6 @@ import {
   CloseButton,
 } from "@headlessui/react";
 import { RiCloseLargeFill } from "react-icons/ri";
-import { Bounce, toast, ToastContainer } from "react-toastify";
 import PersonalInfoUtility from "../../../utilities/profile/PersonalInfoUtility";
 
 type Props = {

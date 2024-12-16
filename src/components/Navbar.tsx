@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { TbUserSearch } from "react-icons/tb";
@@ -8,9 +7,7 @@ import { getSessionValue } from "../utilities/SessionStorageUtility";
 import LoginUtility from "../utilities/LoginUtility";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 
-type Props = {};
-
-function Navbar({}: Props) {
+function Navbar() {
   const navigate = useNavigate();
   const utility = LoginUtility();
 
@@ -90,15 +87,15 @@ function Navbar({}: Props) {
             id="navbar-menu"
             className="hidden w-full md:flex md:items-center md:w-auto"
           >
-            <div className="mt-1 flex space-x-2">
+            <div className="mt-1 flex gap-2">
               <Link
                 to="/login"
-                className="outline-none font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md transition duration-500"
+                className="outline-none font-medium rounded-full text-sm px-5 py-2.5 bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md transition duration-500"
               >
                 Login
               </Link>
               <Menu>
-                <MenuButton className="inline-flex items-center gap-2 rounded-full bg-red-500 py-2.5 px-5 text-sm font-medium text-white outline-none data-[hover]:bg-red-600 data-[open]:bg-red-600 data-[focus]:outline-1 data-[focus]:outline-white">
+                <MenuButton className="inline-flex items-center gap-2 rounded-full bg-red-600 py-2.5 px-5 text-sm font-medium text-white outline-none data-[hover]:bg-red-700 data-[open]:bg-red-700 data-[focus]:outline-1 data-[focus]:outline-white">
                   Register
                   <FaAngleDown />
                 </MenuButton>
@@ -106,7 +103,7 @@ function Navbar({}: Props) {
                 <MenuItems
                   transition
                   anchor="bottom"
-                  className="w-fit origin-top-right rounded-xl border border-white/5 bg-red-500 p-1 text-sm text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"
+                  className="w-fit origin-top-right border border-white/5 bg-red-600 p-1 text-sm text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"
                 >
                   <MenuItem>
                     <Link

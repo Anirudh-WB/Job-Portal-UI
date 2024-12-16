@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { SnackbarOrigin } from "@mui/material";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
-
 import CompanyRegistrationModel from "../../model/auth/CompanyRegistrationModel";
 import { createCompanyRegistrationAsync } from "../../services/auth/CompanyRegistrationService";
 import { Bounce, toast } from "react-toastify";
@@ -11,7 +8,6 @@ import CityModel from "../../model/master/CityModel";
 import DesignationModel from "../../model/master/DesignationModel";
 import { getCities } from "../../services/CityService";
 import { getCitiesAsync } from "../../services/master/CityService";
-import { NonNullChain } from "typescript";
 import { getDesignations } from "../../services/master/DesignationService";
 const initialCompanyRegistration: CompanyRegistrationModel = {
   companyLogo: null,
@@ -64,30 +60,11 @@ const CompanyRegistrationUtility = () => {
     fetchDesignation();
   }, []);
 
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
-    vertical: "top",
-    horizontal: "center",
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
   const [companyRegistration, setCompanyRegistration] =
     useState<CompanyRegistrationModel>(initialCompanyRegistration);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
 
-    setSnackbarOpen(false);
-  };
   const onCompanyRegistration = async (companyRegistration : FormData) => {
     if (isValidate()) {
       const response = await createCompanyRegistrationAsync(
@@ -315,11 +292,6 @@ const CompanyRegistrationUtility = () => {
     onTextFieldChange,
     onSelectFieldChange,
     errorInfo,
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
     handleSubmit
   };
 };
