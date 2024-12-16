@@ -15,17 +15,17 @@ import { NonNullChain } from "typescript";
 import { getDesignations } from "../../services/master/DesignationService";
 const initialCompanyRegistration: CompanyRegistrationModel = {
   companyLogo: null,
-  companyName: "amazon",
-  companyUrl: "amazon.com",
-  emailAddress: "nimesh.jethva@wonderbiz.in",
-  mobileNo: "544525454",
-  cityId: 5,
-  contactPersonName: "Nimesh",
-  contactPersonEmail: "nimesh@nimesh.com",
-  contactPersonPhone: "3545425448",
-  designationId: 9,
-  password: "Test@1234",
-  confirmPassword: "Test@1234",
+  companyName: "",
+  companyUrl: "",
+  emailAddress: "",
+  mobileNo: "",
+  cityId: 0,
+  contactPersonName: "",
+  contactPersonEmail: "",
+  contactPersonPhone: "",
+  designationId: 0,
+  password: "",
+  confirmPassword: "",
   roleId: 8,
 };
 const initialErrors: FieldErrorModel[] = [];

@@ -4,7 +4,7 @@ import CompanyInfoModel from "../../model/company/CompanyInfoModel";
 import ApiResponse from "../../common/ApiResponse";
 
 export const createCompanyInfoAsync = async (
-  companyInfo: CompanyInfoModel
+  companyInfo: FormData
 ): Promise<ApiResponse<CompanyInfoModel>> => {
   let result: ApiResponse<CompanyInfoModel> = {
     data: null,
@@ -52,7 +52,7 @@ export const createCompanyInfoAsync = async (
   return result;
 };
 export const updateCompanyInfoAsync = async (
-  companyInfo: CompanyInfoModel,
+  companyInfo: FormData,
   id: number
 ): Promise<ApiResponse<CompanyInfoModel>> => {
   let result: ApiResponse<CompanyInfoModel> = {
@@ -93,8 +93,8 @@ export const updateCompanyInfoAsync = async (
 
 export const getCompanyInfoByUserIdAsync = async (
   userId: number
-): Promise<ApiResponse<CompanyInfoModel[]>> => {
-  let result: ApiResponse<CompanyInfoModel[]> = {
+): Promise<ApiResponse<CompanyInfoModel>> => {
+  let result: ApiResponse<CompanyInfoModel> = {
     data: null,
     status: 0,
     message: "",
