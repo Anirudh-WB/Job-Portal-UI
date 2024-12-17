@@ -5,7 +5,7 @@ function ForgotPassword() {
   return (
     <div className="flex flex-1 gap-5 px-44 py-10 justify-center">
       <div>
-        <img src={forgotImg}/>
+        <img src={forgotImg} />
       </div>
       <div className="flex flex-col gap-4 w-2/5 justify-center px-2">
         <h1 className="text-6xl font-bold flex flex-wrap">
@@ -30,7 +30,8 @@ function ForgotPassword() {
           </div>
 
           <p className="text-xs text-gray-500 font-semibold ">
-            Enter your email address to reset your password.
+            Kindly enter your email address to receive the password reset link
+            in your inbox.
           </p>
         </div>
 
