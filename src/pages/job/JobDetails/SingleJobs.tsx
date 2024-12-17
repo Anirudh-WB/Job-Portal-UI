@@ -63,16 +63,18 @@ function SingleJobs() {
               </span>
             </div>
 
-            <div className="flex items-center p-2">
-              <GiSkills className="text-gray-500 text-lg" />
-              {job.skills.map((skill, skillIndex) => (
-                <span
-                  key={skillIndex}
-                  className="ml-2 border rounded-full px-3 py-1 text-sm text-gray-600 hover:bg-slate-100"
-                >
-                  {skill.skillName}
-                </span>
-              ))}
+            <div className="flex items-start gap-2 mt-2">
+              <GiSkills className="ml-2 text-gray-500 text-lg shrink-0" />
+              <div className="flex flex-wrap gap-2">
+                {job.skills.map((skill, skillIndex) => (
+                  <span
+                    key={skillIndex}
+                    className="border rounded-full px-2 py-1 text-sm text-gray-600 hover:bg-slate-100"
+                  >
+                    {skill.skillName}
+                  </span>
+                ))}
+              </div>
             </div>
 
             <div className="p-2">
