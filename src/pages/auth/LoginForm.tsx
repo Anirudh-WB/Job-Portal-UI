@@ -73,7 +73,7 @@ function LoginForm() {
               </span>
             )}
           </div>
-          <a href="/" className="text-blue-600 text-right font-semibold">
+          <a href="/forgot-password" className="text-blue-600 text-right font-semibold">
             Forgot Password?
           </a>
           <button
