@@ -2,8 +2,15 @@ import { useNavigate } from "react-router-dom";
 import LoginUtility from "../../utilities/LoginUtility";
 import { Alert, Snackbar } from "@mui/material";
 import { Bounce, ToastContainer } from "react-toastify";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useState } from "react";
 
 function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const utility = LoginUtility();
   const navigate = useNavigate();
 
@@ -44,10 +51,10 @@ function LoginForm() {
               </span>
             )}
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <label className="font-semibold text-black">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Enter your password"
@@ -57,10 +64,20 @@ function LoginForm() {
                 )
                   ? "border-red-500"
                   : "border-gray-300"
-              }`}
+              } w-full pr-10`} // Added pr-10 for padding-right to make space for the eye icon
               value={utility.login.password}
               onChange={utility.onTextFieldChanged}
             />
+            <div
+              className="mt-8 absolute inset-y-0 right-2 flex items-center cursor-pointer"
+              onClick={togglePasswordVisibility}
+            >
+              {showPassword ? (
+                <FiEyeOff className="text-gray-600" size={20} />
+              ) : (
+                <FiEye className="text-gray-600" size={20} />
+              )}
+            </div>
             {utility.errorInfo.find(
               (error) => error.fieldName === "password"
             ) && (
@@ -73,7 +90,11 @@ function LoginForm() {
               </span>
             )}
           </div>
-          <a href="/" className="text-blue-600 text-right font-semibold">
+
+          <a
+            href="/forgot-password"
+            className="text-blue-600 text-right font-semibold"
+          >
             Forgot Password?
           </a>
           <button
