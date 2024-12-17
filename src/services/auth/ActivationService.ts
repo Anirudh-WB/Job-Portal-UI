@@ -3,8 +3,8 @@ import JobseekerRegistrationModel from "../../model/auth/JobseekerRegistrationMo
 import ApiResponse from "../../common/ApiResponse";
 import { API_BASE_URL } from "../../APIConfig";
 
-export const createJobseekerRegistrationAsync = async (
-  jobApplication: FormData
+export const ActivateProfileAsync = async (
+  token: string
 ): Promise<ApiResponse<JobseekerRegistrationModel>> => {
   let result: ApiResponse<JobseekerRegistrationModel> = {
     data: null,
@@ -13,27 +13,24 @@ export const createJobseekerRegistrationAsync = async (
   };
 
   try {
-    const response = await axios.post(`${API_BASE_URL}/User`, jobApplication);
+    const response = await axios.get(
+      `${API_BASE_URL}/user/activate-account?token=${token}`
+    );
     result = {
       data: response.data,
       status: response.status,
-      message: "Your registration has been successfully completed! Please activate your account using the link sent to your email.",
+      message:
+        "Your account has been successfully activated. Please log in. You will be redirected to the login page shortly.",
     };
   } catch (error: any) {
     // Handle error response
     if (error.response) {
       const { status, data } = error.response;
-      if (status === 409) {
+      if (status === 401) {
         result = {
           data: null,
           status: status,
-          message: data || "Conflict: Duplicate data detected",
-        };
-      } else if (data && data.errors) {
-        result = {
-          data: null,
-          status: status,
-          message: data.title || "Validation errors occurred",
+          message: data || "Invalid or expired activation token.",
         };
       } else {
         result = {

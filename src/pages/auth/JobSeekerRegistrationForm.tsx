@@ -4,8 +4,6 @@ import { Bounce, ToastContainer } from "react-toastify";
 
 function JobSeekerRegistrationForm() {
   const utility = JobseekerRegistrationUtility();
-  console.log(utility.jobseekerRegistration);
-
   const navigate = useNavigate();
 
   return (

@@ -65,7 +65,7 @@ const CompanyRegistrationUtility = () => {
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
 
-  const onCompanyRegistration = async (companyRegistration : FormData) => {
+  const onCompanyRegistration = async (companyRegistration: FormData) => {
     if (isValidate()) {
       const response = await createCompanyRegistrationAsync(
         companyRegistration
@@ -74,23 +74,15 @@ const CompanyRegistrationUtility = () => {
       response.status === 200
         ? toast.success(response.message, {
             // toastId: "company__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
+            closeOnClick: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
             transition: Bounce,
+            onOpen: () => setCompanyRegistration(initialCompanyRegistration),
           })
         : toast.error(response.message, {
             // toastId: "company__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
             draggable: true,
             progress: undefined,
             theme: "colored",
@@ -292,7 +284,7 @@ const CompanyRegistrationUtility = () => {
     onTextFieldChange,
     onSelectFieldChange,
     errorInfo,
-    handleSubmit
+    handleSubmit,
   };
 };
 export default CompanyRegistrationUtility;

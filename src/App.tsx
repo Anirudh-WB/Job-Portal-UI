@@ -27,6 +27,7 @@ import CompanyRegistration from "./pages/auth/CompanyRegistration";
 import Navbar from "./components/Navbar";
 import JobLandingPage from "./pages/job/JobLandingPage";
 import JobDetails from "./pages/job/JobDetails/JobDetails";
+import ActivateProfilePage from "./pages/ActivateProfilePage";
 
 function App() {
   return (
@@ -50,6 +51,8 @@ function App() {
               element={<CompanyRegistration />}
             />
             <Route path="/profile/:id" element={<ProfilePage />} />
+            
+            <Route path="/activate/:token" element={<ActivateProfilePage />} />
 
             {/* Protected routes for role 1 */}
             <Route
