@@ -27,6 +27,7 @@ import CompanyRegistration from "./pages/auth/CompanyRegistration";
 import Navbar from "./components/Navbar";
 import JobLandingPage from "./pages/job/JobLandingPage";
 import JobDetails from "./pages/job/JobDetails/JobDetails";
+import ActivateProfilePage from "./pages/ActivateProfilePage";
 import ForgotPassword from "./pages/password/ForgotPassword";
 import ResetPassword from "./pages/password/ResetPassword";
 
@@ -52,6 +53,8 @@ function App() {
               element={<CompanyRegistration />}
             />
             <Route path="/profile/:id" element={<ProfilePage />} />
+            
+            <Route path="/activate/:token" element={<ActivateProfilePage />} />
 
             <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/reset-password" element={<ResetPassword/>}/>

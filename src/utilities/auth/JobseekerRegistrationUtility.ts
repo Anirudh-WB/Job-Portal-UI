@@ -172,6 +172,8 @@ const JobseekerRegistrationUtility = () => {
 
     // Call the utility function to handle form submission
     onJobseekerRegistration(formData);
+
+    setJobseekerRegistration(initialJobseekerRegistration);
   };
 
   return {
