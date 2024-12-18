@@ -2,6 +2,7 @@ import React from "react";
 import CompanyRegistrationUtility from "../../utilities/auth/CompanyRegistrationUtility";
 import { useNavigate } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function CompanyRegisterForm() {
   const utility = CompanyRegistrationUtility();
@@ -491,7 +492,7 @@ function CompanyRegisterForm() {
             </label>
             <div className="relative">
               <input
-                type="text"
+                type={utility.showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 className={`peer ${
@@ -505,6 +506,16 @@ function CompanyRegisterForm() {
                 value={utility.companyRegistration.password}
                 onChange={utility.onTextFieldChange}
               />
+              <div
+                className="absolute inset-y-0 right-2 flex items-center cursor-pointer"
+                onClick={utility.togglePasswordVisibility}
+              >
+                {utility.showPassword ? (
+                  <FiEyeOff className="text-gray-600" size={20} />
+                ) : (
+                  <FiEye className="text-gray-600" size={20} />
+                )}
+              </div>
               <label
                 className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
                 htmlFor="password"
@@ -539,7 +550,7 @@ function CompanyRegisterForm() {
             </label>
             <div className="relative">
               <input
-                type="text"
+                type={utility.showCnfPassword ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
                 className={`peer ${
@@ -553,6 +564,16 @@ function CompanyRegisterForm() {
                 value={utility.companyRegistration.confirmPassword}
                 onChange={utility.onTextFieldChange}
               />
+              <div
+                className="absolute inset-y-0 right-2 flex items-center cursor-pointer"
+                onClick={utility.toggleCnfPasswordVisibility}
+              >
+                {utility.showCnfPassword ? (
+                  <FiEyeOff className="text-gray-600" size={20} />
+                ) : (
+                  <FiEye className="text-gray-600" size={20} />
+                )}
+              </div>
               <label
                 className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
                 htmlFor="confirmPassword"

@@ -19,7 +19,7 @@ const initialCompanyRegistration: CompanyRegistrationModel = {
   contactPersonName: "sadfgb",
   contactPersonEmail: "wedfsdgb@dsfg.wadfsv",
   contactPersonPhone: "1234567890",
-  designationId: 5,
+  designationId: 6,
   password: "Test@123",
   confirmPassword: "Test@123",
   roleId: 8,
@@ -29,6 +29,15 @@ const CompanyRegistrationUtility = () => {
   const [cities, setCities] = useState<CityModel[] | null>([]);
   const [designation, setDesignation] = useState<DesignationModel[] | null>([]);
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
+  const [showCnfPassword, setCnfShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+  const toggleCnfPasswordVisibility = () => {
+    setCnfShowPassword((prevState) => !prevState);
+  };
+
 
   async function fetchCities() {
     try {
@@ -293,6 +302,10 @@ const CompanyRegistrationUtility = () => {
   };
 
   return {
+    showPassword,
+    togglePasswordVisibility,
+    showCnfPassword,
+    toggleCnfPasswordVisibility,
     cities,
     designation,
     companyRegistration,
