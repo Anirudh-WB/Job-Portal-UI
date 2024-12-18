@@ -23,28 +23,46 @@ const JobseekerRegistrationUtility = () => {
     useState<JobseekerRegistrationModel>(initialJobseekerRegistration);
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword((prevState) => !prevState);
+  };
 
   const onJobseekerRegistration = async (formData: FormData) => {
-    if (isValidate()) {
-      const response = await createJobseekerRegistrationAsync(formData);
+    setIsLoading(true);
+    try {
+      if (isValidate()) {
+        const response = await createJobseekerRegistrationAsync(formData);
 
-      if (response.status === 200) {
-        toast.success(response.message, {
-          closeOnClick: true,
-          draggable: true,
-          theme: "colored",
-          transition: Bounce,
-        });
+        if (response.status === 200) {
+          toast.success(response.message, {
+            closeOnClick: true,
+            draggable: true,
+            theme: "colored",
+            transition: Bounce,
+          });
 
-        setJobseekerRegistration(initialJobseekerRegistration);
-      } else {
-        toast.error(response.message, {
-          closeOnClick: true,
-          draggable: true,
-          theme: "colored",
-          transition: Bounce,
-        });
+          setJobseekerRegistration(initialJobseekerRegistration);
+        } else {
+          toast.error(response.message, {
+            closeOnClick: true,
+            draggable: true,
+            theme: "colored",
+            transition: Bounce,
+          });
+        }
       }
+    } catch (error) {
+      console.error("Error fetching info:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -186,6 +204,11 @@ const JobseekerRegistrationUtility = () => {
     onTextFieldChange,
     errorInfo,
     handleSubmit,
+    showPassword,
+    showConfirmPassword,
+    togglePasswordVisibility,
+    toggleConfirmPasswordVisibility,
+    isLoading,
   };
 };
 

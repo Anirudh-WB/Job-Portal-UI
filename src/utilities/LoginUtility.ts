@@ -11,7 +11,6 @@ import { Bounce, toast } from "react-toastify";
 const LoginUtility = () => {
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-
   const initialLogin: LoginModel = {
     emailAddress: "",
     password: "",
@@ -19,6 +18,11 @@ const LoginUtility = () => {
   const initialErrors: FieldErrorModel[] = [];
   const [login, setLogin] = useState<LoginModel>(initialLogin);
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
 
   let loginUserId: number = Number(getSessionValue("loginUserId"));
 
@@ -148,6 +152,8 @@ const LoginUtility = () => {
     handleSnackbarClose,
     loginUserId,
     onLogout,
+    showPassword,
+    togglePasswordVisibility,
   };
 };
 export default LoginUtility;
