@@ -427,7 +427,7 @@ Props) {
                             utility.errorInfo.find(
                               (err) => err.fieldName === "contactPersonPhone"
                             )
-                              ? "border-red-500 text-red-500"
+                              ? "border-red-500"
                               : "border-gray-300"
                           }`}
                           value={utility.CompanyInfo.designationId}
