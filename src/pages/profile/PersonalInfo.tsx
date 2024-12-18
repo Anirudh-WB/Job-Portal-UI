@@ -18,10 +18,9 @@ type Props = { loginUserId: number; isRemoveCUD: boolean };
 
 function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
   const [isProfileHeaderOpen, setIsProfileHeaderOpen] = useState(false);
-  const [isAddressInfoOpen, setIsAddressInfoOpen] = useState(false);
   const [isEmploymentInfoOpen, setIsEmploymentInfoOpen] = useState(false);
 
-  const utility = PersonalInfoUtility({loginUserId});
+  const utility = PersonalInfoUtility({ loginUserId });
   const addressInfoUtility = AddressInfoUtility(loginUserId);
   const employmentInfoUtility = EmploymentInfoUtility(loginUserId);
 
@@ -80,7 +79,7 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
             <div className="flex items-end gap-2">
               <h3 className="text-base font-semibold">Address Info</h3>
               {isRemoveCUD && (
-                <button onClick={() => setIsAddressInfoOpen((prev) => !prev)}>
+                <button onClick={addressInfoUtility.toggleModal}>
                   <FiEdit2 className="text-sm text-gray-700 mb-1" />
                 </button>
               )}
@@ -168,8 +167,8 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
         loginUserId={loginUserId}
       />
       <AddressInfoModal
-        isAddressInfoOpen={isAddressInfoOpen}
-        setIsAddressInfoOpen={setIsAddressInfoOpen}
+        isAddressInfoOpen={addressInfoUtility.isAddressInfoOpen}
+        toggleModal={addressInfoUtility.toggleModal}
         loginUserId={loginUserId}
       />
       <EmploymentInfoModal

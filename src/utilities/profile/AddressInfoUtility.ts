@@ -31,7 +31,6 @@ const AddressInfoUtility = (loginUserId: number) => {
 
   const initialErrors: FieldErrorModel[] = [];
 
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [addressInfo, setAddressInfo] = useState<AddressInfoModel>(
     intialAddressInfoModel
   );
@@ -41,6 +40,7 @@ const AddressInfoUtility = (loginUserId: number) => {
   const [countries, setCountries] = useState<CountryModel[]>([]);
   const [cities, setCities] = useState<CityModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
+  const [isAddressInfoOpen, setIsAddressInfoOpen] = useState(false);
 
   useEffect(() => {
     async function fetchAddressInfo() {
@@ -92,7 +92,7 @@ const AddressInfoUtility = (loginUserId: number) => {
     if (loginUserId > 0) {
       fetchAddressInfo();
     }
-  }, []);
+  }, [loginUserId]);
 
   const onTextFieldChanged = (
     event:
@@ -110,6 +110,8 @@ const AddressInfoUtility = (loginUserId: number) => {
     });
   };
 
+  const toggleModal = () => setIsAddressInfoOpen((prev) => !prev);
+
   const onSelectFieldChanged = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -124,16 +126,7 @@ const AddressInfoUtility = (loginUserId: number) => {
       return newErrors;
     });
   };
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
 
-    setSnackbarOpen(false);
-  };
   const onAddressInfoSave = async () => {
     if (isValidate()) {
       let response;
@@ -172,6 +165,7 @@ const AddressInfoUtility = (loginUserId: number) => {
       });
     }
   };
+
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
 
@@ -185,7 +179,12 @@ const AddressInfoUtility = (loginUserId: number) => {
     if (addressInfo.postalCode === "") {
       newErrors.push({
         fieldName: "postalCode",
-        errorMessage: "Enter postal code ",
+        errorMessage: "Enter postal code",
+      });
+    } else if (addressInfo.postalCode.length !== 6) {
+      newErrors.push({
+        fieldName: "postalCode",
+        errorMessage: "Invalid postal code. Please check and try again",
       });
     }
 
@@ -231,8 +230,8 @@ const AddressInfoUtility = (loginUserId: number) => {
     onSelectFieldChanged,
     onAddressInfoSave,
     errorInfo,
-    snackbarOpen,
-    handleSnackbarClose,
+    isAddressInfoOpen,
+    toggleModal,
   };
 };
 export default AddressInfoUtility;
