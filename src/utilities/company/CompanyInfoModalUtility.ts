@@ -150,6 +150,7 @@ function CompanyInfoModalUtility(loginUserId: number) {
             progress: undefined,
             theme: "colored",
             transition: Bounce,
+            onOpen: toggleModal,
           })
         : toast.error(response.message, {
             // toastId: "Company__info__toast",

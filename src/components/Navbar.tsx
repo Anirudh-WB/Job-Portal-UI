@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 import { TbUserSearch } from "react-icons/tb";
 import { GoOrganization } from "react-icons/go";
-import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import { GoSignOut } from "react-icons/go";
+import { CgProfile } from "react-icons/cg";
 import { getSessionValue } from "../utilities/SessionStorageUtility";
 import LoginUtility from "../utilities/LoginUtility";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
@@ -63,23 +64,39 @@ function Navbar() {
             className="hidden w-full md:flex md:items-center md:w-auto"
           >
             <div className="mt-1 flex items-center gap-8 text-gray-500">
-              {/* Profile & Logout */}
-              <div className="border rounded-full flex items-center gap-4 px-2.5 py-2">
-                <HiOutlineMenuAlt2 className="text-2xl" />
-                <div onClick={handleProfileClick}>
+              <Menu>
+                <MenuButton className="relative flex rounded-full bg-gray-800 text-sm outline-none">
                   <img
-                    src="https://apusthemes.com/wp-demo/superio/wp-content/uploads/2021/05/team5-200x200.jpg"
                     alt="profile_pic"
-                    className="h-7 w-7 object-center rounded-full cursor-pointer"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    className="size-10 rounded-full"
                   />
-                </div>
-              </div>
-              <button
-                className="text-blue-600 hover:underline"
-                onClick={utility.onLogout}
-              >
-                Logout
-              </button>
+                </MenuButton>
+                <MenuItems
+                  transition
+                  anchor="bottom end"
+                  className="absolute right-0 z-40 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                >
+                  <MenuItem>
+                    <button
+                      onClick={handleProfileClick}
+                      className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+                    >
+                      <CgProfile />
+                      Your Profile
+                    </button>
+                  </MenuItem>
+                  <MenuItem>
+                    <button
+                      onClick={utility.onLogout}
+                      className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+                    >
+                      <GoSignOut />
+                      Log out
+                    </button>
+                  </MenuItem>
+                </MenuItems>
+              </Menu>
             </div>
           </div>
         ) : (
@@ -94,6 +111,7 @@ function Navbar() {
               >
                 Login
               </Link>
+
               <Menu>
                 <MenuButton className="inline-flex items-center gap-2 rounded-full bg-red-600 py-2.5 px-5 text-sm font-medium text-white outline-none data-[hover]:bg-red-700 data-[open]:bg-red-700 data-[focus]:outline-1 data-[focus]:outline-white">
                   Register
@@ -102,13 +120,13 @@ function Navbar() {
 
                 <MenuItems
                   transition
-                  anchor="bottom"
-                  className="w-fit origin-top-right border border-white/5 bg-red-600 p-1 text-sm text-white transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 z-50"
+                  anchor="bottom end"
+                  className="absolute right-0 z-40 mt-2 w-40 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
                 >
                   <MenuItem>
                     <Link
                       to="/company-registration"
-                      className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/20"
+                      className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                     >
                       <GoOrganization /> Company
                     </Link>
@@ -116,7 +134,7 @@ function Navbar() {
                   <MenuItem>
                     <Link
                       to="/jobseeker-registration"
-                      className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-white/20"
+                      className="flex items-center gap-2 w-full text-left px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
                     >
                       <TbUserSearch /> JobSeaker
                     </Link>

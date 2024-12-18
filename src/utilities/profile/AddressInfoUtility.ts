@@ -10,13 +10,11 @@ import { getTrainLines } from "../../services/TrainLineService";
 
 import AddressInfoModel from "../../model/profile/AddressInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { SelectChangeEvent } from "@mui/material/Select";
 import {
   createAddressInfoAsync,
   getAddressInfoByUserIdAsync,
   updateAddressInfoAsync,
 } from "../../services/profile/AddressInfoService";
-import { SnackbarOrigin } from "@mui/material";
 import { Bounce, toast } from "react-toastify";
 
 const AddressInfoUtility = (loginUserId: number) => {
@@ -34,16 +32,6 @@ const AddressInfoUtility = (loginUserId: number) => {
   const initialErrors: FieldErrorModel[] = [];
 
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] =
-    React.useState<SnackbarOrigin>({
-      vertical: "top",
-      horizontal: "center",
-    });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
   const [addressInfo, setAddressInfo] = useState<AddressInfoModel>(
     intialAddressInfoModel
   );
@@ -63,7 +51,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         }
       }
     }
-
     async function fetchStates() {
       let response = await getStates();
       if (response.status === 200) {
@@ -106,15 +93,6 @@ const AddressInfoUtility = (loginUserId: number) => {
       fetchAddressInfo();
     }
   }, []);
-
-  async function fetchCountries() {
-    let response = await getCountries();
-    if (response.status === 200) {
-      if (response.data !== null) {
-        setCountries(response.data);
-      }
-    }
-  }
 
   const onTextFieldChanged = (
     event:
@@ -253,12 +231,8 @@ const AddressInfoUtility = (loginUserId: number) => {
     onSelectFieldChanged,
     onAddressInfoSave,
     errorInfo,
-
     snackbarOpen,
     handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
   };
 };
 export default AddressInfoUtility;

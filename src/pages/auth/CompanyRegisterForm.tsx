@@ -20,7 +20,7 @@ function CompanyRegisterForm() {
         <div className="p-10 bg-white rounded-xl shadow-md h-fit flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <h2 className="font-semibold text-lg" id="careers">
-              Create yours Company profile
+              Create your Company profile
             </h2>
             <p className="text-sm text-gray-500 font-semibold">
               To create a new profile, please fill out the form below. Your
