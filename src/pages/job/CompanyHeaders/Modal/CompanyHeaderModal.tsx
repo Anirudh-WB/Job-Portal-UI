@@ -434,7 +434,7 @@ export default function CompanyHeaderModal({
                             utility.errorInfo.find(
                               (err) => err.fieldName === "designationId"
                             )
-                              ? "border-red-500 text-red-500"
+                              ? "border-red-500"
                               : "border-gray-300"
                           }`}
                           value={utility.CompanyInfo.designationId}

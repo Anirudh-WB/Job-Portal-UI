@@ -56,7 +56,13 @@ function AddressInfoModal({
                       value={utility.addressInfo.address}
                       id="address"
                       name="address"
-                      className="peer"
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "address"
+                        )
+                          ? "border-red-500 text-red-500"
+                          : "border-gray-300"
+                      }`}
                       onChange={utility.onTextFieldChanged}
                       autoComplete="off"
                     />
@@ -67,6 +73,11 @@ function AddressInfoModal({
                       Address
                     </label>
                   </div>
+                  {utility.errorInfo.find(
+                    (err) => err.fieldName === "address"
+                  ) && (
+                    <span className="text-red-600 text-sm">Enter address</span>
+                  )}
                 </div>
 
                 <div className="flex gap-2">
@@ -79,8 +90,15 @@ function AddressInfoModal({
                       id="cityId"
                       value={utility.addressInfo.cityId}
                       onChange={utility.onSelectFieldChanged}
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "cityId"
+                        )
+                          ? "border-red-500 "
+                          : "border-gray-300"
+                      }`}
                     >
-                      <option value="">Select City</option>
+                      <option value="" disabled>Select City</option>
                       {utility.cities.map((city) => (
                         <option key={city.id} value={city.id}>
                           {city.cityName}
@@ -103,8 +121,15 @@ function AddressInfoModal({
                       id="stateId"
                       value={utility.addressInfo.stateId}
                       onChange={utility.onSelectFieldChanged}
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "stateId"
+                        )
+                          ? "border-red-500 "
+                          : "border-gray-300"
+                      }`}
                     >
-                      <option value="">Select State</option>
+                      <option value="" disabled>Select State</option>
                       {utility.states.map((state) => (
                         <option key={state.id} value={state.id}>
                           {state.stateName}
@@ -132,8 +157,15 @@ function AddressInfoModal({
                       id="countryId"
                       value={utility.addressInfo.countryId}
                       onChange={utility.onSelectFieldChanged}
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "countryId"
+                        )
+                          ? "border-red-500 "
+                          : "border-gray-300"
+                      }`}
                     >
-                      <option value="">Select Country</option>
+                      <option value="" disabled>Select Country</option>
                       {utility.countries.map((country) => (
                         <option key={country.id} value={country.id}>
                           {country.countryName}
@@ -161,8 +193,15 @@ function AddressInfoModal({
                       id="trainLineId"
                       value={utility.addressInfo.trainLineId}
                       onChange={utility.onSelectFieldChanged}
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "trainLineId"
+                        )
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
                     >
-                      <option value="">Select Train Line</option>
+                      <option value="" disabled>Select Train Line</option>
                       {utility.trainLines.map((trainLine) => (
                         <option key={trainLine.id} value={trainLine.id}>
                           {trainLine.trainLineName}
@@ -192,7 +231,13 @@ function AddressInfoModal({
                       value={utility.addressInfo.postalCode}
                       id="postalCode"
                       name="postalCode"
-                      className="peer"
+                      className={`${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "postalCode"
+                        )
+                          ? "border-red-500"
+                          : "border-gray-300"
+                      }`}
                       onChange={utility.onTextFieldChanged}
                     />
                     <label
@@ -201,6 +246,17 @@ function AddressInfoModal({
                     >
                       Postal Code
                     </label>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "postalCode"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "postalCode"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
