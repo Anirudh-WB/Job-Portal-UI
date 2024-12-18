@@ -1,16 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import LoginUtility from "../../utilities/LoginUtility";
-import { Alert, Snackbar } from "@mui/material";
 import { Bounce, ToastContainer } from "react-toastify";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { useState } from "react";
 
 function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
-  };
   const utility = LoginUtility();
   const navigate = useNavigate();
 
@@ -55,7 +48,7 @@ function LoginForm() {
             <label className="font-semibold text-black">Password</label>
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"}
+                type={utility.showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 placeholder="Enter your password"
@@ -71,9 +64,9 @@ function LoginForm() {
               />
               <div
                 className="absolute inset-y-0 right-2 flex items-center cursor-pointer"
-                onClick={togglePasswordVisibility}
+                onClick={utility.togglePasswordVisibility}
               >
-                {showPassword ? (
+                {utility.showPassword ? (
                   <FiEyeOff className="text-gray-600" size={20} />
                 ) : (
                   <FiEye className="text-gray-600" size={20} />
@@ -107,12 +100,12 @@ function LoginForm() {
             Login
           </button>
 
-          <a
+          {/* <a
             href="/"
             className="text-blue-600 text-center font-semibold text-sm mt-2"
           >
             Use OTP to Login
-          </a>
+          </a> */}
 
           <div className="flex items-center p-2">
             <span className="flex-1 border-t border-gray-300 mr-2"></span>
