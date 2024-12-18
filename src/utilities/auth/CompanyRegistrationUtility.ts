@@ -88,15 +88,14 @@ const CompanyRegistrationUtility = () => {
               // toastId: "company__registration__toast",
               closeOnClick: true,
               draggable: true,
-              progress: undefined,
               theme: "colored",
               transition: Bounce,
               onOpen: () => setCompanyRegistration(initialCompanyRegistration),
             })
           : toast.error(response.message, {
               // toastId: "company__registration__toast",
+              closeOnClick: true,
               draggable: true,
-              progress: undefined,
               theme: "colored",
               transition: Bounce,
             });
