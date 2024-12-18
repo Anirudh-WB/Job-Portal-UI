@@ -2,24 +2,26 @@ import { useEffect, useState } from "react";
 import JobInfoModel from "../../model/job/JobInfoModel";
 import {
   deleteJobInfoByIdAsync,
+  getJobInfoByCompanyIdAsync,
   getJobInfosAsync,
 } from "../../services/job/JobInfoService";
 import { useNavigate } from "react-router-dom";
 
-const JobListUtility = () => {
+const JobListUtility = (companyId : number) => {
   const [jobs, setJobs] = useState<JobInfoModel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchJobsAsync();
+    fetchJobsByCompanyIdAsync(); //
   }, []);
 
-  async function fetchJobsAsync() {
+
+  async function fetchJobsByCompanyIdAsync() {
     setLoading(true);
     try {
-      let response = await getJobInfosAsync();
+      let response = await getJobInfoByCompanyIdAsync(companyId);
 
       if (response.status === 200 && response.data !== null) {
         setJobs(response.data);
@@ -41,7 +43,6 @@ const JobListUtility = () => {
       ) {
         let response = await deleteJobInfoByIdAsync(jobId);
         if (response.status === 200) {
-          fetchJobsAsync();
         }
       }
     } catch (error) {

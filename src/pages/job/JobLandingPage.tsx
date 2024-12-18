@@ -10,7 +10,7 @@ function JobLandingPage() {
   return (
     <div className="py-8 px-44 w-full h-full overflow-auto flex flex-col gap-5">
       <CompanyHeader loginUserId={loginUserId} />
-      <JobsPage/>
+      <JobsPage companyId={loginUserId}/>
     </div>
   );
 }
