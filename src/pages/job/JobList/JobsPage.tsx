@@ -5,9 +5,11 @@ import { BiRupee } from "react-icons/bi";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 
-const JobsPage: React.FC = () => {
+type Props = { companyId: number };
+
+function JobsPage({ companyId }: Props) {
   const navigate = useNavigate();
-  const utility = JobListUtility();
+  const utility = JobListUtility(companyId);
 
   return (
     <div className="flex gap-10 w-full">
@@ -17,7 +19,15 @@ const JobsPage: React.FC = () => {
           <div className="py-32 px-2 flex flex-col items-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-400 border-solid"></div>
           </div>
+        ) : utility.jobs.length === 0 ? (
+          // No jobs found case
+          <div className="py-32 px-2 flex flex-col items-center">
+            <h2 className="text-gray-600 text-xl font-semibold">
+              No jobs posted yet.
+            </h2>
+          </div>
         ) : (
+          // Jobs found case
           utility.jobs.map((job) => (
             <div
               key={job.id}
@@ -30,9 +40,9 @@ const JobsPage: React.FC = () => {
                     <button onClick={() => utility.editJob(job.id)}>
                       <FiEdit2 className="text-sm text-gray-700 mt-1" />
                     </button>
-                    <button onClick={() => utility.deleteJobAsync(job.id)}>
+                    {/* <button onClick={() => utility.deleteJobAsync(job.id)}>
                       <FiTrash2 className="text-sm text-gray-700 mt-1" />
-                    </button>
+                    </button> */}
                   </div>
                   <div className="flex items-center">
                     <button
@@ -96,6 +106,6 @@ const JobsPage: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default JobsPage;
