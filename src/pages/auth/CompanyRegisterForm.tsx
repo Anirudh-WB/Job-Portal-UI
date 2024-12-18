@@ -9,9 +9,13 @@ function CompanyRegisterForm() {
 
   return (
     <>
-      <form
-        onSubmit={utility.handleSubmit}
-      >
+      {utility.isLoading && (
+        <div className="fixed inset-0 bg-black/10 z-50 flex w-full h-full justify-center items-center">
+          <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-blue-600 border-solid"></div>
+        </div>
+      )}
+
+      <form onSubmit={utility.handleSubmit}>
         <div className="p-10 bg-white rounded-xl shadow-md h-fit flex flex-col gap-5">
           <div className="flex flex-col gap-1">
             <h2 className="font-semibold text-lg" id="careers">
@@ -221,7 +225,7 @@ function CompanyRegisterForm() {
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="number"
                   id="mobileNo"
                   name="mobileNo"
                   className={`peer ${
@@ -401,7 +405,7 @@ function CompanyRegisterForm() {
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="number"
                   id="contactPersonPhone"
                   name="contactPersonPhone"
                   className={`peer ${
