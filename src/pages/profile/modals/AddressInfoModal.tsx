@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogPanel,
@@ -11,13 +10,13 @@ import AddressInfoUtility from "../../../utilities/profile/AddressInfoUtility";
 
 type Props = {
   isAddressInfoOpen: boolean;
-  setIsAddressInfoOpen: any;
+  toggleModal: any;
   loginUserId: number;
 };
 
 function AddressInfoModal({
   isAddressInfoOpen,
-  setIsAddressInfoOpen,
+  toggleModal,
   loginUserId,
 }: Props) {
   const utility = AddressInfoUtility(loginUserId);
@@ -28,7 +27,7 @@ function AddressInfoModal({
         open={isAddressInfoOpen}
         as="div"
         className="relative z-50 focus:outline-none"
-        onClose={() => setIsAddressInfoOpen((prev: boolean) => !prev)}
+        onClose={toggleModal}
         __demoMode
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30" />
@@ -207,18 +206,12 @@ function AddressInfoModal({
               </div>
 
               <div className="mt-4 flex justify-end gap-10 font-semibold">
-                <button
-                  className="text-blue-700"
-                  onClick={() => setIsAddressInfoOpen((prev: boolean) => !prev)}
-                >
+                <button className="text-blue-700" onClick={toggleModal}>
                   Cancel
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                  onClick={() => {
-                    utility.onAddressInfoSave();
-                    setIsAddressInfoOpen((prev: boolean) => !prev);
-                  }}
+                  onClick={utility.onAddressInfoSave}
                 >
                   Save
                 </button>
