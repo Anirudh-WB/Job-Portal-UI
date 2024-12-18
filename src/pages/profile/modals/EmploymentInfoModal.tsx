@@ -61,7 +61,13 @@ function EmploymentInfoModal({
                         value={utility.employmentInfo.currentCTC}
                         id="currentCTC"
                         name="currentCTC"
-                        className="peer"
+                        className={`peer ${
+                          utility.errorInfo.find(
+                            (err) => err.fieldName === "currentCTC"
+                          )
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         onChange={utility.onTextFieldChanged}
                       />
                       <label
@@ -71,6 +77,17 @@ function EmploymentInfoModal({
                         Current CTC
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "currentCTC"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "currentCTC"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                   <div className="w-full flex flex-col gap-1.5">
                     <h3 className="text-base font-semibold">
@@ -82,7 +99,13 @@ function EmploymentInfoModal({
                         value={utility.employmentInfo.expectedCTC}
                         id="expectedCTC"
                         name="expectedCTC"
-                        className="peer"
+                        className={`peer ${
+                          utility.errorInfo.find(
+                            (err) => err.fieldName === "expectedCTC"
+                          )
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         onChange={utility.onTextFieldChanged}
                       />
                       <label
@@ -92,6 +115,17 @@ function EmploymentInfoModal({
                         Expected CTC
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "expectedCTC"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "expectedCTC"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -107,6 +141,13 @@ function EmploymentInfoModal({
                     id="noticePeriodId"
                     value={utility.employmentInfo.noticePeriodId}
                     onChange={utility.onSelectFieldChanged}
+                    className={`peer ${
+                      utility.errorInfo.find(
+                        (err) => err.fieldName === "noticePeriodId"
+                      )
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
                   >
                     <option value="">Select Notice Period</option>
                     {utility.noticePeriods.map((noticePeriod) => (
@@ -116,12 +157,16 @@ function EmploymentInfoModal({
                     ))}
                   </select>
                   {utility.errorInfo.find(
-                    (err) => err.fieldName === "noticePeriodId"
-                  ) && (
-                    <span className="text-red-600 text-sm">
-                      Select Notice Period
-                    </span>
-                  )}
+                      (error) => error.fieldName === "noticePeriodId"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "noticePeriodId"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                 </div>
               </div>
 
@@ -139,7 +184,7 @@ function EmploymentInfoModal({
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
                   onClick={() => {
                     utility.onEmploymentInfoSave();
-                    setIsEmploymentInfoOpen((prev: boolean) => !prev);
+                    // setIsEmploymentInfoOpen((prev: boolean) => !prev);
                   }}
                 >
                   Save
