@@ -30,22 +30,16 @@ const JobseekerRegistrationUtility = () => {
 
       if (response.status === 200) {
         toast.success(response.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
           draggable: true,
           theme: "colored",
           transition: Bounce,
         });
+
+        setJobseekerRegistration(initialJobseekerRegistration);
       } else {
         toast.error(response.message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
           closeOnClick: true,
-          pauseOnHover: true,
           draggable: true,
           theme: "colored",
           transition: Bounce,
@@ -172,8 +166,6 @@ const JobseekerRegistrationUtility = () => {
 
     // Call the utility function to handle form submission
     onJobseekerRegistration(formData);
-
-    setJobseekerRegistration(initialJobseekerRegistration);
   };
 
   return {

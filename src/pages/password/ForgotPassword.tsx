@@ -1,7 +1,11 @@
 import React from "react";
 import forgotImg from "../../images/mobile-password-forgot.png";
+import ForgotPasswordUtility from "../../utilities/password/ForgotPasswordUtility";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function ForgotPassword() {
+  const utility = ForgotPasswordUtility();
+
   return (
     <div className="flex flex-1 gap-5 px-44 py-10 justify-center">
       <div>
@@ -20,6 +24,8 @@ function ForgotPassword() {
               name="emailAddress"
               autoComplete="off"
               className="outline-none border border-black"
+              value={utility.forgotPassword.emailAddress}
+              onChange={utility.onTextFieldChange}
             />
             <label
               className="absolute text-sm text-black duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
@@ -35,13 +41,22 @@ function ForgotPassword() {
           </p>
         </div>
 
-        <button className="w-full px-10 py-2 bg-blue-700 text-white rounded-md">
+        <button
+          className="w-full px-10 py-2 bg-blue-700 text-white rounded-md"
+          onClick={utility.onForgotPassword}
+        >
           Reset Password
         </button>
         <p className="mt-2 text-sm text-center text-blue-700 cursor-pointer font-semibold">
           <a href="/login">Back to Login</a>
         </p>
       </div>
+      <ToastContainer
+        // containerId="company__registration__toast"
+        draggable
+        theme="colored"
+        transition={Bounce}
+      />
     </div>
   );
 }
