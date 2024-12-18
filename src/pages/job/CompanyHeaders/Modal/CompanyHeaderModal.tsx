@@ -67,12 +67,29 @@ Props) {
                           type="file"
                           id="companyLogo"
                           name="companyLogo"
-                          className="peer mt-5"
+                          className={`peer mt-5${
+                            utility.errorInfo.find(
+                              (error) => error.fieldName === "companyLogo"
+                            )
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
                           placeholder=""
                           accept=".jpeg, .jpg, .png"
                           onChange={utility.onFileChange}
                         />
                       </div>
+                      {utility.errorInfo.find(
+                        (error) => error.fieldName === "companyLogo"
+                      ) && (
+                        <span className="text-xs text-red-500">
+                          {
+                            utility.errorInfo.find(
+                              (error) => error.fieldName === "companyLogo"
+                            )?.errorMessage
+                          }
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -85,7 +102,13 @@ Props) {
                         type="text"
                         id="companyName"
                         name="companyName"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className={`w-full outline-none border rounded-md p-2 peer ${
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "companyName"
+                          )
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder=" "
                         value={utility.CompanyInfo.companyName}
                         onChange={utility.onTextFieldChanged}
@@ -94,6 +117,17 @@ Props) {
                         Company Name
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "companyName"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "companyName"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-2">
@@ -105,7 +139,13 @@ Props) {
                         type="text"
                         id="companyUrl"
                         name="companyUrl"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className={`w-full outline-none border rounded-md p-2 peer ${
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "companyUrl"
+                          )
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder=""
                         value={utility.CompanyInfo.companyUrl}
                         onChange={utility.onTextFieldChanged}
@@ -114,6 +154,17 @@ Props) {
                         Website
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "companyUrl"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "companyUrl"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-2">
@@ -128,7 +179,13 @@ Props) {
                         type="text"
                         id="emailAddress"
                         name="emailAddress"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className={`w-full outline-none border rounded-md p-2 peer ${
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "emailAddress"
+                          )
+                            ? "border-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder=" "
                         value={utility.CompanyInfo.emailAddress}
                         disabled={true}
@@ -137,6 +194,17 @@ Props) {
                         Email
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "emailAddress"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "emailAddress"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex gap-2">
@@ -152,7 +220,13 @@ Props) {
                           type="number"
                           id="mobileNo"
                           name="mobileNo"
-                          className="w-full outline-none border rounded-md p-2 peer"
+                          className={`w-full outline-none border rounded-md p-2 peer ${
+                            utility.errorInfo.find(
+                              (error) => error.fieldName === "mobileNo"
+                            )
+                              ? "border-red-500"
+                              : "border-gray-300"
+                          }`}
                           placeholder=" "
                           value={utility.CompanyInfo.mobileNo}
                           onChange={utility.onTextFieldChanged}
@@ -161,6 +235,17 @@ Props) {
                           Conatact No.
                         </label>
                       </div>
+                      {utility.errorInfo.find(
+                        (error) => error.fieldName === "mobileNo"
+                      ) && (
+                        <span className="text-xs text-red-500">
+                          {
+                            utility.errorInfo.find(
+                              (error) => error.fieldName === "mobileNo"
+                            )?.errorMessage
+                          }
+                        </span>
+                      )}
                     </div>
 
                     <div className="flex flex-col gap-2 w-1/2">
@@ -179,7 +264,7 @@ Props) {
                               (err) => err.fieldName === "cityId"
                             )
                               ? "border-red-500 text-red-500"
-                              : ""
+                              : "border-gray-300"
                           }`}
                           value={utility.CompanyInfo.cityId || 0}
                           onChange={utility.onSelectFieldChange}
@@ -191,6 +276,17 @@ Props) {
                               </option>
                             ))}
                         </select>
+                        {utility.errorInfo.find(
+                          (error) => error.fieldName === "cityId"
+                        ) && (
+                          <span className="text-xs text-red-500">
+                            {
+                              utility.errorInfo.find(
+                                (error) => error.fieldName === "cityId"
+                              )?.errorMessage
+                            }
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -208,7 +304,13 @@ Props) {
                         type="text"
                         id="contactPersonName"
                         name="contactPersonName"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className={`w-full outline-none border rounded-md p-2 peer ${
+                          utility.errorInfo.find(
+                            (err) => err.fieldName === "contactPersonName"
+                          )
+                            ? "border-red-500 text-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder=""
                         value={utility.CompanyInfo.contactPersonName}
                         onChange={utility.onTextFieldChanged}
@@ -217,6 +319,17 @@ Props) {
                         Name
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "contactPersonName"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "contactPersonName"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-2">
@@ -231,7 +344,13 @@ Props) {
                         type="text"
                         id="contactPersonEmail"
                         name="contactPersonEmail"
-                        className="w-full outline-none border rounded-md p-2 peer"
+                        className={`w-full outline-none border rounded-md p-2 peer ${
+                          utility.errorInfo.find(
+                            (err) => err.fieldName === "contactPersonEmail"
+                          )
+                            ? "border-red-500 text-red-500"
+                            : "border-gray-300"
+                        }`}
                         placeholder=" "
                         value={utility.CompanyInfo.contactPersonEmail}
                         onChange={utility.onTextFieldChanged}
@@ -240,6 +359,17 @@ Props) {
                         Email
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "contactPersonEmail"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "contactPersonEmail"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex gap-2">
@@ -255,7 +385,13 @@ Props) {
                           type="number"
                           id="contactPersonPhone"
                           name="contactPersonPhone"
-                          className="w-full outline-none border rounded-md p-2 peer"
+                          className={`w-full outline-none border rounded-md p-2 peer ${
+                            utility.errorInfo.find(
+                              (err) => err.fieldName === "contactPersonPhone"
+                            )
+                              ? "border-red-500 text-red-500"
+                              : "border-gray-300"
+                          }`}
                           placeholder=" "
                           value={utility.CompanyInfo.contactPersonPhone}
                           onChange={utility.onTextFieldChanged}
@@ -264,6 +400,18 @@ Props) {
                           Conatact No.
                         </label>
                       </div>
+                      {utility.errorInfo.find(
+                        (error) => error.fieldName === "contactPersonPhone"
+                      ) && (
+                        <span className="text-xs text-red-500">
+                          {
+                            utility.errorInfo.find(
+                              (error) =>
+                                error.fieldName === "contactPersonPhone"
+                            )?.errorMessage
+                          }
+                        </span>
+                      )}
                     </div>
 
                     <div className="flex flex-col gap-2 w-1/2">
@@ -275,7 +423,13 @@ Props) {
                         <select
                           id="designationId"
                           name="designationId"
-                          className="w-full outline-none rounded-md py-2 px-4 text-sm"
+                          className={`w-full outline-none rounded-md py-2 px-4 text-sm ${
+                            utility.errorInfo.find(
+                              (err) => err.fieldName === "contactPersonPhone"
+                            )
+                              ? "border-red-500 text-red-500"
+                              : "border-gray-300"
+                          }`}
                           value={utility.CompanyInfo.designationId}
                           onChange={utility.onSelectFieldChange}
                         >
@@ -286,6 +440,18 @@ Props) {
                               </option>
                             ))}
                         </select>
+                        {utility.errorInfo.find(
+                          (error) => error.fieldName === "contactPersonPhone"
+                        ) && (
+                          <span className="text-xs text-red-500">
+                            {
+                              utility.errorInfo.find(
+                                (error) =>
+                                  error.fieldName === "contactPersonPhone"
+                              )?.errorMessage
+                            }
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
