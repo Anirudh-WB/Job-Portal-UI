@@ -57,7 +57,7 @@ function App() {
             <Route path="/activate/:token" element={<ActivateProfilePage />} />
 
             <Route path="/forgot-password" element={<ForgotPassword/>}/>
-            <Route path="/reset-password" element={<ResetPassword/>}/>
+            <Route path="/reset-password/:token" element={<ResetPassword/>}/>
 
             {/* Protected routes for role 1 */}
             <Route
