@@ -11,23 +11,24 @@ import { getCitiesAsync } from "../../services/master/CityService";
 import { getDesignations } from "../../services/master/DesignationService";
 const initialCompanyRegistration: CompanyRegistrationModel = {
   companyLogo: null,
-  companyName: "",
-  companyUrl: "",
-  emailAddress: "",
-  mobileNo: "",
-  cityId: 0,
-  contactPersonName: "",
-  contactPersonEmail: "",
-  contactPersonPhone: "",
-  designationId: 0,
-  password: "",
-  confirmPassword: "",
+  companyName: "defgdb",
+  companyUrl: "qewrsgd",
+  emailAddress: "dfbg@dsfg.wadfsv",
+  mobileNo: "1234567890",
+  cityId: 5,
+  contactPersonName: "sadfgb",
+  contactPersonEmail: "wedfsdgb@dsfg.wadfsv",
+  contactPersonPhone: "1234567890",
+  designationId: 5,
+  password: "Test@123",
+  confirmPassword: "Test@123",
   roleId: 8,
 };
 const initialErrors: FieldErrorModel[] = [];
 const CompanyRegistrationUtility = () => {
   const [cities, setCities] = useState<CityModel[] | null>([]);
   const [designation, setDesignation] = useState<DesignationModel[] | null>([]);
+  const [isLoading, setIsLoading] = useState(false)
 
   async function fetchCities() {
     try {
@@ -66,28 +67,35 @@ const CompanyRegistrationUtility = () => {
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
 
   const onCompanyRegistration = async (companyRegistration: FormData) => {
-    if (isValidate()) {
-      const response = await createCompanyRegistrationAsync(
-        companyRegistration
-      );
-
-      response.status === 200
-        ? toast.success(response.message, {
-            // toastId: "company__registration__toast",
-            closeOnClick: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-            onOpen: () => setCompanyRegistration(initialCompanyRegistration),
-          })
-        : toast.error(response.message, {
-            // toastId: "company__registration__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
+    setIsLoading(true);
+    try {
+      if (isValidate()) {
+        const response = await createCompanyRegistrationAsync(
+          companyRegistration
+        );
+  
+        response.status === 200
+          ? toast.success(response.message, {
+              // toastId: "company__registration__toast",
+              closeOnClick: true,
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Bounce,
+              onOpen: () => setCompanyRegistration(initialCompanyRegistration),
+            })
+          : toast.error(response.message, {
+              // toastId: "company__registration__toast",
+              draggable: true,
+              progress: undefined,
+              theme: "colored",
+              transition: Bounce,
+            });
+      }
+    } catch (error) {
+      console.error("Error fetching info:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -154,12 +162,16 @@ const CompanyRegistrationUtility = () => {
         errorMessage: "Enter Company Website URL",
       });
     }
-    if (companyRegistration.mobileNo === "") {
+    if (
+      companyRegistration.mobileNo === "" ||
+      !/^\d{10}$/.test(companyRegistration.mobileNo)
+    ) {
       newErrors.push({
         fieldName: "mobileNo",
-        errorMessage: "Enter mobile number",
+        errorMessage: "Enter a valid 10-digit mobile number",
       });
     }
+
     if (companyRegistration.cityId === 0) {
       newErrors.push({
         fieldName: "cityId",
@@ -172,15 +184,19 @@ const CompanyRegistrationUtility = () => {
         errorMessage: "Enter Contact Person Name",
       });
     }
-    if (companyRegistration.contactPersonPhone === "") {
+    if (
+      companyRegistration.contactPersonPhone === "" ||
+      !/^\d{10}$/.test(companyRegistration.contactPersonPhone)
+    ) {
       newErrors.push({
         fieldName: "contactPersonPhone",
-        errorMessage: "Enter Contact Person Mobile Number",
+        errorMessage: "Enter a valid 10-digit Contact Person Mobile Number",
       });
     }
+
     if (companyRegistration.designationId === 0) {
       newErrors.push({
-        fieldName: "cityId",
+        fieldName: "designationId",
         errorMessage: "Select a designation",
       });
     }
@@ -255,6 +271,7 @@ const CompanyRegistrationUtility = () => {
         });
       }
     }
+  
 
     setErrorInfo(newErrors);
     return newErrors.length === 0;
@@ -285,6 +302,7 @@ const CompanyRegistrationUtility = () => {
     onSelectFieldChange,
     errorInfo,
     handleSubmit,
+    isLoading
   };
 };
 export default CompanyRegistrationUtility;
