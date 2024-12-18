@@ -83,24 +83,33 @@ const JobseekerRegistrationUtility = () => {
         errorMessage: "Select a profile picture",
       });
     }
+
     if (!jobseekerRegistration.firstName) {
       newErrors.push({
         fieldName: "firstName",
         errorMessage: "Enter first name",
       });
     }
+
     if (!jobseekerRegistration.lastName) {
       newErrors.push({
         fieldName: "lastName",
         errorMessage: "Enter last name",
       });
     }
+
     if (!jobseekerRegistration.mobileNo) {
       newErrors.push({
         fieldName: "mobileNo",
         errorMessage: "Enter mobile number",
       });
+    } else if (jobseekerRegistration.mobileNo.length !== 10) {
+      newErrors.push({
+        fieldName: "mobileNo",
+        errorMessage: "Invalid mobile number. Please check and try again.",
+      });
     }
+
     if (!jobseekerRegistration.emailAddress) {
       newErrors.push({
         fieldName: "emailAddress",
@@ -112,9 +121,11 @@ const JobseekerRegistrationUtility = () => {
         errorMessage: "Enter a valid email address",
       });
     }
+
     if (!jobseekerRegistration.password) {
       newErrors.push({ fieldName: "password", errorMessage: "Enter password" });
     }
+
     if (!jobseekerRegistration.confirmPassword) {
       newErrors.push({
         fieldName: "confirmPassword",

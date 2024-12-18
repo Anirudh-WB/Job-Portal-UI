@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { LoginModel } from "../model/LoginModels";
 import FieldErrorModel from "../model/FieldErrorModel";
 import { isValidEmailAddress } from "../common/CommonFunctions";
-import { SnackbarOrigin } from "@mui/material";
 import { LoginAsync } from "../services/UserService";
 import { getSessionValue, setSessionValue } from "./SessionStorageUtility";
 import { useNavigate } from "react-router-dom";
@@ -12,15 +11,6 @@ import { Bounce, toast } from "react-toastify";
 const LoginUtility = () => {
   const navigate = useNavigate();
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] =
-    React.useState<SnackbarOrigin>({
-      vertical: "top",
-      horizontal: "center",
-    });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
-    "success" | "error" | "info" | "warning"
-  >();
 
   const initialLogin: LoginModel = {
     emailAddress: "",
@@ -31,7 +21,6 @@ const LoginUtility = () => {
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
 
   let loginUserId: number = Number(getSessionValue("loginUserId"));
-  let userRoleId: number = Number(getSessionValue("userRole"));
 
   useEffect(() => {
     getSessionValue("loginUserId");
@@ -42,6 +31,7 @@ const LoginUtility = () => {
       let response;
 
       response = await LoginAsync(login);
+
       if (response.data != null && response.status === 200) {
         setSessionValue("accessToken", response.data.accessToken);
         setSessionValue("refreshToken", response.data.accessToken);
@@ -73,32 +63,26 @@ const LoginUtility = () => {
       response.status === 200
         ? toast.success(response.message, {
             // toastId: "login__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
+            closeOnClick: true,
             draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: Bounce,
           })
         : toast.error(response.message, {
             // toastId: "login__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
+            closeOnClick: true,
             draggable: true,
-            progress: undefined,
             theme: "colored",
             transition: Bounce,
           });
     } else {
-      setSnackbarMessage("Fields marked in red are required");
-      setSnackbarOpen(true);
-      setSnackbarSeverity("error");
+      toast.error("All conditions marked in red are required", {
+        // toastId: "login__toast",
+        closeOnClick: true,
+        draggable: true,
+        theme: "colored",
+        transition: Bounce,
+      });
     }
   };
   const isValidate = () => {
@@ -163,9 +147,6 @@ const LoginUtility = () => {
     snackbarOpen,
     handleSnackbarClose,
     loginUserId,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
     onLogout,
   };
 };

@@ -207,7 +207,7 @@ function JobSeekerRegistrationForm() {
                 </label>
                 <div className="relative">
                   <input
-                    type="text"
+                    type="number"
                     id="mobileNo"
                     name="mobileNo"
                     className={`peer ${
