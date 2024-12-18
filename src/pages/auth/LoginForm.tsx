@@ -51,32 +51,34 @@ function LoginForm() {
               </span>
             )}
           </div>
-          <div className="flex flex-col gap-2 relative">
+          <div className="flex flex-col gap-2">
             <label className="font-semibold text-black">Password</label>
-            <input
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              placeholder="Enter your password"
-              className={`text-black placeholder-gray-500 ${
-                utility.errorInfo.find(
-                  (error) => error.fieldName === "password"
-                )
-                  ? "border-red-500"
-                  : "border-gray-300"
-              } w-full pr-10`} // Added pr-10 for padding-right to make space for the eye icon
-              value={utility.login.password}
-              onChange={utility.onTextFieldChanged}
-            />
-            <div
-              className="mt-8 absolute inset-y-0 right-2 flex items-center cursor-pointer"
-              onClick={togglePasswordVisibility}
-            >
-              {showPassword ? (
-                <FiEyeOff className="text-gray-600" size={20} />
-              ) : (
-                <FiEye className="text-gray-600" size={20} />
-              )}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                className={`text-black placeholder-gray-500 ${
+                  utility.errorInfo.find(
+                    (error) => error.fieldName === "password"
+                  )
+                    ? "border-red-500"
+                    : "border-gray-300"
+                } w-full pr-10`} // Added pr-10 for padding-right to make space for the eye icon
+                value={utility.login.password}
+                onChange={utility.onTextFieldChanged}
+              />
+              <div
+                className="absolute inset-y-0 right-2 flex items-center cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <FiEyeOff className="text-gray-600" size={20} />
+                ) : (
+                  <FiEye className="text-gray-600" size={20} />
+                )}
+              </div>
             </div>
             {utility.errorInfo.find(
               (error) => error.fieldName === "password"
@@ -142,16 +144,8 @@ function LoginForm() {
       </div>
 
       <ToastContainer
-        containerId="login__toast"
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
+        // containerId="login__toast"
         draggable
-        pauseOnHover
         theme="colored"
         transition={Bounce}
       />
