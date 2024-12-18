@@ -12,16 +12,15 @@ type Props = {
   isCompanyInfoOpen: boolean;
   toggleModal: any;
   loginUserId: number;
-  //   companyInfoId: number;
 };
 
 export default function CompanyHeaderModal({
   isCompanyInfoOpen,
   toggleModal,
   loginUserId,
-}: //   companyInfoId,
-Props) {
+}: Props) {
   const utility = CompanyInfoModalUtility(loginUserId);
+
   return (
     <>
       <Dialog
@@ -32,7 +31,15 @@ Props) {
         __demoMode
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30" />
-        <form onSubmit={utility.handleSubmit}>
+        <form
+          onSubmit={(e) => {
+            utility.handleSubmit(e).then((res) => {
+              if (res) {
+                toggleModal();
+              }
+            });
+          }}
+        >
           <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4">
               <DialogPanel
@@ -425,7 +432,7 @@ Props) {
                           name="designationId"
                           className={`w-full outline-none rounded-md py-2 px-4 text-sm ${
                             utility.errorInfo.find(
-                              (err) => err.fieldName === "contactPersonPhone"
+                              (err) => err.fieldName === "designationId"
                             )
                               ? "border-red-500 text-red-500"
                               : "border-gray-300"
@@ -441,13 +448,12 @@ Props) {
                             ))}
                         </select>
                         {utility.errorInfo.find(
-                          (error) => error.fieldName === "contactPersonPhone"
+                          (error) => error.fieldName === "designationId"
                         ) && (
                           <span className="text-xs text-red-500">
                             {
                               utility.errorInfo.find(
-                                (error) =>
-                                  error.fieldName === "contactPersonPhone"
+                                (error) => error.fieldName === "designationId"
                               )?.errorMessage
                             }
                           </span>
@@ -458,26 +464,16 @@ Props) {
                 </div>
 
                 <div className="mt-4 flex justify-end gap-10 font-semibold">
-                  <button className="text-blue-700" onClick={toggleModal}>
+                  <button
+                    type="button"
+                    className="text-blue-700"
+                    onClick={toggleModal}
+                  >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                    // onClick={() => {
-                    //   toggleModal();
-                    //   toast.success("Company Details saved successfully", {
-                    //     position: "top-right",
-                    //     autoClose: 5000,
-                    //     hideProgressBar: false,
-                    //     closeOnClick: true,
-                    //     pauseOnHover: true,
-                    //     draggable: true,
-                    //     progress: undefined,
-                    //     theme: "colored",
-                    //     transition: Bounce,
-                    //   });
-                    // }}
                   >
                     Save
                   </button>
@@ -489,16 +485,8 @@ Props) {
       </Dialog>
 
       <ToastContainer
-        containerId="company__header__toast"
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
+        // containerId="company__info__toast"
         draggable
-        pauseOnHover
         theme="colored"
         transition={Bounce}
       />

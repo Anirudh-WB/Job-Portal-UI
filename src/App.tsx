@@ -30,6 +30,8 @@ import JobDetails from "./pages/job/JobDetails/JobDetails";
 import ActivateProfilePage from "./pages/ActivateProfilePage";
 import ForgotPassword from "./pages/password/ForgotPassword";
 import ResetPassword from "./pages/password/ResetPassword";
+import UnauthorizedPage from "./pages/UnauthorizedPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -40,7 +42,7 @@ function App() {
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Navigate to="/job-search" />} />
-            <Route path='/job-details/:id' element={<JobDetails />} />
+            <Route path="/job-details/:id" element={<JobDetails />} />
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/jobseeker-registration"
@@ -53,11 +55,14 @@ function App() {
               element={<CompanyRegistration />}
             />
             <Route path="/profile/:id" element={<ProfilePage />} />
-            
+
             <Route path="/activate/:token" element={<ActivateProfilePage />} />
 
-            <Route path="/forgot-password" element={<ForgotPassword/>}/>
-            <Route path="/reset-password/:token" element={<ResetPassword/>}/>
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+
+            <Route path="/unauthorized" element={<UnauthorizedPage />} />
+            <Route path="*" element={<NotFoundPage />} />
 
             {/* Protected routes for role 1 */}
             <Route
@@ -69,8 +74,6 @@ function App() {
               <Route path="/job/:id?" element={<JobPage />} />
               {/* <Route path='/contact' element={<ContactPage />} /> */}
 
-
-              
               <Route
                 path="/job-applications"
                 element={<JobApplicationsPage />}

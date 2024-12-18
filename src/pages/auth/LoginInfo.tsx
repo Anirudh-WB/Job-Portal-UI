@@ -4,7 +4,7 @@ const LoginInfo = () => {
     <>
       <div className="bg-white border rounded-lg sticky h-fit w-1/2 shadow-md shadow-blue-200">
         <div className="p-10 pb-0 flex flex-col gap-4 justify-start">
-          <h2 className="font-semibold text-lg">New to JobSeeker?</h2>
+          <h2 className="font-semibold text-lg">Login to JobSeeker</h2>
           <div className="flex items-center gap-1 w-full font-medium">
             <IoCheckmark className="text-green-600" />
             <p className="text-gray-600 text-sm w-auto">
@@ -29,11 +29,11 @@ const LoginInfo = () => {
               Know application status on applies jobs
             </p>
           </div>
-          <div>
-            <button className="text-blue-700 bg-white rounded-sm border border-blue-700 px-8 py-2 w-1/2 font-medium">
+          {/* <div>
+            <button className="text-blue-700 bg-white rounded-sm border border-blue-700 px-8 py-2 w-1/2 font-medium" disabled>
               Regsiter for free
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="flex justify-end items-center">
           <img

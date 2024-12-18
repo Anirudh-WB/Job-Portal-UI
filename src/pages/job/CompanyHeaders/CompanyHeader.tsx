@@ -9,7 +9,7 @@ import CompanyInfoModalUtility from "../../../utilities/company/CompanyInfoModal
 type Props = { loginUserId: number };
 function CompanyHeader({ loginUserId }: Props) {
   const utility = CompanyInfoModalUtility(loginUserId);
-  
+
   return (
     <>
       <div className="bg-white p-6 shadow-lg rounded-2xl flex items-center justify-center gap-10">
@@ -23,8 +23,14 @@ function CompanyHeader({ loginUserId }: Props) {
           <div className="flex items-end justify-between">
             <div className="flex flex-col">
               <div className="flex items-end gap-4">
-                <h1 className="text-2xl font-bold">{utility.CompanyInfo.companyName}</h1>
-                <button onClick={() => utility.onCompanyInfoEdit(utility.CompanyInfo.id)}>
+                <h1 className="text-2xl font-bold">
+                  {utility.CompanyInfo.companyName}
+                </h1>
+                <button
+                  onClick={() =>
+                    utility.onCompanyInfoEdit(utility.CompanyInfo.id)
+                  }
+                >
                   <FiEdit2 className="text-sm text-gray-700 mb-1.5" />
                 </button>
               </div>
@@ -82,7 +88,6 @@ function CompanyHeader({ loginUserId }: Props) {
         isCompanyInfoOpen={utility.isCompanyInfoOpen}
         toggleModal={utility.toggleModal}
         loginUserId={loginUserId}
-        // companyInfoId={utility.companyInfoId}
       />
     </>
   );
