@@ -2,10 +2,8 @@ import { GrLocation } from "react-icons/gr";
 import { FiPhone, FiEdit2 } from "react-icons/fi";
 import { MdMailOutline } from "react-icons/md";
 import { LuCalendar } from "react-icons/lu";
-import React from "react";
 import { FaRegUser } from "react-icons/fa6";
 import CompanyHeaderModal from "./Modal/CompanyHeaderModal";
-import CompanyInfoUtility from "../../../utilities/company/CompanyInfoUtility";
 import CompanyInfoModalUtility from "../../../utilities/company/CompanyInfoModalUtility";
 
 type Props = { loginUserId: number };

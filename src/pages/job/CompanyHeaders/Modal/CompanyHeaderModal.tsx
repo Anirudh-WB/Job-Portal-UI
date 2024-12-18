@@ -7,7 +7,6 @@ import {
 import { RiCloseLargeFill } from "react-icons/ri";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import CompanyInfoModalUtility from "../../../../utilities/company/CompanyInfoModalUtility";
-import CompanyInfoUtility from "../../../../utilities/company/CompanyInfoUtility";
 
 type Props = {
   isCompanyInfoOpen: boolean;
@@ -119,29 +118,6 @@ Props) {
 
                   <div className="flex flex-col gap-2">
                     <span className="text-base font-semibold">
-                      Mobile Number <span className="text-red-600">*</span>
-                    </span>
-                    <span className="text-sm font-semibold text-gray-500">
-                      This helps us reach out to you
-                    </span>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        id="mobileNo"
-                        name="mobileNo"
-                        className="w-full outline-none border rounded-md p-2 peer"
-                        placeholder=" "
-                        value={utility.CompanyInfo.mobileNo}
-                        onChange={utility.onTextFieldChanged}
-                      />
-                      <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
-                        Conatact No.
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <span className="text-base font-semibold">
                       Email Address <span className="text-red-600">*</span>
                     </span>
                     <span className="text-sm font-semibold text-gray-500">
@@ -163,34 +139,59 @@ Props) {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <span className="text-base font-semibold">
-                      Location <span className="text-red-600">*</span>
-                    </span>
-                    <span className="text-sm font-semibold text-gray-500">
-                      This helps us find relevant jobs for you
-                    </span>
-                    <div>
-                      <select
-                        id="cityId"
-                        name="cityId"
-                        className={`w-full outline-none rounded-md py-2 px-4 text-sm ${
-                          utility.errorInfo.find(
-                            (err) => err.fieldName === "cityId"
-                          )
-                            ? "border-red-500 text-red-500"
-                            : ""
-                        }`}
-                        value={utility.CompanyInfo.cityId  || 0}
-                        onChange={utility.onSelectFieldChange}
-                      >
-                        {utility.cities.length !== null &&
-                          utility.cities.map((idc, index) => (
-                            <option key={index} value={idc.id}>
-                              {idc.cityName}
-                            </option>
-                          ))}
-                      </select>
+                  <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 w-1/2">
+                      <span className="text-base font-semibold">
+                        Mobile Number <span className="text-red-600">*</span>
+                      </span>
+                      <span className="text-sm font-semibold text-gray-500">
+                        This helps us reach out to you
+                      </span>
+                      <div className="relative">
+                        <input
+                          type="number"
+                          id="mobileNo"
+                          name="mobileNo"
+                          className="w-full outline-none border rounded-md p-2 peer"
+                          placeholder=" "
+                          value={utility.CompanyInfo.mobileNo}
+                          onChange={utility.onTextFieldChanged}
+                        />
+                        <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                          Conatact No.
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 w-1/2">
+                      <span className="text-base font-semibold">
+                        Location <span className="text-red-600">*</span>
+                      </span>
+                      <span className="text-sm font-semibold text-gray-500">
+                        This helps us find relevant jobs for you
+                      </span>
+                      <div>
+                        <select
+                          id="cityId"
+                          name="cityId"
+                          className={`w-full outline-none rounded-md py-2 px-4 text-sm ${
+                            utility.errorInfo.find(
+                              (err) => err.fieldName === "cityId"
+                            )
+                              ? "border-red-500 text-red-500"
+                              : ""
+                          }`}
+                          value={utility.CompanyInfo.cityId || 0}
+                          onChange={utility.onSelectFieldChange}
+                        >
+                          {utility.cities.length !== null &&
+                            utility.cities.map((idc, index) => (
+                              <option key={index} value={idc.id}>
+                                {idc.cityName}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
                     </div>
                   </div>
 
@@ -220,29 +221,6 @@ Props) {
 
                   <div className="flex flex-col gap-2">
                     <span className="text-base font-semibold">
-                      Mobile Number <span className="text-red-600">*</span>
-                    </span>
-                    <span className="text-sm font-semibold text-gray-500">
-                      This helps us reach out to you
-                    </span>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        id="contactPersonPhone"
-                        name="contactPersonPhone"
-                        className="w-full outline-none border rounded-md p-2 peer"
-                        placeholder=" "
-                        value={utility.CompanyInfo.contactPersonPhone}
-                        onChange={utility.onTextFieldChanged}
-                      />
-                      <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
-                        Conatact No.
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <span className="text-base font-semibold">
                       Email Address <span className="text-red-600">*</span>
                     </span>
                     <span className="text-sm font-semibold text-gray-500">
@@ -264,26 +242,51 @@ Props) {
                     </div>
                   </div>
 
-                  <div className="flex flex-col gap-2">
-                    <span className="text-base font-semibold">
-                      Designation <span className="text-red-600">*</span>
-                    </span>
+                  <div className="flex gap-2">
+                    <div className="flex flex-col gap-2 w-1/2">
+                      <span className="text-base font-semibold">
+                        Mobile Number <span className="text-red-600">*</span>
+                      </span>
+                      {/* <span className="text-sm font-semibold text-gray-500">
+                        This helps us reach out to you
+                      </span> */}
+                      <div className="relative">
+                        <input
+                          type="number"
+                          id="contactPersonPhone"
+                          name="contactPersonPhone"
+                          className="w-full outline-none border rounded-md p-2 peer"
+                          placeholder=" "
+                          value={utility.CompanyInfo.contactPersonPhone}
+                          onChange={utility.onTextFieldChanged}
+                        />
+                        <label className="absolute text-sm text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1">
+                          Conatact No.
+                        </label>
+                      </div>
+                    </div>
 
-                    <div>
-                      <select
-                        id="designationId"
-                        name="designationId"
-                        className="w-full outline-none rounded-md py-2 px-4 text-sm"
-                        value={utility.CompanyInfo.designationId}
-                        onChange={utility.onSelectFieldChange}
-                      >
-                        {utility.designation?.length !== null &&
-                          utility.designation?.map((idc, index) => (
-                            <option key={index} value={idc.id}>
-                              {idc.designationName}
-                            </option>
-                          ))}
-                      </select>
+                    <div className="flex flex-col gap-2 w-1/2">
+                      <span className="text-base font-semibold">
+                        Designation <span className="text-red-600">*</span>
+                      </span>
+
+                      <div>
+                        <select
+                          id="designationId"
+                          name="designationId"
+                          className="w-full outline-none rounded-md py-2 px-4 text-sm"
+                          value={utility.CompanyInfo.designationId}
+                          onChange={utility.onSelectFieldChange}
+                        >
+                          {utility.designation?.length !== null &&
+                            utility.designation?.map((idc, index) => (
+                              <option key={index} value={idc.id}>
+                                {idc.designationName}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -295,20 +298,20 @@ Props) {
                   <button
                     type="submit"
                     className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                    onClick={() => {
-                      toggleModal();
-                      toast.success("Company Details saved successfully", {
-                        position: "top-right",
-                        autoClose: 5000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-                        transition: Bounce,
-                      });
-                    }}
+                    // onClick={() => {
+                    //   toggleModal();
+                    //   toast.success("Company Details saved successfully", {
+                    //     position: "top-right",
+                    //     autoClose: 5000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: true,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    //     theme: "colored",
+                    //     transition: Bounce,
+                    //   });
+                    // }}
                   >
                     Save
                   </button>

@@ -21,6 +21,7 @@ function SingleJobs() {
 
   // Simulate loginUserId (replace with actual implementation)
   const loginUserId = localStorage.getItem("loginUserId"); // Example: Retrieve from localStorage
+  const userRole = localStorage.getItem("userRole"); // Example: Retrieve from localStorage
 
   return (
     <>
@@ -92,14 +93,16 @@ function SingleJobs() {
               </div>
               {loginUserId ? (
                 // Buttons for logged-in users
-                <div className="flex gap-4 items-center ml-auto">
-                  <button
-                    className="text-white bg-blue-600 hover:bg-blue-700 rounded-full px-4 py-2 sm:px-6 focus:outline-none w-full sm:w-auto"
-                    onClick={() => jobApplicationUtility.onApplyJob(paramId)}
-                  >
-                    Apply Now
-                  </button>
-                </div>
+                userRole !== "company" && (
+                  <div className="flex gap-4 items-center ml-auto">
+                    <button
+                      className="text-white bg-blue-600 hover:bg-blue-700 rounded-full px-4 py-2 sm:px-6 focus:outline-none w-full sm:w-auto"
+                      onClick={() => jobApplicationUtility.onApplyJob(paramId)}
+                    >
+                      Apply Now
+                    </button>
+                  </div>
+                )
               ) : (
                 // Buttons for guests
                 <div className="flex gap-4 items-center ml-auto">
