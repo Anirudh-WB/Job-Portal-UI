@@ -47,9 +47,9 @@ const JobseekerRegistrationUtility = () => {
             draggable: true,
             theme: "colored",
             transition: Bounce,
+            onOpen: () =>
+              setJobseekerRegistration(initialJobseekerRegistration),
           });
-
-          setJobseekerRegistration(initialJobseekerRegistration);
         } else {
           toast.error(response.message, {
             closeOnClick: true,
