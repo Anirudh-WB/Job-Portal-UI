@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import FieldErrorModel from "../../model/FieldErrorModel";
-
 import { Bounce, toast } from "react-toastify";
 import {
   createCompanyInfoAsync,
-  getCompanyInfoAsync,
   getCompanyInfoByUserIdAsync,
   updateCompanyInfoAsync,
 } from "../../services/company/CompanyInfoService";
@@ -12,10 +10,7 @@ import CompanyInfoModel from "../../model/company/CompanyInfoModel";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 import CityModel from "../../model/master/CityModel";
 import DesignationModel from "../../model/master/DesignationModel";
-import {
-  getCitiesAsync,
-  getCityByIdAsync,
-} from "../../services/master/CityService";
+import { getCitiesAsync } from "../../services/master/CityService";
 import { getDesignations } from "../../services/master/DesignationService";
 
 function CompanyInfoModalUtility(loginUserId: number) {
@@ -49,7 +44,7 @@ function CompanyInfoModalUtility(loginUserId: number) {
 
   async function fetchCompanyInfo() {
     let response = await getCompanyInfoByUserIdAsync(loginUserId);
-    console.log("Data :", response);
+
     if (response.status === 200) {
       if (response.data !== null) {
         setCompanyInfo((prev) => ({
@@ -69,50 +64,21 @@ function CompanyInfoModalUtility(loginUserId: number) {
     toggleModal();
   };
 
-  // async function fetchCities() {
-  //   try {
-  //     const response = await getCitiesAsync();
-  //     if (response.status === 200) {
-  //       setCities(response.data);
-  //     } else {
-  //       console.error("Failed to fetch cities:", response.message);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching cities:", error);
-  //   }
-  // }
-
-  const fetchCities = async () => {
-    const response = await getCitiesAsync();
-    if (response.status === 200 && response.data) {
-      setCities(response.data);
-    }
-  };
-
-  // async function fetchCityName() {
-  //   try {
-  //     const response = await getCityByIdAsync(CompanyInfo.cityId);
-  //     if (response?.status === 200 && response.data?.cityName) {
-  //       setCompanyInfo((prev) => ({ ...prev, cityName: response.data.cityName }));
-  //     } else {
-  //       console.error(
-  //         "Failed to fetch city name:",
-  //         response?.message || "Unknown error"
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("An error occurred while fetching the city name:", error);
-  //   }
-  // }
-
-  const fetchDesignation = async () => {
-    const response = await getDesignations();
-    if (response.status === 200 && response.data) {
-      setDesignation(response.data);
-    }
-  };
-
   useEffect(() => {
+    const fetchCities = async () => {
+      const response = await getCitiesAsync();
+      if (response.status === 200 && response.data) {
+        setCities(response.data);
+      }
+    };
+
+    const fetchDesignation = async () => {
+      const response = await getDesignations();
+      if (response.status === 200 && response.data) {
+        setDesignation(response.data);
+      }
+    };
+
     fetchCities();
     fetchDesignation();
   }, []);
@@ -129,7 +95,7 @@ function CompanyInfoModalUtility(loginUserId: number) {
     });
   };
 
-  const onCompanyInfoSave = async (CompanyInfo: FormData) => {
+  const onCompanyInfoSave =  async (CompanyInfo: FormData) : Promise<boolean> => {
     if (isValidate()) {
       let response;
       const id = Number(CompanyInfo.get("id"));
@@ -140,32 +106,31 @@ function CompanyInfoModalUtility(loginUserId: number) {
       }
 
       if (response.status === 200) {
-        setCompanyInfo(initialCompanyInfo);
+        toast.success(`Company Info Updated`, {
+          // toastId: "company__info__toast",
+          closeOnClick: true,
+          draggable: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return true;
+      } else {
+        toast.error(response.message, {
+          // toastId: "company__info__toast",
+          closeOnClick: true,
+          draggable: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return false;
       }
-
-      response.status === 200
-        ? toast.success(`Company Info ${id > 0 ? "Updated" : "Saved"}`, {
-            // toastId: "Company__info__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-            onOpen: toggleModal,
-          })
-        : toast.error(response.message, {
-            // toastId: "Company__info__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
-
-      return true;
     } else {
       toast.error("All conditions marked in red are compulsory", {
-        // toastId: "Company__info__toast",
+        // toastId: "company__info__toast",
+        closeOnClick: true,
         draggable: true,
-        progress: undefined,
         theme: "colored",
         transition: Bounce,
       });
@@ -229,6 +194,11 @@ function CompanyInfoModalUtility(loginUserId: number) {
         fieldName: "mobileNo",
         errorMessage: "Enter mobile number",
       });
+    } else if (CompanyInfo.mobileNo.length !== 10) {
+      newErrors.push({
+        fieldName: "mobileNo",
+        errorMessage: "Invalid mobile number. Please check and try again.",
+      });
     }
     if (CompanyInfo.cityId === 0) {
       newErrors.push({
@@ -246,6 +216,11 @@ function CompanyInfoModalUtility(loginUserId: number) {
       newErrors.push({
         fieldName: "contactPersonPhone",
         errorMessage: "Enter Contact Person Mobile Number",
+      });
+    } else if (CompanyInfo.contactPersonPhone.length !== 10) {
+      newErrors.push({
+        fieldName: "contactPersonPhone",
+        errorMessage: "Invalid mobile number. Please check and try again.",
       });
     }
     if (CompanyInfo.designationId === 0) {
@@ -284,7 +259,7 @@ function CompanyInfoModalUtility(loginUserId: number) {
     return newErrors.length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<boolean> => {
     event.preventDefault();
 
     // Create a FormData object
@@ -296,7 +271,8 @@ function CompanyInfoModalUtility(loginUserId: number) {
     });
 
     // Call the utility function to handle form submission
-    onCompanyInfoSave(formData);
+    var res = await onCompanyInfoSave(formData);
+    return res;
   };
 
   return {
