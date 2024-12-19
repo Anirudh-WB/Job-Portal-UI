@@ -139,31 +139,33 @@ const ExperienceInfoModalUtility = (
         setExperienceInfo(intialExperienceInfo);
       }
 
-      response.status === 200
-        ? toast.success(
-            `Experience Info ${experienceInfo.id > 0 ? "Updated" : "Saved"}`,
-            {
-              // toastId: "experience__info__toast",
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-              transition: Bounce,
-            }
-          )
-        : toast.error(response.message, {
+      if (response.status === 200) {
+        toast.success(
+          `Experience Info ${experienceInfo.id > 0 ? "Updated" : "Saved"}`,
+          {
             // toastId: "experience__info__toast",
             draggable: true,
-            progress: undefined,
+            closeOnClick: true,
             theme: "colored",
             transition: Bounce,
-          });
+          }
+        );
 
-      return true;
+        return true;
+      } else {
+        toast.error(response.message, {
+          // toastId: "experience__info__toast",
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
     } else {
       toast.error("All conditions marked in red are compulsory", {
         // toastId: "experience__info__toast",
         draggable: true,
-        progress: undefined,
+        closeOnClick: true,
         theme: "colored",
         transition: Bounce,
       });

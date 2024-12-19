@@ -52,14 +52,14 @@ const JobApplicationUtility = (
         ? toast.success(res.message, {
             toastId: "application__toast",
             draggable: true,
-            progress: undefined,
+            closeOnClick: true,
             theme: "colored",
             transition: Bounce,
           })
         : toast.error(res.message, {
           toastId: "application__toast",
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });

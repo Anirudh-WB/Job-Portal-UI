@@ -15,7 +15,6 @@ const ActivateProfileUtility = () => {
         toast.success(response.message, {
           draggable: true,
           closeOnClick: true,
-          progress: undefined,
           theme: "colored",
           transition: Bounce,
           onClose: () => navigate("/login"),
@@ -23,7 +22,7 @@ const ActivateProfileUtility = () => {
       } else {
         toast.error(response.message, {
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });

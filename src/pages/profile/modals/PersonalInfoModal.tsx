@@ -48,8 +48,11 @@ function PersonalInfoModal({
 
               <form
                 onSubmit={(e) => {
-                  utility.handleSubmit(e);
-                  setIsProfileHeaderOpen((prev: boolean) => !prev);
+                  utility.handleSubmit(e).then((res) => {
+                    if (res) {
+                      setIsProfileHeaderOpen((prev: boolean) => !prev);
+                    }
+                  });
                 }}
               >
                 <div className="mt-4 flex flex-col gap-5">
@@ -159,7 +162,7 @@ function PersonalInfoModal({
                         name="emailAddress"
                         className="peer"
                         value={utility.personalInfo.emailAddress}
-                        onChange={utility.onTextFieldChanged}
+                        disabled
                       />
                       <label
                         htmlFor="emailAddress"
@@ -183,10 +186,6 @@ function PersonalInfoModal({
                   <button
                     type="submit"
                     className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                    // onClick={async () => {
-                    //   await utility.onPersonalInfoSave();
-                    //   await setIsProfileHeaderOpen((prev: boolean) => !prev);
-                    // }}
                   >
                     Save
                   </button>

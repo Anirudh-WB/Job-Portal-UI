@@ -62,34 +62,30 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
       }
 
       if (response.status === 200) {
-        setAcademicInfo(intialAcademicInfo);
-      }
-
-      response.status === 200
-        ? toast.success(
-            `Academic Info ${academicInfo.id > 0 ? "Updated" : "Saved"}`,
-            {
-              // toastId: "academic__info__toast",
-              draggable: true,
-              progress: undefined,
-              theme: "colored",
-              transition: Bounce,
-            }
-          )
-        : toast.error(response.message, {
-            // toastId: "academic__info__toast",
+        toast.success(
+          `Academic Info ${academicInfo.id > 0 ? "Updated" : "Saved"}`,
+          {
             draggable: true,
-            progress: undefined,
+            closeOnClick: true,
             theme: "colored",
             transition: Bounce,
-          });
+            onOpen: () => setAcademicInfo(intialAcademicInfo),
+          }
+        );
 
-      return true;
+        return true;
+      } else {
+        toast.error(response.message, {
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
     } else {
       toast.error("All conditions marked in red are compulsory", {
-        // toastId: "academic__info__toast",
         draggable: true,
-        progress: undefined,
+        closeOnClick: true,
         theme: "colored",
         transition: Bounce,
       });

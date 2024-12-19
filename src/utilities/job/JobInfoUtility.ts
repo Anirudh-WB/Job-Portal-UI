@@ -172,25 +172,15 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
       response.status === 200
         ? toast.success(response.message, {
             // toastId: "company__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
             draggable: true,
-            progress: undefined,
+            closeOnClick: true,
             theme: "colored",
             transition: Bounce,
           })
         : toast.error(response.message, {
             // toastId: "company__registration__toast",
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: false,
-            pauseOnHover: true,
             draggable: true,
-            progress: undefined,
+            closeOnClick: true,
             theme: "colored",
             transition: Bounce,
           });

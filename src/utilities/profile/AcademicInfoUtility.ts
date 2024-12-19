@@ -45,7 +45,7 @@ const AcademicInfoUtility = (loginUserId: number) => {
         toast.success(`Academic Info Deleted`, {
           // toastId: "academic__info__toast",
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });
@@ -53,7 +53,7 @@ const AcademicInfoUtility = (loginUserId: number) => {
         toast.error(response.message, {
           // toastId: "academic__info__toast",
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });
