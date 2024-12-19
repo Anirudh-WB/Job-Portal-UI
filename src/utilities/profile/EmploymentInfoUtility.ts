@@ -25,6 +25,9 @@ const EmploymentInfoUtility = (loginUserId: number) => {
   );
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
   const [noticePeriods, setNoticePeriods] = useState<NoticePeriodModel[]>([]);
+  const [isEmploymentInfoOpen, setIsEmploymentInfoOpen] = useState(false);
+
+  const toggleModal = () => setIsEmploymentInfoOpen((prev: boolean) => !prev);
 
   useEffect(() => {
     async function fetchNoticePeriods() {
@@ -172,6 +175,8 @@ const EmploymentInfoUtility = (loginUserId: number) => {
     onEmploymentInfoSave,
     errorInfo,
     noticePeriods,
+    isEmploymentInfoOpen,
+    toggleModal,
   };
 };
 export default EmploymentInfoUtility;

@@ -36,11 +36,14 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     ExperienceInfoViewModel[]
   >([]);
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
+  const [isProfileHeaderOpen, setIsProfileHeaderOpen] = useState(false);
 
   useEffect(() => {
     getPersonalInfo(loginUserId);
     getExperienceInfo(loginUserId);
   }, [loginUserId]);
+
+  const toggleModal = () => setIsProfileHeaderOpen((prev) => !prev);
 
   async function getExperienceInfo(loginUserId: number) {
     try {
@@ -218,6 +221,8 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     onPersonalInfoSave,
     errorInfo,
     handleSubmit,
+    isProfileHeaderOpen,
+    toggleModal,
   };
 };
 
