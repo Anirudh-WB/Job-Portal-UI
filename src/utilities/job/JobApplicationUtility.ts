@@ -34,7 +34,7 @@ const JobApplicationUtility = (
     }
 
     fetchJobApplicationsAsync();
-  }, [jobApplicationRequest]);
+  }, []);
 
   const onApplyJob = async (id: number) => {
     setLoading(true);
