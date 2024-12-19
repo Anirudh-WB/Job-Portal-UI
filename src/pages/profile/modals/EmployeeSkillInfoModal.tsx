@@ -60,7 +60,7 @@ function EmployeeSkillInfoModal({
                       utility.errorInfo.find(
                         (err) => err.fieldName === "skillId"
                       )
-                        ? "border-red-500 text-red-500"
+                        ? "border-red-500"
                         : ""
                     }`}
                   >
@@ -103,7 +103,7 @@ function EmployeeSkillInfoModal({
                       utility.errorInfo.find(
                         (err) => err.fieldName === "expertLevelId"
                       )
-                        ? "border-red-500 text-red-500"
+                        ? "border-red-500"
                         : ""
                     }`}
                   >
@@ -136,13 +136,7 @@ function EmployeeSkillInfoModal({
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                  onClick={() => {
-                    utility.onSkillInfoSave().then((res) => {
-                      if (res) {
-                        toggleModal();
-                      }
-                    });
-                  }}
+                  onClick={utility.onSkillInfoSave}
                 >
                   Save
                 </button>

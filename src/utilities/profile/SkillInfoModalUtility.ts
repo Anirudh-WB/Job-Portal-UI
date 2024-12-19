@@ -29,6 +29,8 @@ const SkillInfoModalUtility = (
     skillName: "",
     userId: loginUserId,
   };
+  const initialErrors: FieldErrorModel[] = [];
+
   const [skillInfo, setSkillInfo] = useState<SkillInfoModel>(intitalSkillInfo);
 
   useEffect(() => {
@@ -50,6 +52,23 @@ const SkillInfoModalUtility = (
     fetchExportLevels();
   }, [loginUserId]);
 
+  useEffect(() => {
+    setErrorInfo(initialErrors);
+    const onSkillInfoEdit = async (id: number) => {
+      let response;
+      response = await getSkillInfoAsync(id);
+      if (response.data != null) {
+        setSkillInfo(response.data);
+      }
+    };
+
+    if (employeeSkillInfoId > 0) {
+      onSkillInfoEdit(employeeSkillInfoId);
+    } else {
+      setSkillInfo(intitalSkillInfo);
+    }
+  }, [employeeSkillInfoId]);
+
   const onSelectFieldChanged = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
@@ -70,44 +89,27 @@ const SkillInfoModalUtility = (
         response = await createSkillInfoAsync(skillInfo);
       }
 
-      if (response?.status === 200) {
-        setSkillInfo(intitalSkillInfo);
-      }
-
-      const isActive = toast.isActive("skill__info__toast");
-
-      if (isActive) {
-        toast.dismiss("skill__info__toast");
-      }
-
-      setTimeout(
-        () => {
-          response.status === 200
-            ? toast.success(
-                `Skill Info ${skillInfo.id > 0 ? "Updated" : "Saved"}`,
-                {
-                  toastId: "skill__info__toast",
-                  draggable: true,
-                  closeOnClick: true,
-                  theme: "colored",
-                  transition: Bounce,
-                }
-              )
-            : toast.error(response.message, {
-                toastId: "skill__info__toast",
-                draggable: true,
-                closeOnClick: true,
-                theme: "colored",
-                transition: Bounce,
-              });
-        },
-        isActive ? 900 : 0
-      );
+      response.status === 200
+        ? toast.success(
+            `Skill Info ${skillInfo.id > 0 ? "Updated" : "Saved"}`,
+            {
+              draggable: true,
+              closeOnClick: true,
+              theme: "colored",
+              transition: Bounce,
+              onOpen: () => setSkillInfo(intitalSkillInfo),
+            }
+          )
+        : toast.error(response.message, {
+            draggable: true,
+            closeOnClick: true,
+            theme: "colored",
+            transition: Bounce,
+          });
 
       return true;
     } else {
       toast.error("All conditions marked in red are compulsory", {
-        toastId: "skill__info__toast",
         draggable: true,
         closeOnClick: true,
         theme: "colored",
@@ -117,22 +119,6 @@ const SkillInfoModalUtility = (
       return false;
     }
   };
-
-  useEffect(() => {
-    const onSkillInfoEdit = async (id: number) => {
-      let response;
-      response = await getSkillInfoAsync(id);
-      if (response.data != null) {
-        setSkillInfo(response.data);
-      }
-    };
-
-    if (employeeSkillInfoId > 0) {
-      onSkillInfoEdit(employeeSkillInfoId);
-    } else {
-      setSkillInfo(intitalSkillInfo);
-    }
-  }, [employeeSkillInfoId]);
 
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
