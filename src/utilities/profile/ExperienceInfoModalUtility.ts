@@ -32,7 +32,6 @@ const ExperienceInfoModalUtility = (
 
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
-  const [isExpanded, setIsExpanded] = useState<Number[]>([]);
 
   useEffect(() => {
     async function fetchDesignations() {
@@ -46,6 +45,24 @@ const ExperienceInfoModalUtility = (
     }
     fetchDesignations();
   }, []);
+
+  useEffect(() => {
+    setErrorInfo(initialErrors);
+
+    const onExperienceInfoEdit = async (id: number) => {
+      let response;
+      response = await getExperienceInfoAsync(id);
+      if (response.data != null) {
+        setExperienceInfo(response.data);
+      }
+    };
+
+    if (experienceInfoId > 0) {
+      onExperienceInfoEdit(experienceInfoId);
+    } else {
+      setExperienceInfo(intialExperienceInfo);
+    }
+  }, [experienceInfoId]);
 
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;
@@ -104,22 +121,6 @@ const ExperienceInfoModalUtility = (
     }));
   };
 
-  useEffect(() => {
-    const onExperienceInfoEdit = async (id: number) => {
-      let response;
-      response = await getExperienceInfoAsync(id);
-      if (response.data != null) {
-        setExperienceInfo(response.data);
-      }
-    };
-
-    if (experienceInfoId > 0) {
-      onExperienceInfoEdit(experienceInfoId);
-    } else {
-      setExperienceInfo(intialExperienceInfo);
-    }
-  }, [experienceInfoId]);
-
   const onExperienceInfoSave = async () => {
     if (isValidate()) {
       let response;
@@ -135,26 +136,22 @@ const ExperienceInfoModalUtility = (
           setExperienceInfo((prev) => ({ ...prev, id: responseData.id }));
         }
       }
-      if (response.status === 200) {
-        setExperienceInfo(intialExperienceInfo);
-      }
 
       if (response.status === 200) {
         toast.success(
           `Experience Info ${experienceInfo.id > 0 ? "Updated" : "Saved"}`,
           {
-            // toastId: "experience__info__toast",
             draggable: true,
             closeOnClick: true,
             theme: "colored",
             transition: Bounce,
+            onOpen: () => setExperienceInfo(intialExperienceInfo),
           }
         );
 
         return true;
       } else {
         toast.error(response.message, {
-          // toastId: "experience__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",
@@ -163,7 +160,6 @@ const ExperienceInfoModalUtility = (
       }
     } else {
       toast.error("All conditions marked in red are compulsory", {
-        // toastId: "experience__info__toast",
         draggable: true,
         closeOnClick: true,
         theme: "colored",
@@ -176,7 +172,7 @@ const ExperienceInfoModalUtility = (
 
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
-  
+
     // Validate company name
     if (experienceInfo.companyName === "") {
       newErrors.push({
@@ -184,7 +180,7 @@ const ExperienceInfoModalUtility = (
         errorMessage: "Enter company name",
       });
     }
-  
+
     // Validate designation selection
     if (experienceInfo.designationId === 0) {
       newErrors.push({
@@ -192,7 +188,7 @@ const ExperienceInfoModalUtility = (
         errorMessage: "Select Designation",
       });
     }
-  
+
     // Date validation for startDate
     if (
       !experienceInfo.startDate ||
@@ -203,7 +199,7 @@ const ExperienceInfoModalUtility = (
         errorMessage: "Enter a valid start date",
       });
     }
-  
+
     // Date validation for endDate (only when not currently working)
     if (
       !experienceInfo.isCurrentlyWorking &&
@@ -214,14 +210,14 @@ const ExperienceInfoModalUtility = (
         errorMessage: "Enter a valid end date",
       });
     }
-  
+
     // Set errors if any
     setErrorInfo(newErrors);
-  
+
     // Return true if no errors, false if errors exist
     return newErrors.length === 0;
   };
-  
+
   const clearErrorForField = (fieldName: string) => {
     setErrorInfo((prevErrorInfo) =>
       prevErrorInfo.filter((error) => error.fieldName !== fieldName)
@@ -238,9 +234,7 @@ const ExperienceInfoModalUtility = (
     onExperienceInfoSave,
     errorInfo,
     designations,
-    isExpanded,
-    setIsExpanded,
-    clearErrorForField
+    clearErrorForField,
   };
 };
 export default ExperienceInfoModalUtility;

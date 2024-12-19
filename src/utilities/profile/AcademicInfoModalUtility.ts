@@ -25,6 +25,8 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
 
   useEffect(() => {
+    setErrorInfo(initialErrors);
+
     const onAcademicInfoEdit = async (id: number) => {
       let response;
       response = await getAcademicInfoAsync(id);
@@ -35,10 +37,8 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
 
     if (academicInfoId > 0) {
       onAcademicInfoEdit(academicInfoId);
-      setErrorInfo(initialErrors);
     } else {
       setAcademicInfo(intialAcademicInfo);
-      setErrorInfo(initialErrors);
     }
   }, [academicInfoId]);
 
@@ -146,6 +146,18 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
             "Invalid end year format (example: " + currentYear + ")",
         });
       }
+    }
+
+    if (academicInfo.startYear > academicInfo.endYear) {
+      newErrors.push({
+        fieldName: "startYear",
+        errorMessage: "Invalid start year or end year",
+      });
+
+      newErrors.push({
+        fieldName: "endYear",
+        errorMessage: "End year cannot be lesser that start year",
+      });
     }
 
     if (academicInfo.percentage === 0) {

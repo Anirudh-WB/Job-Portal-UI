@@ -52,7 +52,6 @@ const SkillInfoUtility = (loginUserId: number) => {
       if (response.status === 200) {
         getSkillInfo();
         toast.success(`Skill Info Deleted`, {
-          toastId: "skill__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",
@@ -60,7 +59,6 @@ const SkillInfoUtility = (loginUserId: number) => {
         });
       } else {
         toast.error(response.message, {
-          toastId: "skill__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",

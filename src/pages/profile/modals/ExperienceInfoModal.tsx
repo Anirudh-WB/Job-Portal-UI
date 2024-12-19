@@ -63,7 +63,7 @@ function ExperienceInfoModal({
                       utility.errorInfo.find(
                         (err) => err.fieldName === "companyName"
                       )
-                        ? "border-red-500 text-red-500"
+                        ? "border-red-500"
                         : "border-gray-300"
                     }`}
                     value={utility.experienceInfo.companyName}
@@ -97,7 +97,7 @@ function ExperienceInfoModal({
                       utility.errorInfo.find(
                         (err) => err.fieldName === "designationId"
                       )
-                        ? "border-red-500 "
+                        ? "border-red-500"
                         : "border-gray-300"
                     }`}
                     value={utility.experienceInfo.designationId}
@@ -162,7 +162,7 @@ function ExperienceInfoModal({
                         utility.errorInfo.find(
                           (err) => err.fieldName === "startDate"
                         )
-                          ? "border-red-500 "
+                          ? "border-red-500"
                           : "border-gray-300"
                       }`}
                       selected={
@@ -209,7 +209,7 @@ function ExperienceInfoModal({
                         utility.errorInfo.find(
                           (err) => err.fieldName === "endDate"
                         )
-                          ? "border-red-500 "
+                          ? "border-red-500"
                           : "border-gray-300"
                       }`}
                       selected={
