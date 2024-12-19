@@ -88,7 +88,7 @@ const SkillInfoModalUtility = (
                 {
                   toastId: "skill__info__toast",
                   draggable: true,
-                  progress: undefined,
+                  closeOnClick: true,
                   theme: "colored",
                   transition: Bounce,
                 }
@@ -96,7 +96,7 @@ const SkillInfoModalUtility = (
             : toast.error(response.message, {
                 toastId: "skill__info__toast",
                 draggable: true,
-                progress: undefined,
+                closeOnClick: true,
                 theme: "colored",
                 transition: Bounce,
               });
@@ -109,7 +109,7 @@ const SkillInfoModalUtility = (
       toast.error("All conditions marked in red are compulsory", {
         toastId: "skill__info__toast",
         draggable: true,
-        progress: undefined,
+        closeOnClick: true,
         theme: "colored",
         transition: Bounce,
       });

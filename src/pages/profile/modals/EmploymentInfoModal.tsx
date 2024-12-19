@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogPanel,
@@ -7,8 +6,6 @@ import {
   CloseButton,
 } from "@headlessui/react";
 import { RiCloseLargeFill } from "react-icons/ri";
-import { Bounce, toast, ToastContainer } from "react-toastify";
-import PersonalInfoUtility from "../../../utilities/profile/PersonalInfoUtility";
 import EmploymentInfoUtility from "../../../utilities/profile/EmploymentInfoUtility";
 
 type Props = {
@@ -31,9 +28,8 @@ function EmploymentInfoModal({
         as="div"
         className="relative z-50 focus:outline-none"
         onClose={() => setIsEmploymentInfoOpen((prev: boolean) => !prev)}
-        __demoMode
       >
-        <DialogBackdrop className="fixed inset-0 bg-black/30" />
+        <DialogBackdrop transition className="fixed inset-0 bg-black/30" />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4">
             <DialogPanel
@@ -157,16 +153,16 @@ function EmploymentInfoModal({
                     ))}
                   </select>
                   {utility.errorInfo.find(
-                      (error) => error.fieldName === "noticePeriodId"
-                    ) && (
-                      <span className="text-xs text-red-500">
-                        {
-                          utility.errorInfo.find(
-                            (error) => error.fieldName === "noticePeriodId"
-                          )?.errorMessage
-                        }
-                      </span>
-                    )}
+                    (error) => error.fieldName === "noticePeriodId"
+                  ) && (
+                    <span className="text-xs text-red-500">
+                      {
+                        utility.errorInfo.find(
+                          (error) => error.fieldName === "noticePeriodId"
+                        )?.errorMessage
+                      }
+                    </span>
+                  )}
                 </div>
               </div>
 

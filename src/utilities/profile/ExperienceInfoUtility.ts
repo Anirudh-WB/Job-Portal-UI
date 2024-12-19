@@ -49,7 +49,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
         toast.success(`Experience Info Deleted`, {
           // toastId: "experience__info__toast",
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });
@@ -57,7 +57,7 @@ const ExperienceInfoUtility = (loginUserId: number) => {
         toast.error(response.message, {
           // toastId: "experience__info__toast",
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });

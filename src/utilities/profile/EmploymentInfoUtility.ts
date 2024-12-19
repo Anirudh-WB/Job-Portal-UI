@@ -5,7 +5,6 @@ import {
   getEmploymentInfoByUserIdAsync,
   updateEmploymentInfoAsync,
 } from "../../services/profile/EmploymentInfoService";
-import { SelectChangeEvent, SnackbarOrigin } from "@mui/material";
 import NoticePeriodModel from "../../model/master/NoticePeriodModel";
 import EmploymentInfoModel from "../../model/profile/EmploymentInfoModel";
 import { getNoticePeriods } from "../../services/master/NoticePeriodService";
@@ -25,29 +24,7 @@ const EmploymentInfoUtility = (loginUserId: number) => {
     initialEmploymentInfo
   );
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
-
-  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
-  const [snackbarMessage, setSnackbarMessage] = React.useState("");
-  const [snackbarPosition, setSnackbarPosition] =
-    React.useState<SnackbarOrigin>({
-      vertical: "top",
-      horizontal: "center",
-    });
-  const [snackbarSeverity, setSnackbarSeverity] = React.useState<
-    "success" | "error" | "info" | "warning"
-  >();
   const [noticePeriods, setNoticePeriods] = useState<NoticePeriodModel[]>([]);
-
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackbarOpen(false);
-  };
 
   useEffect(() => {
     async function fetchNoticePeriods() {
@@ -122,31 +99,38 @@ const EmploymentInfoUtility = (loginUserId: number) => {
         }
       }
 
-      response.status === 200
-        ? toast.success("Employment Info Updated", {
-            // toastId: "employment__info__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          })
-        : toast.error(response.message, {
-            // toastId: "employment__info__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
+      if (response.status === 200) {
+        toast.success("Employment Info Updated", {
+          // toastId: "employment__info__toast",
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return true;
+      } else {
+        toast.error(response.message, {
+          // toastId: "employment__info__toast",
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
     } else {
       toast.error("All conditions marked in red are compulsory", {
         // toastId: "employment__info__toast",
         draggable: true,
-        progress: undefined,
+        closeOnClick: true,
         theme: "colored",
         transition: Bounce,
       });
+
+      return false;
     }
   };
+
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
     if (
@@ -187,12 +171,6 @@ const EmploymentInfoUtility = (loginUserId: number) => {
     onSelectFieldChanged,
     onEmploymentInfoSave,
     errorInfo,
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
-
     noticePeriods,
   };
 };

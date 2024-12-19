@@ -168,8 +168,11 @@ function AcademicInfoModal({
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
                   onClick={() => {
-                    modalUtility.onAcademicInfoSave();
-                    toggleModal();
+                    modalUtility.onAcademicInfoSave().then((res) => {
+                      if (res) {
+                        toggleModal();
+                      }
+                    });
                   }}
                 >
                   Save

@@ -25,7 +25,6 @@ const ForgotPasswordUtility = () => {
         toast.success(response.message, {
           draggable: true,
           closeOnClick: true,
-          progress: undefined,
           theme: "colored",
           transition: Bounce,
         });
@@ -34,7 +33,7 @@ const ForgotPasswordUtility = () => {
       } else {
         toast.error(response.message, {
           draggable: true,
-          progress: undefined,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });

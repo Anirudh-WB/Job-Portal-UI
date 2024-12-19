@@ -42,12 +42,11 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     getExperienceInfo(loginUserId);
   }, [loginUserId]);
 
-  // Fetch experience info
   async function getExperienceInfo(loginUserId: number) {
     try {
       const response = await getExperienceInfoByUserIdAsync(loginUserId);
       if (response.status === 200 && Array.isArray(response.data)) {
-        setExperienceInfo(response.data); // Set the array of experiences
+        setExperienceInfo(response.data);
       } else {
         toast.error("Failed to load experience info", {
           theme: "colored",
@@ -55,7 +54,6 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
         });
       }
     } catch (error) {
-      console.error("Error fetching experience info:", error);
       toast.error("An error occurred while fetching experience info", {
         theme: "colored",
         transition: Bounce,
@@ -63,7 +61,6 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     }
   }
 
-  // Fetch personal info
   async function getPersonalInfo(loginUserId: number) {
     try {
       const response = await getPersonalInfoByUserIdAsync(loginUserId);
@@ -94,57 +91,47 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     }
   };
 
-  // Handle text field change
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;
     const value = event.currentTarget.value;
 
     setPersonalInfo((prev) => ({ ...prev, [name]: value }));
 
-    // Remove error message for the current field
     setErrorInfo((prevErrors) => {
       const newErrors = prevErrors.filter((error) => error.fieldName !== name);
       return newErrors;
     });
   };
 
-  const onPersonalInfoSave = async (data: FormData) => {
+  const onPersonalInfoSave = async (data: FormData): Promise<boolean> => {
     if (isValidate()) {
-      try {
-        let response;
+      let response;
 
-        const id = Number(data.get("id"));
+      const id = Number(data.get("id"));
 
-        if (id > 0) {
-          // console.log("DATA :",typeof formDataObject);
-
-          response = await updatePersonalInfoAsync(data, id);
-        } else {
-          response = await createPersonalInfoAsync(data);
-          if (response.data && response.status === 200) {
-            const responseData = response.data;
-            setPersonalInfo((prev) => ({ ...prev, id: responseData.id }));
-          }
+      if (id > 0) {
+        response = await updatePersonalInfoAsync(data, id);
+      } else {
+        response = await createPersonalInfoAsync(data);
+        if (response.data && response.status === 200) {
+          const responseData = response.data;
+          setPersonalInfo((prev) => ({ ...prev, id: responseData.id }));
         }
+      }
 
-        if (response.status === 200) {
-          toast.success("Personal Info Updated", {
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
-        } else {
-          toast.error(response.message, {
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
-        }
-      } catch (error) {
-        console.error("Error saving personal info:", error);
-        toast.error("An error occurred while saving personal info", {
+      if (response.status === 200) {
+        toast.success("Personal Info Updated", {
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return true;
+      } else {
+        toast.error(response.message, {
+          draggable: true,
+          closeOnClick: true,
           theme: "colored",
           transition: Bounce,
         });
@@ -152,11 +139,13 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     } else {
       toast.error("All conditions marked in red are compulsory", {
         draggable: true,
-        progress: undefined,
+        closeOnClick: true,
         theme: "colored",
         transition: Bounce,
       });
     }
+
+    return false;
   };
 
   const isValidate = () => {
@@ -168,7 +157,7 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
         errorMessage: "Enter first name",
       });
     }
-    // Validate email address
+
     if (personalInfo.emailAddress.trim() === "") {
       newErrors.push({
         fieldName: "emailAddress",
@@ -192,22 +181,25 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
     return newErrors.length === 0;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: React.FormEvent<HTMLFormElement>
+  ): Promise<boolean> => {
     event.preventDefault();
     const formData = new FormData();
 
     Object.entries(personalInfo).forEach(([key, value]) => {
       formData.append(key, value);
-      // console.log(key ,value);
     });
 
-    onPersonalInfoSave(formData);
+    const res = await onPersonalInfoSave(formData);
+
+    return res;
   };
 
   return {
     personalInfo,
     setPersonalInfo,
-    experienceInfo, // Expose experience info
+    experienceInfo,
     onFileChange,
     onTextFieldChanged,
     onPersonalInfoSave,

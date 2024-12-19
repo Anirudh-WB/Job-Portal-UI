@@ -140,29 +140,35 @@ const AddressInfoUtility = (loginUserId: number) => {
         }
       }
 
-      response.status === 200
-        ? toast.success("Address Info Updated", {
-            // toastId: "address__info__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          })
-        : toast.error(response.message, {
-            // toastId: "address__info__toast",
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-            transition: Bounce,
-          });
+      if (response.status === 200) {
+        toast.success("Address Info Updated", {
+          // toastId: "address__info__toast",
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return true;
+      } else {
+        toast.error(response.message, {
+          // toastId: "address__info__toast",
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+      }
     } else {
       toast.error("All conditions marked in red are compulsory", {
         // toastId: "address__info__toast",
         draggable: true,
-        progress: undefined,
+        closeOnClick: true,
         theme: "colored",
         transition: Bounce,
       });
+
+      return false;
     }
   };
 
