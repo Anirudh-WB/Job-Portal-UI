@@ -151,10 +151,22 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
 
+    if (personalInfo.profilePic === null) {
+      newErrors.push({
+        fieldName: "profilePic",
+        errorMessage: "Select a profile pic",
+      });
+    }
     if (personalInfo.firstName === "") {
       newErrors.push({
         fieldName: "firstName",
-        errorMessage: "Enter first name",
+        errorMessage: "Enter First name",
+      });
+    }
+    if (personalInfo.lastName === "") {
+      newErrors.push({
+        fieldName: "lastName",
+        errorMessage: "Enter Last name",
       });
     }
 
@@ -170,12 +182,13 @@ const PersonalInfoUtility = ({ loginUserId }: PersonalInfoUtilityProps) => {
       });
     }
 
-    if (personalInfo.mobileNumber === "") {
+    if (personalInfo.mobileNumber === "" || personalInfo.mobileNumber.length !== 10) {
       newErrors.push({
         fieldName: "mobileNumber",
-        errorMessage: "Enter Mobile Number ",
+        errorMessage: "Enter a valid mobile number",
       });
     }
+    
 
     setErrorInfo(newErrors);
     return newErrors.length === 0;
