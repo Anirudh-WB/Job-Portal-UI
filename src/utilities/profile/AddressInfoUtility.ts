@@ -142,7 +142,6 @@ const AddressInfoUtility = (loginUserId: number) => {
 
       if (response.status === 200) {
         toast.success("Address Info Updated", {
-          // toastId: "address__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",
@@ -152,7 +151,6 @@ const AddressInfoUtility = (loginUserId: number) => {
         return true;
       } else {
         toast.error(response.message, {
-          // toastId: "address__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",
@@ -161,7 +159,6 @@ const AddressInfoUtility = (loginUserId: number) => {
       }
     } else {
       toast.error("All conditions marked in red are compulsory", {
-        // toastId: "address__info__toast",
         draggable: true,
         closeOnClick: true,
         theme: "colored",

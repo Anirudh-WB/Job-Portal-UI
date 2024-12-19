@@ -10,13 +10,13 @@ import PersonalInfoUtility from "../../../utilities/profile/PersonalInfoUtility"
 
 type Props = {
   isProfileHeaderOpen: boolean;
-  setIsProfileHeaderOpen: any;
+  toggleModal: () => void;
   loginUserId: number;
 };
 
 function PersonalInfoModal({
   isProfileHeaderOpen,
-  setIsProfileHeaderOpen,
+  toggleModal,
   loginUserId,
 }: Props) {
   const utility = PersonalInfoUtility({ loginUserId });
@@ -27,7 +27,7 @@ function PersonalInfoModal({
         open={isProfileHeaderOpen}
         as="div"
         className="relative z-50 focus:outline-none"
-        onClose={() => setIsProfileHeaderOpen((prev: boolean) => !prev)}
+        onClose={toggleModal}
         __demoMode
       >
         <DialogBackdrop className="fixed inset-0 bg-black/30" />
@@ -50,7 +50,7 @@ function PersonalInfoModal({
                 onSubmit={(e) => {
                   utility.handleSubmit(e).then((res) => {
                     if (res) {
-                      setIsProfileHeaderOpen((prev: boolean) => !prev);
+                      toggleModal();
                     }
                   });
                 }}
@@ -176,10 +176,9 @@ function PersonalInfoModal({
 
                 <div className="mt-4 flex justify-end gap-10 font-semibold">
                   <button
+                    type="button"
                     className="text-blue-700"
-                    onClick={() =>
-                      setIsProfileHeaderOpen((prev: boolean) => !prev)
-                    }
+                    onClick={toggleModal}
                   >
                     Cancel
                   </button>

@@ -17,9 +17,6 @@ import EmploymentInfoModal from "./modals/EmploymentInfoModal";
 type Props = { loginUserId: number; isRemoveCUD: boolean };
 
 function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
-  const [isProfileHeaderOpen, setIsProfileHeaderOpen] = useState(false);
-  const [isEmploymentInfoOpen, setIsEmploymentInfoOpen] = useState(false);
-
   const utility = PersonalInfoUtility({ loginUserId });
   const addressInfoUtility = AddressInfoUtility(loginUserId);
   const employmentInfoUtility = EmploymentInfoUtility(loginUserId);
@@ -44,9 +41,7 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
                     {utility.personalInfo.lastName}
                   </h1>
                   {isRemoveCUD && (
-                    <button
-                      onClick={() => setIsProfileHeaderOpen((prev) => !prev)}
-                    >
+                    <button onClick={utility.toggleModal}>
                       <FiEdit2 className="text-sm text-gray-700 mb-1" />
                     </button>
                   )}
@@ -129,11 +124,7 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
             <div className="flex items-end gap-2">
               <h3 className="text-base font-semibold">Employment Info</h3>
               {isRemoveCUD && (
-                <button
-                  onClick={() =>
-                    setIsEmploymentInfoOpen((prev: boolean) => !prev)
-                  }
-                >
+                <button onClick={employmentInfoUtility.toggleModal}>
                   <FiEdit2 className="text-sm text-gray-700 mb-1" />
                 </button>
               )}
@@ -162,8 +153,8 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
         </div>
       </div>
       <PersonalInfoModal
-        isProfileHeaderOpen={isProfileHeaderOpen}
-        setIsProfileHeaderOpen={setIsProfileHeaderOpen}
+        isProfileHeaderOpen={utility.isProfileHeaderOpen}
+        toggleModal={utility.toggleModal}
         loginUserId={loginUserId}
       />
       <AddressInfoModal
@@ -172,8 +163,8 @@ function PersonalInfo({ loginUserId, isRemoveCUD }: Props) {
         loginUserId={loginUserId}
       />
       <EmploymentInfoModal
-        isEmploymentInfoOpen={isEmploymentInfoOpen}
-        setIsEmploymentInfoOpen={setIsEmploymentInfoOpen}
+        isEmploymentInfoOpen={employmentInfoUtility.isEmploymentInfoOpen}
+        toggleModal={employmentInfoUtility.toggleModal}
         loginUserId={loginUserId}
       />
     </>

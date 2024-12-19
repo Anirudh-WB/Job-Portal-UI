@@ -98,7 +98,9 @@ function AddressInfoModal({
                           : "border-gray-300"
                       }`}
                     >
-                      <option value="" disabled>Select City</option>
+                      <option value="" disabled>
+                        Select City
+                      </option>
                       {utility.cities.map((city) => (
                         <option key={city.id} value={city.id}>
                           {city.cityName}
@@ -129,7 +131,9 @@ function AddressInfoModal({
                           : "border-gray-300"
                       }`}
                     >
-                      <option value="" disabled>Select State</option>
+                      <option value="" disabled>
+                        Select State
+                      </option>
                       {utility.states.map((state) => (
                         <option key={state.id} value={state.id}>
                           {state.stateName}
@@ -165,7 +169,9 @@ function AddressInfoModal({
                           : "border-gray-300"
                       }`}
                     >
-                      <option value="" disabled>Select Country</option>
+                      <option value="" disabled>
+                        Select Country
+                      </option>
                       {utility.countries.map((country) => (
                         <option key={country.id} value={country.id}>
                           {country.countryName}
@@ -201,7 +207,9 @@ function AddressInfoModal({
                           : "border-gray-300"
                       }`}
                     >
-                      <option value="" disabled>Select Train Line</option>
+                      <option value="" disabled>
+                        Select Train Line
+                      </option>
                       {utility.trainLines.map((trainLine) => (
                         <option key={trainLine.id} value={trainLine.id}>
                           {trainLine.trainLineName}
@@ -267,7 +275,13 @@ function AddressInfoModal({
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
-                  onClick={utility.onAddressInfoSave}
+                  onClick={() =>
+                    utility.onAddressInfoSave().then((res) => {
+                      if (res) {
+                        toggleModal();
+                      }
+                    })
+                  }
                 >
                   Save
                 </button>

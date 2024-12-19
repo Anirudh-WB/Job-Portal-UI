@@ -10,13 +10,13 @@ import EmploymentInfoUtility from "../../../utilities/profile/EmploymentInfoUtil
 
 type Props = {
   isEmploymentInfoOpen: boolean;
-  setIsEmploymentInfoOpen: any;
+  toggleModal: () => void;
   loginUserId: number;
 };
 
 function EmploymentInfoModal({
   isEmploymentInfoOpen,
-  setIsEmploymentInfoOpen,
+  toggleModal,
   loginUserId,
 }: Props) {
   const utility = EmploymentInfoUtility(loginUserId);
@@ -27,7 +27,7 @@ function EmploymentInfoModal({
         open={isEmploymentInfoOpen}
         as="div"
         className="relative z-50 focus:outline-none"
-        onClose={() => setIsEmploymentInfoOpen((prev: boolean) => !prev)}
+        onClose={toggleModal}
       >
         <DialogBackdrop transition className="fixed inset-0 bg-black/30" />
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -145,7 +145,9 @@ function EmploymentInfoModal({
                         : "border-gray-300"
                     }`}
                   >
-                    <option value="">Select Notice Period</option>
+                    <option value="" disabled>
+                      Select Notice Period
+                    </option>
                     {utility.noticePeriods.map((noticePeriod) => (
                       <option key={noticePeriod.id} value={noticePeriod.id}>
                         {noticePeriod.noticePeriodName}
@@ -167,20 +169,17 @@ function EmploymentInfoModal({
               </div>
 
               <div className="mt-4 flex justify-end gap-10 font-semibold">
-                <button
-                  className="text-blue-700"
-                  onClick={() =>
-                    setIsEmploymentInfoOpen((prev: boolean) => !prev)
-                  }
-                  //   onClick={() => dispatch(toggleEmploymentInfoModal())}
-                >
+                <button className="text-blue-700" onClick={toggleModal}>
                   Cancel
                 </button>
                 <button
                   className="text-white bg-blue-600 px-7 py-2 rounded-full"
                   onClick={() => {
-                    utility.onEmploymentInfoSave();
-                    // setIsEmploymentInfoOpen((prev: boolean) => !prev);
+                    utility.onEmploymentInfoSave().then((res) => {
+                      if (res) {
+                        toggleModal();
+                      }
+                    });
                   }}
                 >
                   Save
