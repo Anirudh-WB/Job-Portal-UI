@@ -63,7 +63,7 @@ function AcademicInfoModal({
                         modalUtility.errorInfo.find(
                           (err) => err.fieldName === "institutionName"
                         )
-                          ? "border-red-500 text-red-500"
+                          ? "border-red-500"
                           : "border-gray-300"
                       }`}
                       onChange={modalUtility.onTextFieldChanged}
@@ -102,7 +102,7 @@ function AcademicInfoModal({
                         modalUtility.errorInfo.find(
                           (err) => err.fieldName === "degree"
                         )
-                          ? "border-red-500 text-red-500"
+                          ? "border-red-500"
                           : "border-gray-300"
                       }`}
                       onChange={modalUtility.onTextFieldChanged}
@@ -143,7 +143,7 @@ function AcademicInfoModal({
                           modalUtility.errorInfo.find(
                             (err) => err.fieldName === "startYear"
                           )
-                            ? "border-red-500 text-red-500"
+                            ? "border-red-500"
                             : "border-gray-300"
                         }`}
                       />
@@ -181,7 +181,7 @@ function AcademicInfoModal({
                           modalUtility.errorInfo.find(
                             (err) => err.fieldName === "endYear"
                           )
-                            ? "border-red-500 text-red-500"
+                            ? "border-red-500"
                             : "border-gray-300"
                         }`}
                       />

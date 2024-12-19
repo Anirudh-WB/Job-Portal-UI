@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AcademicInfoModel from "../../model/profile/AcademicInfoModel";
 import {
   deleteAcademicInfoAsync,
@@ -43,7 +43,6 @@ const AcademicInfoUtility = (loginUserId: number) => {
       if (response.status === 200) {
         fetchAcademicInfo();
         toast.success(`Academic Info Deleted`, {
-          // toastId: "academic__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",
@@ -51,7 +50,6 @@ const AcademicInfoUtility = (loginUserId: number) => {
         });
       } else {
         toast.error(response.message, {
-          // toastId: "academic__info__toast",
           draggable: true,
           closeOnClick: true,
           theme: "colored",
