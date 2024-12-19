@@ -72,10 +72,27 @@ function PersonalInfoModal({
                         type="file"
                         id="proifilePic"
                         name="proifilePic"
-                        className="peer"
+                        className={`peer ${
+                          utility.errorInfo.find(
+                            (err) => err.fieldName === "proifilePic"
+                          )
+                            ? "border-red-500 text-red-500"
+                            : "border-gray-300"
+                        }`}
                         onChange={utility.onFileChange}
                       />
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "proifilePic"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "proifilePic"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <div className="w-1/2 flex flex-col gap-1.5">
@@ -88,7 +105,13 @@ function PersonalInfoModal({
                           value={utility.personalInfo.firstName}
                           id="firstName"
                           name="firstName"
-                          className="peer"
+                          className={`peer ${
+                            utility.errorInfo.find(
+                              (err) => err.fieldName === "firstName"
+                            )
+                              ? "border-red-500 text-red-500"
+                              : "border-gray-300"
+                          }`}
                           onChange={utility.onTextFieldChanged}
                         />
                         <label
@@ -98,6 +121,17 @@ function PersonalInfoModal({
                           First Name
                         </label>
                       </div>
+                      {utility.errorInfo.find(
+                        (error) => error.fieldName === "firstName"
+                      ) && (
+                        <span className="text-xs text-red-500">
+                          {
+                            utility.errorInfo.find(
+                              (error) => error.fieldName === "firstName"
+                            )?.errorMessage
+                          }
+                        </span>
+                      )}
                     </div>
 
                     <div className="w-1/2 flex flex-col gap-1.5">
@@ -110,7 +144,13 @@ function PersonalInfoModal({
                           value={utility.personalInfo.lastName}
                           id="lastName"
                           name="lastName"
-                          className="peer"
+                          className={`peer ${
+                            utility.errorInfo.find(
+                              (err) => err.fieldName === "lastName"
+                            )
+                              ? "border-red-500 text-red-500"
+                              : "border-gray-300"
+                          }`}
                           onChange={utility.onTextFieldChanged}
                         />
                         <label
@@ -120,6 +160,17 @@ function PersonalInfoModal({
                           Last Name
                         </label>
                       </div>
+                      {utility.errorInfo.find(
+                        (error) => error.fieldName === "lastName"
+                      ) && (
+                        <span className="text-xs text-red-500">
+                          {
+                            utility.errorInfo.find(
+                              (error) => error.fieldName === "lastName"
+                            )?.errorMessage
+                          }
+                        </span>
+                      )}
                     </div>
                   </div>
 
@@ -135,7 +186,13 @@ function PersonalInfoModal({
                         type="number"
                         id="mobileNumber"
                         name="mobileNumber"
-                        className="peer"
+                        className={`peer ${
+                          utility.errorInfo.find(
+                            (err) => err.fieldName === "mobileNumber"
+                          )
+                            ? "border-red-500 text-red-500"
+                            : "border-gray-300"
+                        }`}
                         value={utility.personalInfo.mobileNumber}
                         onChange={utility.onTextFieldChanged}
                       />
@@ -146,6 +203,17 @@ function PersonalInfoModal({
                         Conatact No.
                       </label>
                     </div>
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "mobileNumber"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "mobileNumber"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
 
                   <div className="flex flex-col gap-2">

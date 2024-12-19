@@ -59,14 +59,25 @@ function ExperienceInfoModal({
                     type="text"
                     name="companyName"
                     id="companyName"
+                    className={`peer ${
+                      utility.errorInfo.find(
+                        (err) => err.fieldName === "companyName"
+                      )
+                        ? "border-red-500 text-red-500"
+                        : "border-gray-300"
+                    }`}
                     value={utility.experienceInfo.companyName}
                     onChange={utility.onTextFieldChanged}
                   />
                   {utility.errorInfo.find(
-                    (err) => err.fieldName === "companyName"
+                    (error) => error.fieldName === "companyName"
                   ) && (
-                    <span className="text-red-600 text-sm">
-                      Enter company name
+                    <span className="text-xs text-red-500">
+                      {
+                        utility.errorInfo.find(
+                          (error) => error.fieldName === "companyName"
+                        )?.errorMessage
+                      }
                     </span>
                   )}
                 </div>
@@ -82,6 +93,13 @@ function ExperienceInfoModal({
                   <select
                     name="designationId"
                     id="designationId"
+                    className={`peer ${
+                      utility.errorInfo.find(
+                        (err) => err.fieldName === "designationId"
+                      )
+                        ? "border-red-500 "
+                        : "border-gray-300"
+                    }`}
                     value={utility.experienceInfo.designationId}
                     onChange={utility.onSelectFieldChanged}
                   >
@@ -93,10 +111,14 @@ function ExperienceInfoModal({
                     ))}
                   </select>
                   {utility.errorInfo.find(
-                    (err) => err.fieldName === "designationId"
+                    (error) => error.fieldName === "designationId"
                   ) && (
-                    <span className="text-red-600 text-sm">
-                      Select designation
+                    <span className="text-xs text-red-500">
+                      {
+                        utility.errorInfo.find(
+                          (error) => error.fieldName === "designationId"
+                        )?.errorMessage
+                      }
                     </span>
                   )}
                 </div>
@@ -108,7 +130,12 @@ function ExperienceInfoModal({
                     name="isCurrentlyWorking"
                     id="isCurrentlyWorking"
                     checked={utility.experienceInfo.isCurrentlyWorking}
-                    onChange={utility.onCheckBoxFieldChange}
+                    onChange={(e) => {
+                      utility.onCheckBoxFieldChange(e);
+                      if (e.target.checked) {
+                        utility.clearErrorForField("endDate");
+                      }
+                    }}
                     className="w-fit"
                   />
                   <label
@@ -131,6 +158,13 @@ function ExperienceInfoModal({
                     <DatePicker
                       name="startDate"
                       id="startDate"
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "startDate"
+                        )
+                          ? "border-red-500 "
+                          : "border-gray-300"
+                      }`}
                       selected={
                         utility.experienceInfo.startDate
                           ? new Date(
@@ -138,11 +172,29 @@ function ExperienceInfoModal({
                             )
                           : null
                       }
-                      onChange={(date: Date | null) =>
-                        utility.onDateFieldChanged("startDate", date)
-                      }
+                      onChange={(date: Date | null) => {
+                        // Update the date field
+                        utility.onDateFieldChanged("startDate", date);
+
+                        // Remove the error if the date is valid
+                        if (date) {
+                          utility.clearErrorForField("startDate"); // Use this to clear the error
+                        }
+                      }}
                     />
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "startDate"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "startDate"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
+
                   <div className="flex flex-col gap-2 w-1/2">
                     <label className="font-semibold text-sm" htmlFor="endDate">
                       End Date{" "}
@@ -153,14 +205,27 @@ function ExperienceInfoModal({
                     <DatePicker
                       name="endDate"
                       id="endDate"
+                      className={`peer ${
+                        utility.errorInfo.find(
+                          (err) => err.fieldName === "endDate"
+                        )
+                          ? "border-red-500 "
+                          : "border-gray-300"
+                      }`}
                       selected={
                         utility.experienceInfo.endDate
                           ? new Date(utility.experienceInfo.endDate.toString())
                           : null
                       }
-                      onChange={(date: Date | null) =>
-                        utility.onDateFieldChanged("endDate", date)
-                      }
+                      onChange={(date: Date | null) => {
+                        // Update the date field
+                        utility.onDateFieldChanged("endDate", date);
+
+                        // Remove the error if the date is valid
+                        if (date) {
+                          utility.clearErrorForField("endDate"); // Use this to clear the error
+                        }
+                      }}
                       placeholderText={
                         utility.experienceInfo.isCurrentlyWorking
                           ? "Present"
@@ -168,6 +233,17 @@ function ExperienceInfoModal({
                       }
                       disabled={utility.experienceInfo.isCurrentlyWorking}
                     />
+                    {utility.errorInfo.find(
+                      (error) => error.fieldName === "endDate"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          utility.errorInfo.find(
+                            (error) => error.fieldName === "endDate"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                 </div>
 

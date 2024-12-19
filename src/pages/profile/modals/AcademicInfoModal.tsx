@@ -59,7 +59,13 @@ function AcademicInfoModal({
                       value={modalUtility.academicInfo.institutionName}
                       id="institutionName"
                       name="institutionName"
-                      className="peer"
+                      className={`peer ${
+                        modalUtility.errorInfo.find(
+                          (err) => err.fieldName === "institutionName"
+                        )
+                          ? "border-red-500 text-red-500"
+                          : "border-gray-300"
+                      }`}
                       onChange={modalUtility.onTextFieldChanged}
                     />
                     <label
@@ -69,6 +75,17 @@ function AcademicInfoModal({
                       Institution Name
                     </label>
                   </div>
+                  {modalUtility.errorInfo.find(
+                    (error) => error.fieldName === "institutionName"
+                  ) && (
+                    <span className="text-xs text-red-500">
+                      {
+                        modalUtility.errorInfo.find(
+                          (error) => error.fieldName === "institutionName"
+                        )?.errorMessage
+                      }
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-1.5">
@@ -81,7 +98,13 @@ function AcademicInfoModal({
                       value={modalUtility.academicInfo.degree}
                       id="degree"
                       name="degree"
-                      className="peer"
+                      className={`peer ${
+                        modalUtility.errorInfo.find(
+                          (err) => err.fieldName === "degree"
+                        )
+                          ? "border-red-500 text-red-500"
+                          : "border-gray-300"
+                      }`}
                       onChange={modalUtility.onTextFieldChanged}
                     />
                     <label
@@ -91,6 +114,17 @@ function AcademicInfoModal({
                       Degree
                     </label>
                   </div>
+                  {modalUtility.errorInfo.find(
+                    (error) => error.fieldName === "degree"
+                  ) && (
+                    <span className="text-xs text-red-500">
+                      {
+                        modalUtility.errorInfo.find(
+                          (error) => error.fieldName === "degree"
+                        )?.errorMessage
+                      }
+                    </span>
+                  )}
                 </div>
 
                 <div className="flex gap-5">
@@ -105,7 +139,13 @@ function AcademicInfoModal({
                         name="startYear"
                         value={modalUtility.academicInfo.startYear}
                         onChange={modalUtility.onTextFieldChanged}
-                        className="peer"
+                        className={`peer ${
+                          modalUtility.errorInfo.find(
+                            (err) => err.fieldName === "startYear"
+                          )
+                            ? "border-red-500 text-red-500"
+                            : "border-gray-300"
+                        }`}
                       />
                       <label
                         htmlFor="startYear"
@@ -114,6 +154,17 @@ function AcademicInfoModal({
                         Start Year
                       </label>
                     </div>
+                    {modalUtility.errorInfo.find(
+                      (error) => error.fieldName === "startYear"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          modalUtility.errorInfo.find(
+                            (error) => error.fieldName === "startYear"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                   <div className="w-1/2 flex flex-col gap-2">
                     <span className="text-base font-semibold">
@@ -126,7 +177,13 @@ function AcademicInfoModal({
                         name="endYear"
                         value={modalUtility.academicInfo.endYear}
                         onChange={modalUtility.onTextFieldChanged}
-                        className="peer"
+                        className={`peer ${
+                          modalUtility.errorInfo.find(
+                            (err) => err.fieldName === "endYear"
+                          )
+                            ? "border-red-500 text-red-500"
+                            : "border-gray-300"
+                        }`}
                       />
                       <label
                         htmlFor="endYear"
@@ -135,6 +192,17 @@ function AcademicInfoModal({
                         End Year
                       </label>
                     </div>
+                    {modalUtility.errorInfo.find(
+                      (error) => error.fieldName === "endYear"
+                    ) && (
+                      <span className="text-xs text-red-500">
+                        {
+                          modalUtility.errorInfo.find(
+                            (error) => error.fieldName === "endYear"
+                          )?.errorMessage
+                        }
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -149,7 +217,13 @@ function AcademicInfoModal({
                       name="percentage"
                       value={modalUtility.academicInfo.percentage}
                       onChange={modalUtility.onTextFieldChanged}
-                      className="peer"
+                      className={`peer ${
+                        modalUtility.errorInfo.find(
+                          (err) => err.fieldName === "percentage"
+                        )
+                          ? "border-red-500 "
+                          : "border-gray-300"
+                      }`}
                     />
                     <label
                       htmlFor="percentage"
@@ -158,6 +232,17 @@ function AcademicInfoModal({
                       Percentage
                     </label>
                   </div>
+                  {modalUtility.errorInfo.find(
+                    (error) => error.fieldName === "percentage"
+                  ) && (
+                    <span className="text-xs text-red-500">
+                      {
+                        modalUtility.errorInfo.find(
+                          (error) => error.fieldName === "percentage"
+                        )?.errorMessage
+                      }
+                    </span>
+                  )}
                 </div>
               </div>
 
