@@ -29,24 +29,24 @@ function EmployeeSkillInfo({ loginUserId, isRemoveCUD }: Props) {
         </div>
 
         {/* Skills List */}
-        <div className="flex items-center flex-wrap text-sm text-gray-700">
-          <div className="w-full">
-            {/* Header Row */}
-            <div className="border-b w-full flex py-1 text-gray-700">
-              <h4 className="w-1/4">Skills</h4>
-              <h4 className="w-1/4">Experience</h4>
-              {isRemoveCUD && (
-                <>
-                  <h4 className="w-1/4"></h4>
-                  <h4 className="w-1/4"></h4>
-                </>
-              )}
-            </div>
+        {utility.skillInfoViewModel.length > 0 ? (
+          <div className="flex items-center flex-wrap text-sm text-gray-700">
+            <div className="w-full">
+              {/* Header Row */}
+              <div className="border-b w-full flex py-1 text-gray-700">
+                <h4 className="w-1/4">Skills</h4>
+                <h4 className="w-1/4">Experience</h4>
+                {isRemoveCUD && (
+                  <>
+                    <h4 className="w-1/4"></h4>
+                    <h4 className="w-1/4"></h4>
+                  </>
+                )}
+              </div>
 
-            {/* Skills Data */}
-            <div className="w-full flex flex-col font-medium">
-              {utility.skillInfoViewModel.length > 0 ? (
-                utility.skillInfoViewModel.map((skillInfo) => (
+              {/* Skills Data */}
+              <div className="w-full flex flex-col font-medium">
+                {utility.skillInfoViewModel.map((skillInfo) => (
                   <div
                     key={skillInfo.id}
                     className="flex items-center w-full py-2 border-b"
@@ -59,9 +59,7 @@ function EmployeeSkillInfo({ loginUserId, isRemoveCUD }: Props) {
                         <h5 className="w-1/4 flex gap-2 ml-auto">
                           {/* Edit Button */}
                           <button
-                            onClick={() =>
-                              utility.onSkillInfoEdit(skillInfo.id)
-                            }
+                            onClick={() => utility.onSkillInfoEdit(skillInfo.id)}
                             className="w-1/2 flex items-center justify-center text-gray-700 hover:text-blue-600"
                             aria-label="Edit Skill"
                           >
@@ -83,15 +81,13 @@ function EmployeeSkillInfo({ loginUserId, isRemoveCUD }: Props) {
                       </>
                     )}
                   </div>
-                ))
-              ) : (
-                <p className="text-gray-500 text-center py-4">
-                  No skills added yet.
-                </p>
-              )}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <p className="text-gray-500 text-center py-4">No skills added yet.</p>
+        )}
       </div>
 
       {/* Modal */}
