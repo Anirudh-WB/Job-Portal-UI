@@ -57,7 +57,7 @@ function EmploymentInfoModal({
                     </h3>
                     <div className="relative">
                       <input
-                        type="text"
+                        type="number"
                         value={utility.employmentInfo.currentCTC}
                         id="currentCTC"
                         name="currentCTC"
@@ -95,7 +95,7 @@ function EmploymentInfoModal({
                     </h3>
                     <div className="relative">
                       <input
-                        type="text"
+                        type="number"
                         value={utility.employmentInfo.expectedCTC}
                         id="expectedCTC"
                         name="expectedCTC"
