@@ -1,20 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import JobInfoModel from "../../model/job/JobInfoModel";
 import FieldErrorModel from "../../model/FieldErrorModel";
-import { SelectChangeEvent, SnackbarOrigin } from "@mui/material";
 import DesignationModel from "../../model/master/DesignationModel";
 import TrainLineModel from "../../model/TrainLineModel";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
-import {
-  EditorProvider,
-  FloatingMenu,
-  BubbleMenu,
-  Editor,
-  useEditor,
-} from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
 import { getTrainLines } from "../../services/TrainLineService";
 import { getDesignations } from "../../services/master/DesignationService";
 import {
@@ -50,30 +40,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
 
   const [designations, setDesignations] = useState<DesignationModel[]>([]);
   const [trainLines, setTrainLines] = useState<TrainLineModel[]>([]);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [content, setContent] = useState("");
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarPosition, setSnackbarPosition] = useState<SnackbarOrigin>({
-    vertical: "top",
-    horizontal: "center",
-  });
-  const [snackbarSeverity, setSnackbarSeverity] = useState<
-    "success" | "error" | "info" | "warning"
-  >();
-
-  const [editorContent, setEditorContent] = useState(
-    "<p>Write job <b>description 2</b>!</p>"
-  );
-  const handleSnackbarClose = (
-    event: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setSnackbarOpen(false);
-  };
 
   useEffect(() => {
     async function fetchTrainLines() {
@@ -110,22 +76,11 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     }
   }, [jobId]);
 
-  const editorRef = useRef<ReactQuill | null>(null); // Type the ref
+  const editorRef = useRef<ReactQuill | null>(null);
 
   const editor = (value: string) => {
     setJobInfo((prev) => ({ ...prev, jobDescription: value }));
   };
-
-  // useEffect(() => {
-  //   if (jobInfo.jobDescription) {
-  //     if (editorRef.current) {
-  //       const quill = editorRef.current.getEditor(); 
-  //       if (quill) {
-  //         quill.root.innerHTML = jobInfo.jobDescription;
-  //       }
-  //     }
-  //   }
-  // }, [jobInfo.jobDescription]);
 
   const onTextFieldChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
     const name = event.currentTarget.name;
@@ -133,7 +88,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
 
     setJobInfo((prev) => ({ ...prev, [name]: value }));
 
-    // Remove error message for the current field
     setErrorInfo((prevErrors) => {
       const newErrors = prevErrors.filter((error) => error.fieldName !== name);
       return newErrors;
@@ -239,12 +193,6 @@ const JobInfoUtility = (jobId: number, onUpdateJobId: (id: number) => void) => {
     editor,
     editorRef,
     onJobInfoSave,
-
-    snackbarOpen,
-    handleSnackbarClose,
-    snackbarMessage,
-    snackbarPosition,
-    snackbarSeverity,
   };
 };
 export default JobInfoUtility;
