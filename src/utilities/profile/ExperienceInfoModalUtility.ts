@@ -176,21 +176,23 @@ const ExperienceInfoModalUtility = (
 
   const isValidate = () => {
     const newErrors: FieldErrorModel[] = [];
-
+  
+    // Validate company name
     if (experienceInfo.companyName === "") {
       newErrors.push({
         fieldName: "companyName",
         errorMessage: "Enter company name",
       });
     }
-
+  
+    // Validate designation selection
     if (experienceInfo.designationId === 0) {
       newErrors.push({
         fieldName: "designationId",
         errorMessage: "Select Designation",
       });
     }
-
+  
     // Date validation for startDate
     if (
       !experienceInfo.startDate ||
@@ -198,23 +200,32 @@ const ExperienceInfoModalUtility = (
     ) {
       newErrors.push({
         fieldName: "startDate",
-        errorMessage: "Invalid start date",
+        errorMessage: "Enter a valid start date",
       });
     }
-
-    // Date validation for endDate
+  
+    // Date validation for endDate (only when not currently working)
     if (
       !experienceInfo.isCurrentlyWorking &&
       (!experienceInfo.endDate || !dayjs(experienceInfo.endDate).isValid())
     ) {
       newErrors.push({
         fieldName: "endDate",
-        errorMessage: "Invalid end date",
+        errorMessage: "Enter a valid end date",
       });
     }
-
+  
+    // Set errors if any
     setErrorInfo(newErrors);
+  
+    // Return true if no errors, false if errors exist
     return newErrors.length === 0;
+  };
+  
+  const clearErrorForField = (fieldName: string) => {
+    setErrorInfo((prevErrorInfo) =>
+      prevErrorInfo.filter((error) => error.fieldName !== fieldName)
+    );
   };
 
   return {
@@ -229,6 +240,7 @@ const ExperienceInfoModalUtility = (
     designations,
     isExpanded,
     setIsExpanded,
+    clearErrorForField
   };
 };
 export default ExperienceInfoModalUtility;
