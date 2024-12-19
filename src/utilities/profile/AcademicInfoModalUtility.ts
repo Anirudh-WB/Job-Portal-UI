@@ -35,8 +35,10 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
 
     if (academicInfoId > 0) {
       onAcademicInfoEdit(academicInfoId);
+      setErrorInfo(initialErrors);
     } else {
       setAcademicInfo(intialAcademicInfo);
+      setErrorInfo(initialErrors);
     }
   }, [academicInfoId]);
 
@@ -69,7 +71,6 @@ function AcademicInfoModalUtility(loginUserId: number, academicInfoId: number) {
             closeOnClick: true,
             theme: "colored",
             transition: Bounce,
-            onOpen: () => setAcademicInfo(intialAcademicInfo),
           }
         );
 
