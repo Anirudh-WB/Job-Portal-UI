@@ -57,6 +57,7 @@ function ForgotPassword() {
             <a href="/login">Back to Login</a>
           </p>
         </div>
+        
         <ToastContainer
           // containerId="company__registration__toast"
           draggable

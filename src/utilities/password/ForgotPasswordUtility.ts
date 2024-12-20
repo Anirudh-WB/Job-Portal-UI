@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import { Bounce, toast } from "react-toastify";
 import { ForgotPasswordAsync } from "../../services/password/ForgotPasswordService";
-import ForgotPassworRequest from "../../model/password/ForgotPasswordRequest";
+import ForgotPasswordRequest from "../../model/password/ForgotPasswordRequest";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 
-const initialForgotPassword: ForgotPassworRequest = {
+const initialForgotPassword: ForgotPasswordRequest = {
   emailAddress: "",
 };
 
 const initialErrors: FieldErrorModel[] = [];
 
 const ForgotPasswordUtility = () => {
-  const [forgotPassword, setForgotPassword] = useState<ForgotPassworRequest>(
+  const [forgotPassword, setForgotPassword] = useState<ForgotPasswordRequest>(
     initialForgotPassword
   );
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   const onForgotPassword = async () => {
     setIsLoading(true);
     try {
       if (isValidate()) {
         const response = await ForgotPasswordAsync(forgotPassword);
-  
+
         if (response.status === 200) {
           toast.success(response.message, {
             draggable: true,
@@ -31,8 +31,8 @@ const ForgotPasswordUtility = () => {
             theme: "colored",
             transition: Bounce,
           });
-  
-          setForgotPassword(initialForgotPassword)
+
+          setForgotPassword(initialForgotPassword);
         } else {
           toast.error(response.message, {
             draggable: true,
@@ -80,7 +80,13 @@ const ForgotPasswordUtility = () => {
     return newErrors.length === 0;
   };
 
-  return { onTextFieldChange, forgotPassword, errorInfo, onForgotPassword, isLoading };
+  return {
+    onTextFieldChange,
+    forgotPassword,
+    errorInfo,
+    onForgotPassword,
+    isLoading,
+  };
 };
 
 export default ForgotPasswordUtility;
