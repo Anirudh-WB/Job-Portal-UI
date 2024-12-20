@@ -1,5 +1,5 @@
-interface ForgotPassworRequest {
+interface ForgotPasswordRequest {
   emailAddress: string;
 }
 
-export default ForgotPassworRequest;
+export default ForgotPasswordRequest;

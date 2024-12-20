@@ -1,17 +1,10 @@
-import React, { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import ResetPasswordUtility from "../../utilities/password/ResetPasswordUtility";
+import { Bounce, ToastContainer } from "react-toastify";
 
 function ResetPassword() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showCnfPassword, setShowCnfPassword] = useState(false);
+  const utility = ResetPasswordUtility();
 
-  const togglePasswordVisibility = () => {
-    setShowPassword((prevState) => !prevState);
-  };
-
-  const toggleCnfPasswordVisibility = () => {
-    setShowCnfPassword((prevState) => !prevState);
-  };
   return (
     <div className="flex flex-1 gap-5 px-44 py-4 justify-center overflow-hidden">
       <img
@@ -30,15 +23,17 @@ function ResetPassword() {
           <div className="relative">
             {/* Input Field */}
             <input
-              type={showPassword ? "text" : "password"} // Toggle between text and password
-              id="password"
-              name="password"
+              type={utility.showPassword ? "text" : "password"} // Toggle between text and password
+              id="newPassword"
+              name="newPassword"
               autoComplete="off"
               className="outline-none border border-black w-full px-3 py-2 rounded-md peer"
+              value={utility.resetPassword.newPassword}
+              onChange={utility.onTextFieldChange}
             />
             <label
               className="absolute text-sm text-black duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-              htmlFor="cnfpassword"
+              htmlFor="newPassword"
             >
               Password
             </label>
@@ -46,9 +41,9 @@ function ResetPassword() {
             {/* Eye Icon */}
             <div
               className="absolute inset-y-0 right-2 flex items-center cursor-pointer"
-              onClick={togglePasswordVisibility}
+              onClick={utility.togglePasswordVisibility}
             >
-              {showPassword ? (
+              {utility.showPassword ? (
                 <FiEyeOff className="text-gray-600" size={20} />
               ) : (
                 <FiEye className="text-gray-600" size={20} />
@@ -59,23 +54,25 @@ function ResetPassword() {
           {/* Confirm Password Field */}
           <div className="relative">
             <input
-              type={showCnfPassword ? "text" : "password"}
-              id="cnfpassword"
-              name="cnfpassword"
+              type={utility.showConfirmPassword ? "text" : "password"}
+              id="confirmPassword"
+              name="confirmPassword"
               autoComplete="off"
               className="outline-none border border-black w-full px-3 py-2 rounded-md peer"
+              value={utility.resetPassword.confirmPassword}
+              onChange={utility.onTextFieldChange}
             />
             <label
               className="absolute text-sm text-black duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer peer-focus:dark:text-gray-400 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto start-1"
-              htmlFor="cnfpassword"
+              htmlFor="confirmPassword"
             >
               Confirm password
             </label>
             <div
               className="absolute inset-y-0 right-2 flex items-center cursor-pointer"
-              onClick={toggleCnfPasswordVisibility}
+              onClick={utility.toggleConfirmPasswordVisibility}
             >
-              {showCnfPassword ? (
+              {utility.showConfirmPassword ? (
                 <FiEyeOff className="text-gray-600" size={20} />
               ) : (
                 <FiEye className="text-gray-600" size={20} />
@@ -89,7 +86,10 @@ function ResetPassword() {
         </div>
 
         {/* Reset Password Button */}
-        <button className="w-full px-10 py-2 bg-blue-700 text-white rounded-md">
+        <button
+          className="w-full px-10 py-2 bg-blue-700 text-white rounded-md"
+          onClick={utility.onResetPassword}
+        >
           Change Password
         </button>
 
@@ -98,6 +98,13 @@ function ResetPassword() {
           <a href="/login">Back to Login</a>
         </p>
       </div>
+
+      <ToastContainer
+        // containerId="company__registration__toast"
+        draggable
+        theme="colored"
+        transition={Bounce}
+      />
     </div>
   );
 }

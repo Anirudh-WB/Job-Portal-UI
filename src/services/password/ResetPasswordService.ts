@@ -1,10 +1,11 @@
 import axios from "axios";
 import ApiResponse from "../../common/ApiResponse";
 import { API_BASE_URL } from "../../APIConfig";
-import ForgotPasswordRequest from "../../model/password/ForgotPasswordRequest";
+import ResetPasswordRequest from "../../model/password/ResetPasswordRequest";
 
-export const ForgotPasswordAsync = async (
-  body: ForgotPasswordRequest
+export const ResetPasswordAsync = async (
+  body: ResetPasswordRequest,
+  token: string | undefined
 ): Promise<ApiResponse<boolean>> => {
   let result: ApiResponse<boolean> = {
     data: null,
@@ -13,15 +14,15 @@ export const ForgotPasswordAsync = async (
   };
 
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/user/forgot-password`,
+    const response = await axios.put(
+      `${API_BASE_URL}/user/reset-password?token=${token}`,
       body
     );
     result = {
       data: response.data,
       status: response.status,
       message:
-        "A password reset link has been sent to your email. Please check your inbox to continue.",
+        "Password reset successful. You will be redirected to the login page shortly.",
     };
   } catch (error: any) {
     // Handle error response
