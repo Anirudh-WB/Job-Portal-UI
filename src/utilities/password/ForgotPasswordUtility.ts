@@ -41,6 +41,15 @@ const ForgotPasswordUtility = () => {
             transition: Bounce,
           });
         }
+      } else {
+        toast.error("All conditions marked in red are compulsory", {
+          draggable: true,
+          closeOnClick: true,
+          theme: "colored",
+          transition: Bounce,
+        });
+
+        return false;
       }
     } catch (error) {
       console.error("Error fetching info:", error);
