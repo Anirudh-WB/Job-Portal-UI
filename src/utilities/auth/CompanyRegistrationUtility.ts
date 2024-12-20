@@ -11,17 +11,17 @@ import { getCitiesAsync } from "../../services/master/CityService";
 import { getDesignations } from "../../services/master/DesignationService";
 const initialCompanyRegistration: CompanyRegistrationModel = {
   companyLogo: null,
-  companyName: "defgdb",
-  companyUrl: "qewrsgd",
-  emailAddress: "dfbg@dsfg.wadfsv",
-  mobileNo: "1234567890",
-  cityId: 5,
-  contactPersonName: "sadfgb",
-  contactPersonEmail: "wedfsdgb@dsfg.wadfsv",
-  contactPersonPhone: "1234567890",
-  designationId: 6,
-  password: "Test@123",
-  confirmPassword: "Test@123",
+  companyName: "",
+  companyUrl: "",
+  emailAddress: "",
+  mobileNo: "",
+  cityId: 0,
+  contactPersonName: "",
+  contactPersonEmail: "",
+  contactPersonPhone: "",
+  designationId: 0,
+  password: "",
+  confirmPassword: "",
   roleId: 8,
 };
 const initialErrors: FieldErrorModel[] = [];
