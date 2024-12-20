@@ -29,7 +29,13 @@ function ForgotPassword() {
                 id="emailAddress"
                 name="emailAddress"
                 autoComplete="off"
-                className="outline-none border border-black"
+                className={`outline-none border border-black ${
+                  utility.errorInfo.find(
+                    (error) => error.fieldName === "emailAddress"
+                  )
+                    ? "border-red-500"
+                    : "border-gray-300"
+                }`}
                 value={utility.forgotPassword.emailAddress}
                 onChange={utility.onTextFieldChange}
               />
@@ -39,6 +45,17 @@ function ForgotPassword() {
               >
                 Enter your Email
               </label>
+              {utility.errorInfo.find(
+                (error) => error.fieldName === "emailAddress"
+              ) && (
+                <span className="text-xs text-red-500">
+                  {
+                    utility.errorInfo.find(
+                      (error) => error.fieldName === "emailAddress"
+                    )?.errorMessage
+                  }
+                </span>
+              )}
             </div>
 
             <p className="text-xs text-gray-500 font-semibold ">

@@ -27,7 +27,13 @@ function ResetPassword() {
               id="newPassword"
               name="newPassword"
               autoComplete="off"
-              className="outline-none border border-black w-full px-3 py-2 rounded-md peer"
+              className={`outline-none border border-black w-full px-3 py-2 rounded-md peer ${
+                utility.errorInfo.find(
+                  (error) => error.fieldName === "newPassword"
+                )
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
               value={utility.resetPassword.newPassword}
               onChange={utility.onTextFieldChange}
             />
@@ -49,6 +55,17 @@ function ResetPassword() {
                 <FiEye className="text-gray-600" size={20} />
               )}
             </div>
+            {utility.errorInfo.find(
+                (error) => error.fieldName === "newPassword"
+              ) && (
+                <span className="text-xs text-red-500">
+                  {
+                    utility.errorInfo.find(
+                      (error) => error.fieldName === "newPassword"
+                    )?.errorMessage
+                  }
+                </span>
+              )}
           </div>
 
           {/* Confirm Password Field */}
@@ -58,7 +75,13 @@ function ResetPassword() {
               id="confirmPassword"
               name="confirmPassword"
               autoComplete="off"
-              className="outline-none border border-black w-full px-3 py-2 rounded-md peer"
+              className={`outline-none border border-black w-full px-3 py-2 rounded-md peer ${
+                utility.errorInfo.find(
+                  (error) => error.fieldName === "confirmPassword"
+                )
+                  ? "border-red-500"
+                  : "border-gray-300"
+              }`}
               value={utility.resetPassword.confirmPassword}
               onChange={utility.onTextFieldChange}
             />
@@ -78,6 +101,17 @@ function ResetPassword() {
                 <FiEye className="text-gray-600" size={20} />
               )}
             </div>
+            {utility.errorInfo.find(
+                (error) => error.fieldName === "confirmPassword"
+              ) && (
+                <span className="text-xs text-red-500">
+                  {
+                    utility.errorInfo.find(
+                      (error) => error.fieldName === "confirmPassword"
+                    )?.errorMessage
+                  }
+                </span>
+              )}
           </div>
 
           <p className="text-xs text-gray-500 font-semibold ">
