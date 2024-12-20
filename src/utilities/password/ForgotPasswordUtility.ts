@@ -6,7 +6,7 @@ import FieldErrorModel from "../../model/FieldErrorModel";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 
 const initialForgotPassword: ForgotPasswordRequest = {
-  emailAddress: "anirudh.gupta@wonderbiz.in",
+  emailAddress: "",
 };
 
 const initialErrors: FieldErrorModel[] = [];
@@ -16,28 +16,36 @@ const ForgotPasswordUtility = () => {
     initialForgotPassword
   );
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onForgotPassword = async () => {
-    if (isValidate()) {
-      const response = await ForgotPasswordAsync(forgotPassword);
+    setIsLoading(true);
+    try {
+      if (isValidate()) {
+        const response = await ForgotPasswordAsync(forgotPassword);
 
-      if (response.status === 200) {
-        toast.success(response.message, {
-          draggable: true,
-          closeOnClick: true,
-          theme: "colored",
-          transition: Bounce,
-        });
+        if (response.status === 200) {
+          toast.success(response.message, {
+            draggable: true,
+            closeOnClick: true,
+            theme: "colored",
+            transition: Bounce,
+          });
 
-        setForgotPassword(initialForgotPassword);
-      } else {
-        toast.error(response.message, {
-          draggable: true,
-          closeOnClick: true,
-          theme: "colored",
-          transition: Bounce,
-        });
+          setForgotPassword(initialForgotPassword);
+        } else {
+          toast.error(response.message, {
+            draggable: true,
+            closeOnClick: true,
+            theme: "colored",
+            transition: Bounce,
+          });
+        }
       }
+    } catch (error) {
+      console.error("Error fetching info:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -72,7 +80,13 @@ const ForgotPasswordUtility = () => {
     return newErrors.length === 0;
   };
 
-  return { onTextFieldChange, forgotPassword, errorInfo, onForgotPassword };
+  return {
+    onTextFieldChange,
+    forgotPassword,
+    errorInfo,
+    onForgotPassword,
+    isLoading,
+  };
 };
 
 export default ForgotPasswordUtility;
