@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Bounce, toast } from "react-toastify";
 import { ForgotPasswordAsync } from "../../services/password/ForgotPasswordService";
-import ForgotPassworRequest from "../../model/password/ForgotPasswordRequest";
+import ForgotPasswordRequest from "../../model/password/ForgotPasswordRequest";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 
-const initialForgotPassword: ForgotPassworRequest = {
-  emailAddress: "",
+const initialForgotPassword: ForgotPasswordRequest = {
+  emailAddress: "anirudh.gupta@wonderbiz.in",
 };
 
 const initialErrors: FieldErrorModel[] = [];
 
 const ForgotPasswordUtility = () => {
-  const [forgotPassword, setForgotPassword] = useState<ForgotPassworRequest>(
+  const [forgotPassword, setForgotPassword] = useState<ForgotPasswordRequest>(
     initialForgotPassword
   );
   const [errorInfo, setErrorInfo] = useState<FieldErrorModel[]>(initialErrors);
@@ -29,7 +29,7 @@ const ForgotPasswordUtility = () => {
           transition: Bounce,
         });
 
-        setForgotPassword(initialForgotPassword)
+        setForgotPassword(initialForgotPassword);
       } else {
         toast.error(response.message, {
           draggable: true,
