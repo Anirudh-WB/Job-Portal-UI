@@ -18,13 +18,17 @@ function SingleJobs() {
     jobId: 0,
   };
   const jobApplicationUtility = JobApplicationUtility(jobApplicationRequest);
-
-  // Simulate loginUserId (replace with actual implementation)
-  const loginUserId = localStorage.getItem("loginUserId"); // Example: Retrieve from localStorage
-  const userRole = localStorage.getItem("userRole"); // Example: Retrieve from localStorage
+  const loginUserId = localStorage.getItem("loginUserId"); 
+  const userRole = localStorage.getItem("userRole"); 
 
   return (
     <>
+      {jobApplicationUtility.loading && (
+        <div className="fixed inset-0 bg-black/10 z-50 flex w-full h-full justify-center items-center">
+          <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-blue-600 border-solid"></div>
+        </div>
+      )}
+
       <div className="px-36">
         <div className="mt-5 flex-1 flex flex-col gap-5 rounded h-fit">
           <div className="bg-white border rounded border-gray-200 shadow h-fit p-5">

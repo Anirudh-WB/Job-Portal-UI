@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FieldErrorModel from "../../model/FieldErrorModel";
 import { isValidEmailAddress } from "../../common/CommonFunctions";
 import CompanyRegistrationModel from "../../model/auth/CompanyRegistrationModel";
@@ -11,24 +11,24 @@ import { getCitiesAsync } from "../../services/master/CityService";
 import { getDesignations } from "../../services/master/DesignationService";
 const initialCompanyRegistration: CompanyRegistrationModel = {
   companyLogo: null,
-  companyName: "defgdb",
-  companyUrl: "qewrsgd",
-  emailAddress: "dfbg@dsfg.wadfsv",
-  mobileNo: "1234567890",
-  cityId: 5,
-  contactPersonName: "sadfgb",
-  contactPersonEmail: "wedfsdgb@dsfg.wadfsv",
-  contactPersonPhone: "1234567890",
-  designationId: 6,
-  password: "Test@123",
-  confirmPassword: "Test@123",
+  companyName: "",
+  companyUrl: "",
+  emailAddress: "",
+  mobileNo: "",
+  cityId: 0,
+  contactPersonName: "",
+  contactPersonEmail: "",
+  contactPersonPhone: "",
+  designationId: 0,
+  password: "",
+  confirmPassword: "",
   roleId: 8,
 };
 const initialErrors: FieldErrorModel[] = [];
 const CompanyRegistrationUtility = () => {
   const [cities, setCities] = useState<CityModel[] | null>([]);
   const [designation, setDesignation] = useState<DesignationModel[] | null>([]);
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showCnfPassword, setCnfShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -37,7 +37,6 @@ const CompanyRegistrationUtility = () => {
   const toggleCnfPasswordVisibility = () => {
     setCnfShowPassword((prevState) => !prevState);
   };
-
 
   async function fetchCities() {
     try {
@@ -82,7 +81,7 @@ const CompanyRegistrationUtility = () => {
         const response = await createCompanyRegistrationAsync(
           companyRegistration
         );
-  
+
         response.status === 200
           ? toast.success(response.message, {
               // toastId: "company__registration__toast",
@@ -279,7 +278,6 @@ const CompanyRegistrationUtility = () => {
         });
       }
     }
-  
 
     setErrorInfo(newErrors);
     return newErrors.length === 0;
@@ -314,7 +312,7 @@ const CompanyRegistrationUtility = () => {
     onSelectFieldChange,
     errorInfo,
     handleSubmit,
-    isLoading
+    isLoading,
   };
 };
 export default CompanyRegistrationUtility;
